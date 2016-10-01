@@ -10,7 +10,7 @@ class Character2:
     global running
 
     def __init__(self):
-        self.x = 150
+        self.x = 200
         self.y = 200
         self.frame = 0
         self.jump = 0
@@ -46,7 +46,7 @@ class Character2:
 
     def draw(self):
         if self.state == "Run":
-            self.Cookie2_run.clip_draw(self.frame * 47, 0, 47, 100, self.x, self.y)
+            self.Cookie2_run.clip_draw(self.frame * 47, 0, 47, 100, self.x, self.y-3)
         elif self.state == "Slide":
             self.Cookie2_slide.clip_draw(self.frame * 69, 0, 69, 69, self.x, self.y - 30)
         elif self.state == "Jump":
@@ -106,7 +106,7 @@ def main():
 
         update_canvas()
 
-        delay(speed)
+        delay(0.05)
     close_canvas()
 
 

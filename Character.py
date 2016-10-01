@@ -1,6 +1,5 @@
-from pico2d import *
 from Map import *
-
+from pico2d import *
 
 running = None
 
@@ -86,7 +85,7 @@ class Character:
                 #if event.key == SDLK_SPACE:
 
 
-def main():
+'''def main():
 
     open_canvas()
 
@@ -109,7 +108,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main()'''
 
 
 
