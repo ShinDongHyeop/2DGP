@@ -6,27 +6,30 @@ from pico2d import *
 from Character import *
 from Character2 import *
 from Map import *
+from Obstacle import *
 import game_framework
 import title_state
-
 
 name = "MainState"
 
 character = None
 character2 = None
 background = None
+obstacle = None
 
 def enter():
-    global character, character2, background
+    global character, character2, background, obstacle
     character = Character()
     character2 = Character2()
     background = Stage1_Background()
+    obstacle = Stage1_Obstacle()
 
 def exit():
-    global character, character2, background
+    global character, character2, background, obstacle
     del(character)
     del(character2)
     del(background)
+    del(obstacle)
 
 def pause():
     pass
@@ -47,18 +50,20 @@ def handle_events():
             game_framework.change_state(title_state)
         else:
             character.handle_events(event)
-            character2.handle_events(event)
+            #character2.handle_events(event)
 
 def update():
     character.update()
     character2.update()
+    obstacle.update()
 
 def draw():
-    global character
+    global character, background, obstacle
     clear_canvas()
     background.draw()
     character.draw()
     character2.draw()
+    obstacle.draw()
     delay(0.03)
     update_canvas()
 

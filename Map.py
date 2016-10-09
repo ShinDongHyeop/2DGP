@@ -1,5 +1,4 @@
 from pico2d import *
-import os
 
 class Stage1_Background:
     def __init__(self):
@@ -10,6 +9,8 @@ class Stage1_Background:
         self.Background.draw(400, 200)
         self.Ground.draw(400, 350)
 
+
+
 class Stage2_Background:
     def __init__(self):
         self.Background = load_image('Resource\\Map\\Stage2\\Second_Background.png')
@@ -19,6 +20,7 @@ class Stage2_Background:
         self.Background.draw(400, 200)
         self.Ground.draw(400, 350)
 
+
 class Stage3_Background:
     def __init__(self):
         self.Background = load_image('Resource\\Map\\Stage3\\Third_Background.png')
@@ -27,3 +29,4 @@ class Stage3_Background:
     def draw(self):
         self.Background.draw(400, 200)
         self.Ground.draw(400, 350)
+

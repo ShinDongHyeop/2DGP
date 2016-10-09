@@ -3,7 +3,6 @@ import game_framework
 
 class Character:
     image = None
-    global running
 
     def __init__(self):
         self.x = 150

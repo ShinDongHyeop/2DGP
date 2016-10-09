@@ -12,7 +12,7 @@ logo_time = 0.0
 
 def enter():
     global image, dev, kakao
-    open_canvas()
+    open_canvas(sync = 60)
     image = load_image('Resource\\kpu_credit.png')
     dev = load_image('Resource\\title_CI.png')
     kakao = load_image('Resource\\title_kakao.png')
