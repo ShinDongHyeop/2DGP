@@ -35,7 +35,7 @@ def update():
     logo_time += 0.01
 
 def draw():
-    global image
+    global image, dev, kakao
     clear_canvas()
     image.draw(400,300)
     if(logo_time > 1.0):
@@ -44,15 +44,11 @@ def draw():
         kakao.draw(400, 300)
     update_canvas()
 
-
-
 def handle_events():
     events = get_events()
     pass
 
-
 def pause(): pass
-
 
 def resume(): pass
 

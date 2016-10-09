@@ -10,7 +10,6 @@ import game_framework
 import title_state
 
 
-
 name = "MainState"
 
 character = None
@@ -38,25 +37,33 @@ def resume():
 
 
 def handle_events():
+    global character
     events = get_events()
+
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.change_state(title_state)
+        else:
+            character.handle_events(event)
+            character2.handle_events(event)
 
 def update():
-    global character, character2
     character.update()
     character2.update()
 
 def draw():
-    global character, character2, background
+    global character
     clear_canvas()
     background.draw()
     character.draw()
     character2.draw()
+    delay(0.03)
     update_canvas()
+
+
+
 
 
 

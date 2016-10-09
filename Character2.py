@@ -1,12 +1,8 @@
 from pico2d import *
-from Map import *
-
-
-running = None
-
+import game_framework
 
 class Character2:
-    image_init = None
+    image = None
     global running
 
     def __init__(self):
@@ -17,7 +13,7 @@ class Character2:
         self.jump_gravity = 0
         self.state = "Run"
 
-        if Character2.image_init == None:
+        if Character2.image == None:
             self.Cookie2_run = load_image('Resource\\Character2\\Cookie2_Run.png')
             self.Cookie2_dead = load_image('Resource\\Character2\\Cookie2_Dead.png')
             self.Cookie2_slide = load_image('Resource\\Character2\\Cookie2_Slide.png')
@@ -27,6 +23,7 @@ class Character2:
         pass
 
     def update(self):
+        self.gravity()
         if self.state == "Run":
             self.frame = (self.frame + 1) % 3
         elif self.state == "Dead":
@@ -52,67 +49,22 @@ class Character2:
         elif self.state == "Jump":
             self.Cookie2_jump.clip_draw(self.frame * 51, 0, 51, 100, self.x, self.y)
 
-    def handle_event(self):
+    def handle_events(self, event):
         events = get_events()
 
-        global running
-        global speed
+        if event.type == SDL_QUIT:
+            game_framework.quit()
 
-        for event in events:
-            if event.type == SDL_QUIT:
-                running = False
-            elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-                running = False
+        elif event.type == SDL_KEYDOWN:
+            if event.key == SDLK_DOWN:
+                self.state = "Slide"
 
-            elif event.type == SDL_KEYDOWN:
-                if event.key == SDLK_DOWN:
-                    self.state = "Slide"
+            elif event.key == SDLK_UP:
+                self.state = "Jump"
 
-                elif event.key == SDLK_UP:
-                    self.state = "Jump"
+                if (self.y - 40) == 160:
+                    self.jump_gravity = -30
 
-                    if (self.y - 40) == 160:
-                        self.jump_gravity = -30
-                #elif event.key == SDLK_SPACE:
-                    #self.state = "Run"
-                    #speed = 0.03
-
-            elif event.type == SDL_KEYUP:
-                if self.state != "slide" or self.state != "Jump":
-                    self.state = "Run"
-
-
-
-def main():
-
-    open_canvas()
-    global speed
-    speed = 0.05
-    character2 = Character2()
-    map = Background()
-    global running
-    running = True
-
-    while running:
-        character2.handle_event()
-        character2.update()
-        character2.gravity()
-
-        clear_canvas()
-
-        map.draw()
-
-        character2.draw()
-
-        update_canvas()
-
-        delay(0.05)
-    close_canvas()
-
-
-if __name__ == '__main__':
-    main()
-
-
-
-
+        elif event.type == SDL_KEYUP:
+            if self.state != "slide" or self.state != "Jump":
+                self.state = "Run"
