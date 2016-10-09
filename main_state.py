@@ -20,7 +20,7 @@ def enter():
     global character, character2, background
     character = Character()
     character2 = Character2()
-    background = Background()
+    background = Stage1_Background()
 
 def exit():
     global character, character2, background
