@@ -4,7 +4,6 @@ import os
 
 from pico2d import *
 from Character import *
-from Character2 import *
 from Map import *
 from Obstacle import *
 import game_framework
@@ -50,7 +49,7 @@ def handle_events():
             game_framework.change_state(title_state)
         else:
             character.handle_events(event)
-            #character2.handle_events(event)
+            character2.handle_events(event)
 
 def update():
     character.update()
