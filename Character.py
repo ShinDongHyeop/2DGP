@@ -28,9 +28,9 @@ class Character:
             self.frame = (self.frame + 1) % 6
         elif self.state == "Dead":
             self.frame = (self.frame + 1) % 4
-        elif self.state == "Jump":
-            self.State = "Run"
-        elif self.state == "Slide":
+        elif self.state == "Jump" and self.y <= 210:
+            self.state = "Run"
+        elif self.state == "Jump" and self.state == "Slide":
             self.frame = 0
 
 
@@ -50,10 +50,8 @@ class Character:
         elif self.state == "Jump":
             if self.jump % 2 == 1:
                 self.Cookie1_jump1.draw(self.x, self.y)
-                #self.gravity()
             elif self.jump % 2 == 0:
                 self.Cookie1_jump2.draw(self.x, self.y)
-                #self.gravity()
 
     def handle_events(self, event):
         events = get_events()
@@ -65,17 +63,19 @@ class Character:
             if event.key == SDLK_DOWN:
                 self.state = "Slide"
 
-            elif event.key == SDLK_UP :
+            elif event.key == SDLK_UP:
                 self.state = "Jump"
                 self.jump += 1
                 if (self.y - 40) == 160:
                     self.jump_gravity = -30
-        else:
-            self.state = "Run"
+
+        elif event.type == SDL_KEYDOWN:
+            if event.key == SDLK_DOWN:
+                self.state = "Run"
+
 
 class Character2:
     image = None
-    global running
 
     def __init__(self):
         self.x = 200
@@ -100,8 +100,9 @@ class Character2:
             self.frame = (self.frame + 1) % 3
         elif self.state == "Dead":
             self.frame = (self.frame + 1) % 2
-        elif self.state == "Jump":
+        elif self.state == "Jump" and self.y <= 210:
             self.frame = (self.frame + 1) % 3
+            self.state = "Run"
         elif self.state == "Slide":
             self.frame = (self.frame + 1) % 2
 
@@ -137,6 +138,9 @@ class Character2:
                 if (self.y - 40) == 160:
                     self.jump_gravity = -30
 
-        elif event.type == SDL_KEYUP:
-            if self.state != "slide" or self.state != "Jump":
-                self.state = "Run"
+            elif event.key == SDLK_SPACE:
+                self.state = Character()
+
+            elif event.type == SDL_KEYDOWN:
+                if event.key == SDLK_DOWN:
+                   self.state = "Run"
