@@ -69,7 +69,7 @@ class Character:
                 if (self.y - 40) == 160:
                     self.jump_gravity = -30
 
-        elif event.type == SDL_KEYDOWN:
+        elif event.type == SDL_KEYUP:
             if event.key == SDLK_DOWN:
                 self.state = "Run"
 
@@ -101,10 +101,9 @@ class Character2:
         elif self.state == "Dead":
             self.frame = (self.frame + 1) % 2
         elif self.state == "Jump" and self.y <= 210:
-            self.frame = (self.frame + 1) % 3
             self.state = "Run"
         elif self.state == "Slide":
-            self.frame = (self.frame + 1) % 2
+            self.frame = 0
 
     def gravity(self):
         if(self.y - 40 - self.jump_gravity) > 160:
@@ -116,7 +115,7 @@ class Character2:
 
     def draw(self):
         if self.state == "Run":
-            self.Cookie2_run.clip_draw(self.frame * 47, 0, 47, 100, self.x, self.y-3)
+            self.Cookie2_run.clip_draw(self.frame * 47, 0, 47, 100, self.x, self.y)
         elif self.state == "Slide":
             self.Cookie2_slide.clip_draw(self.frame * 69, 0, 69, 69, self.x, self.y - 30)
         elif self.state == "Jump":
@@ -128,7 +127,7 @@ class Character2:
         if event.type == SDL_QUIT:
             game_framework.quit()
 
-        elif event.type == SDL_KEYDOWN:
+        if event.type == SDL_KEYDOWN:
             if event.key == SDLK_DOWN:
                 self.state = "Slide"
 
@@ -138,9 +137,6 @@ class Character2:
                 if (self.y - 40) == 160:
                     self.jump_gravity = -30
 
-            elif event.key == SDLK_SPACE:
-                self.state = Character()
-
-            elif event.type == SDL_KEYDOWN:
-                if event.key == SDLK_DOWN:
-                   self.state = "Run"
+        elif event.type == SDL_KEYUP:
+            if event.key == SDLK_DOWN:
+                self.state = "Run"
