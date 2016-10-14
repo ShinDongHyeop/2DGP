@@ -1,0 +1,17 @@
+{
+    "Fork1"   : {"state" : "Fork", "x"  : 800, "y" : 420},
+    "Fork2"   : {"state" : "Fork", "x"  : 1400, "y" : 420},
+    "Fork3"   : {"state" : "Fork", "x"  : 2000, "y" : 420},
+    "Fork4"   : {"state" : "Fork", "x"  : 2600, "y" : 420},
+    "Fork5"   : {"state" : "Fork", "x"  : 2680, "y" : 420},
+    "Fork6"   : {"state" : "Fork", "x"  : 2760, "y" : 420},
+    "Fork7"   : {"state" : "Fork", "x"  : 3360, "y" : 420},
+    "Fork8"   : {"state" : "Fork", "x"  : 3960, "y" : 420},
+    "Fork9"   : {"state" : "Fork", "x"  : 4560, "y" : 420},
+    "Fork10"   : {"state" : "Fork", "x"  : 5160, "y" : 420},
+    "Fork11"   : {"state" : "Fork", "x"  : 5240, "y" : 420},
+    "Fork12"   : {"state" : "Fork", "x"  : 5320, "y" : 420},
+    "Fork13"   : {"state" : "Fork", "x"  : 5900, "y" : 420},
+    "Fork14"   : {"state" : "Fork", "x"  : 6300, "y" : 420},
+    "Fork15"   : {"state" : "Fork", "x"  : 6600, "y" : 420}
+}
