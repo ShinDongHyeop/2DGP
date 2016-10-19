@@ -19,16 +19,20 @@ character2 = None
 background = None
 obstacle = None
 obstacle2 = None
+board = None
+
 def enter():
-    global character, character2, background, obstacle, obstacle2
+    global character, character2, background, obstacle, obstacle2, board, w_len
     character = Character("Run")
     character2 = Character2("Run")
     background = Stage3_Background()
     obstacle = Stage3_Obstacle.create()
     obstacle2 = Stage3_Obstacle2.create()
+    board = Stage2_Board.create()
+    w_len = 0
 
 def exit():
-    global character, character2, background, obstacle, obstacle2
+    global character, character2, background, obstacle, obstacle2, board
     del(character)
     del(character2)
     del(background)
@@ -42,6 +46,11 @@ def exit():
         obstacle2.remove(i)
         del (i)
     del (obstacle2)
+
+    for i in board:
+        board.remove(i)
+        del(i)
+    del(board)
 
 def pause():
     pass
@@ -80,16 +89,23 @@ def handle_events():
             character2.handle_events(event)
 
 def update():
-    global obstacle, obstacle2
+    global obstacle, obstacle2, board, w_len
     character.update()
-    character2.update()
     for i in obstacle:
         i.update()
     for i in obstacle2:
         i.update()
 
+    for i in board:
+        i.update()
+
+    if w_len == 2200 and character.y == 200:
+        game_framework.change_state(main_state2)
+    elif w_len == 2200 and character.y == 250:
+        game_framework.change_state(main_state4)
+
 def draw():
-    global character, character2, background, obstacle, obstacle2
+    global character, character2, background, obstacle, obstacle2, board
     clear_canvas()
     background.draw()
 
@@ -98,6 +114,8 @@ def draw():
     for i in obstacle2:
         i.draw()
 
+    for i in board:
+        i.draw()
     character.draw()
     delay(0.03)
     update_canvas()

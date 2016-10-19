@@ -1,0 +1,5 @@
+{
+    "Board1"   : {"state" : "Board", "x"  : 10200, "y" : 195},
+    "Board2"   : {"state" : "Board", "x"  : 10350, "y" : 195},
+    "Board3"   : {"state" : "Board", "x"  : 10500, "y" : 195}
+}
