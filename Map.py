@@ -18,8 +18,10 @@ class Stage2_Background:
 
     def draw(self):
         self.Background.draw(400, 200)
-        self.Ground.draw(400, 350)
 
+
+    def grounddraw(self):
+        self.Ground.draw(400, 350)
 
 class Stage3_Background:
     def __init__(self):
@@ -30,3 +32,11 @@ class Stage3_Background:
         self.Background.draw(400, 200)
         self.Ground.draw(400, 350)
 
+class Stage4_Background:
+    def __init__(self):
+        self.Background = load_image('Resource\\Map\\Stage4\\Fourth_Background.png')
+        self.Ground = load_image('Resource\\Map\\Stage4\\Fourth_ground.png4')
+
+    def draw(self):
+        self.Background.draw(400, 200)
+        self.Ground.draw(400, 350)

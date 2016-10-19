@@ -10,6 +10,7 @@ import game_framework
 import title_state
 import main_state
 import main_state2
+import main_state4
 
 name = "MainState"
 
@@ -20,8 +21,8 @@ obstacle = None
 obstacle2 = None
 def enter():
     global character, character2, background, obstacle, obstacle2
-    character = Character()
-    character2 = Character2()
+    character = Character("Run")
+    character2 = Character2("Run")
     background = Stage3_Background()
     obstacle = Stage3_Obstacle.create()
     obstacle2 = Stage3_Obstacle2.create()
@@ -57,12 +58,23 @@ def handle_events():
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
+
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.change_state(title_state)
+
         elif event.type == SDL_KEYDOWN and event.key == SDLK_1:
             game_framework.change_state(main_state)
+
         elif event.type == SDL_KEYDOWN and event.key == SDLK_2:
             game_framework.change_state(main_state2)
+
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_4:
+            game_framework.change_state(main_state4)
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
+            if type(character) == Character:
+                character = Character2(character.state)
+            elif type(character) == Character2:
+                character = Character(character.state)
         else:
             character.handle_events(event)
             character2.handle_events(event)
@@ -87,6 +99,5 @@ def draw():
         i.draw()
 
     character.draw()
-    character2.draw()
     delay(0.03)
     update_canvas()
