@@ -26,7 +26,8 @@ class Character:
     def update(self):
         global xsize
         xsize += 1
-        self.gravity()
+        if self.state == "Jump":
+            self.gravity()
         if self.state == "Run":
             self.frame = (self.frame + 1) % 6
         elif self.state == "Dead":
