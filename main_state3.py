@@ -22,17 +22,19 @@ obstacle2 = None
 board = None
 
 def enter():
-    global character, character2, background, obstacle, obstacle2, board, w_len
+    global character, character2, background, obstacle, obstacle2, obstacle3, obstacle4, board, w_len
     character = Character("Run")
     character2 = Character2("Run")
     background = Stage3_Background()
     obstacle = Stage3_Obstacle.create()
     obstacle2 = Stage3_Obstacle2.create()
+    obstacle3 = Stage3_Obstacle3.create()
+    obstacle4 = Stage3_Obstacle4.create()
     board = Stage2_Board.create()
     w_len = 0
 
 def exit():
-    global character, character2, background, obstacle, obstacle2, board
+    global character, character2, background, obstacle, obstacle2, obstacle3, obstacle4, board
     del(character)
     del(character2)
     del(background)
@@ -46,6 +48,16 @@ def exit():
         obstacle2.remove(i)
         del (i)
     del (obstacle2)
+
+    for i in obstacle3:
+        obstacle3.remove(i)
+        del(i)
+    del (obstacle3)
+
+    for i in obstacle4:
+        obstacle4.remove(i)
+        del (i)
+    del (obstacle4)
 
     for i in board:
         board.remove(i)
@@ -89,11 +101,17 @@ def handle_events():
             character2.handle_events(event)
 
 def update():
-    global obstacle, obstacle2, board, w_len
+    global obstacle, obstacle2, obstacle3, obstacle4, board, w_len
+    w_len += 1
     character.update()
+
     for i in obstacle:
         i.update()
     for i in obstacle2:
+        i.update()
+    for i in obstacle3:
+        i.update()
+    for i in obstacle4:
         i.update()
 
     for i in board:
@@ -105,7 +123,7 @@ def update():
         game_framework.change_state(main_state4)
 
 def draw():
-    global character, character2, background, obstacle, obstacle2, board
+    global character, character2, background, obstacle, obstacle2, obstacle3, obstacle4, board
     clear_canvas()
     background.draw()
 
@@ -113,9 +131,14 @@ def draw():
         i.draw()
     for i in obstacle2:
         i.draw()
+    for i in obstacle3:
+        i.draw()
+    for i in obstacle4:
+        i.draw()
 
     for i in board:
         i.draw()
+
     character.draw()
     delay(0.03)
     update_canvas()

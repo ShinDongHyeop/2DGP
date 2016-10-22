@@ -26,6 +26,10 @@ class Character:
     def update(self):
         global xsize
         xsize += 1
+
+        if xsize > 2200:
+            xsize = 0
+
         if self.state == "Jump":
             self.gravity()
         if self.state == "Run":
