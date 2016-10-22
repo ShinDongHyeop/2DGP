@@ -1,6 +1,7 @@
 import random
 import json
 import os
+import time
 
 from pico2d import *
 from Character import *
@@ -22,7 +23,7 @@ obstacle2 = None
 board = None
 
 def enter():
-    global character, character2, background, obstacle, obstacle2, obstacle3, obstacle4, board, w_len
+    global character, character2, background, obstacle, obstacle2, obstacle3, obstacle4, board, w_len, start
     character = Character("Run")
     character2 = Character2("Run")
     background = Stage3_Background()
@@ -32,9 +33,10 @@ def enter():
     obstacle4 = Stage3_Obstacle4.create()
     board = Stage2_Board.create()
     w_len = 0
+    start = time.time()
 
 def exit():
-    global character, character2, background, obstacle, obstacle2, obstacle3, obstacle4, board
+    global character, character2, background, obstacle, obstacle2, obstacle3, obstacle4, board, start, end
     del(character)
     del(character2)
     del(background)
@@ -63,6 +65,10 @@ def exit():
         board.remove(i)
         del(i)
     del(board)
+
+    end = time.time()
+
+    print("Stage3 Clear Time : ", (end - start))
 
 def pause():
     pass
