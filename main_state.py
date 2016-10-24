@@ -24,6 +24,17 @@ obstacle3 = None
 obstacle4 = None
 board = None
 
+def collide(a, b):
+    left_a, bottom_a, right_a, top_a = a.get_bb()
+    left_b, bottom_b, right_b, top_b = b.get_bb()
+
+    if left_a > right_b: return False
+    if right_a < left_b: return False
+    if top_a < bottom_b: return False
+    if bottom_a > top_b: return False
+
+    return True
+
 def enter():
     global character, character2, background, obstacle, obstacle2, obstacle3, obstacle4,  w_len, board, start
     character = Character("Run")
@@ -112,20 +123,28 @@ def handle_events():
             character2.handle_events(event)
 
 def update():
-    global obstacle, obstacle2, obstacle3, obstacle4, w_len, board
+    global character, obstacle, obstacle2, obstacle3, obstacle4, w_len, board
     w_len += 1
     character.update()
-    for i in obstacle:
-        i.update()
-    for i in obstacle2:
-        i.update()
-    for i in obstacle3:
-        i.update()
-    for i in obstacle4:
-        i.update()
+    for Fork1 in obstacle:
+        Fork1.update()
+        if collide(character, Fork1):
+            print("collision")
+    for Thorn1 in obstacle2:
+        Thorn1.update()
+        if collide(character, Thorn1):
+            print("collision")
+    for Fork2 in obstacle3:
+        Fork2.update()
+        if collide(character, Fork2):
+            print("collision")
+    for Thorn2 in obstacle4:
+        Thorn2.update()
+        if collide(character, Thorn2):
+            print("collision")
+
     for i in board:
         i.update()
-
     if w_len == 2200 and character.y == 200:
         game_framework.change_state(main_state2)
     elif w_len == 2200 and character.y == 250:
@@ -136,18 +155,22 @@ def draw():
     clear_canvas()
     background.draw()
 
-    for i in obstacle:
-        i.draw()
-    for i in obstacle2:
-        i.draw()
-
-    for i in obstacle3:
-        i.draw()
-    for i in obstacle4:
-        i.draw()
+    for Fork1 in obstacle:
+        Fork1.draw()
+        Fork1.draw_bb()
+    for Thorn1 in obstacle2:
+        Thorn1.draw()
+        Thorn1.draw_bb()
+    for Fork2 in obstacle3:
+        Fork2.draw()
+        Fork2.draw_bb()
+    for Thorn2 in obstacle4:
+        Thorn2.draw()
+        Thorn2.draw_bb()
     for i in board:
         i.draw()
     character.draw()
+    character.draw_bb()
 
     delay(0.03)
     update_canvas()

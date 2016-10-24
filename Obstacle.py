@@ -124,6 +124,12 @@ class Stage1_Obstacle:
     def draw(self):
         self.Fork1.draw(self.x, self.y)
 
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 220, self.x + 40, self.y + 300
+
 class Stage1_Obstacle2:
         image = None
 
@@ -157,6 +163,12 @@ class Stage1_Obstacle2:
 
         def draw(self):
             self.Thorn1.draw(self.x, self.y)
+
+        def draw_bb(self):
+            draw_rectangle(*self.get_bb())
+
+        def get_bb(self):
+            return self.x - 20, self.y - 20, self.x + 20, self.y + 20
 
 class Stage1_Obstacle3:
     image = None
@@ -192,6 +204,12 @@ class Stage1_Obstacle3:
     def draw(self):
         self.Fork.draw(self.x, self.y)
 
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 220, self.x + 40, self.y + 300
+
 class Stage1_Obstacle4:
     image = None
 
@@ -225,6 +243,12 @@ class Stage1_Obstacle4:
 
     def draw(self):
         self.Thorn.draw(self.x, self.y)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 20, self.y - 20, self.x + 20, self.y + 50
 
 
 #################################### Stage 2 #################################################

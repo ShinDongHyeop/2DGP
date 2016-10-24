@@ -115,14 +115,14 @@ def update():
 
     character.update()
 
-    for i in obstacle:
-        i.update()
-    for i in obstacle2:
-        i.update()
-    for i in obstacle3:
-        i.update()
-    for i in obstacle4:
-        i.update()
+    for Fork1 in obstacle:
+        Fork1.update()
+    for Thorn1 in obstacle2:
+        Thorn1.update()
+    for Fork2 in obstacle3:
+        Fork2.update()
+    for Thorn2 in obstacle4:
+        Thorn2.update()
 
     for i in board:
         i.update()

@@ -3,6 +3,7 @@ import game_framework
 
 xsize = 0
 
+
 class Character:
     image = None
     global wsize
@@ -15,6 +16,7 @@ class Character:
         self.jump_gravity = 0
         self.state = state
         self.characterV = 0
+        self.state = "Run"
 
         if Character.image == None:
             self.Cookie1_run = load_image('Resource\\Character1\\cookie_run.png')
@@ -71,6 +73,18 @@ class Character:
             elif self.jump % 2 == 0:
                 self.Cookie1_jump2.draw(self.x, self.y)
 
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        if self.state == "Run":
+            return self.x - 20, self. y - 10, self.x + 15, self.y + 10
+        elif self.state == "Slide":
+            return self.x - 5 , self. y - 60, self.x + 25, self.y + -5
+        elif self.state == "Jump":
+            return self.x - 15, self. y - 10, self.x + 25, self.y + 10
+
+
     def handle_events(self, event):
         global xsize
         events = get_events()
@@ -118,7 +132,14 @@ class Character2:
         pass
 
     def update(self):
-        self.gravity()
+        global xsize
+        xsize += 1
+
+        if xsize > 2200:
+            xsize = 0
+
+        if self.state == "Jump":
+            self.gravity()
         if self.state == "Run":
             self.frame = (self.frame + 1) % 3
         elif self.state == "Dead":
@@ -127,6 +148,15 @@ class Character2:
             self.state = "Run"
         elif self.state == "Slide":
             self.frame = 0
+
+        if self.state == "Jump" and (xsize >= 2050 and xsize <= 2200):
+            if (self.y - 40 - self.jump_gravity) > 210:
+                self.jump_gravity += 2
+                self.y -= self.jump_gravity / 2
+            else:
+                self.y = 250
+                self.jump_gravity = 0
+                self.state = "Run"
 
     def gravity(self):
         if(self.y - 40 - self.jump_gravity) > 160:
@@ -158,6 +188,9 @@ class Character2:
                 self.state = "Jump"
 
                 if (self.y - 40) == 160:
+                    self.jump_gravity = -30
+
+                if (xsize >= 2050 and xsize <= 2200) and (self.y - 40) == 210:
                     self.jump_gravity = -30
 
         elif event.type == SDL_KEYUP:
