@@ -4,9 +4,8 @@ import game_framework
 xsize = 0
 
 
-class Character:
+class Brave_Cookie:
     image = None
-    global wsize
 
     def __init__(self, state):
         self.x = 150
@@ -15,10 +14,9 @@ class Character:
         self.jump = 0
         self.jump_gravity = 0
         self.state = state
-        self.characterV = 0
         self.state = "Run"
 
-        if Character.image == None:
+        if Brave_Cookie.image == None:
             self.Cookie1_run = load_image('Resource\\Character1\\cookie_run.png')
             self.Cookie1_dead = load_image('Resource\\Character1\\cookie_run_dead.png')
             self.Cookie1_slide = load_image('Resource\\Character1\\cookie_run_slide.png')
@@ -111,7 +109,7 @@ class Character:
                 self.state = "Run"
 
 
-class Character2:
+class Ginger_Brave_Cookie:
     image = None
 
     def __init__(self, state):
@@ -121,8 +119,9 @@ class Character2:
         self.jump = 0
         self.jump_gravity = 0
         self.state = state
+        self.state = "Run"
 
-        if Character2.image == None:
+        if Ginger_Brave_Cookie.image == None:
             self.Cookie2_run = load_image('Resource\\Character2\\Cookie2_Run.png')
             self.Cookie2_dead = load_image('Resource\\Character2\\Cookie2_Dead.png')
             self.Cookie2_slide = load_image('Resource\\Character2\\Cookie2_Slide.png')
@@ -173,6 +172,17 @@ class Character2:
             self.Cookie2_slide.clip_draw(self.frame * 69, 0, 69, 69, self.x, self.y - 30)
         elif self.state == "Jump":
             self.Cookie2_jump.clip_draw(self.frame * 51, 0, 51, 100, self.x, self.y)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        if self.state == "Run":
+            return self.x - 20, self. y - 10, self.x + 15, self.y + 10
+        elif self.state == "Slide":
+            return self.x - 5 , self. y - 60, self.x + 25, self.y + -5
+        elif self.state == "Jump":
+            return self.x - 15, self. y - 10, self.x + 25, self.y + 10
 
     def handle_events(self, event):
         events = get_events()
