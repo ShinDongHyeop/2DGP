@@ -4,9 +4,9 @@ import os
 import time
 
 from pico2d import *
-from Character import *
-from Map import *
-from Obstacle import *
+from character import *
+from map import *
+from obstacle import *
 import game_framework
 import title_state
 import main_state2
@@ -15,13 +15,13 @@ import main_state4
 
 name = "MainState"
 
-character = None
-character2 = None
+brave_cookie = None
+ginger_brave_cookie = None
 background = None
-obstacle = None
-obstacle2 = None
-obstacle3 = None
-obstacle4 = None
+nomal_fork = None
+nomal_thorn = None
+special_fork = None
+double_thorn = None
 board = None
 
 def collide(a, b):
@@ -36,47 +36,47 @@ def collide(a, b):
     return True
 
 def enter():
-    global character, character2, background, obstacle, obstacle2, obstacle3, obstacle4,  w_len, board, start
-    character = Character("Run")
-    character2 = Character2("Run")
+    global brave_cookie, ginger_brave_cookie, background, nomal_fork, nomal_thorn, special_fork, double_thorn,  w_len, board, start
+    brave_cookie = Brave_Cookie("Run")
+    ginger_brave_cookie = Ginger_Brave_Cookie("Run")
     background = Stage1_Background()
     board = Stage1_Board.create()
-    obstacle = Stage1_Obstacle.create()
-    obstacle2 = Stage1_Obstacle2.create()
-    obstacle3 = Stage1_Obstacle3.create()
-    obstacle4 = Stage1_Obstacle4.create()
+    nomal_fork = Stage1_NomalFork.create()
+    nomal_thorn = Stage1_NomalThorn.create()
+    special_fork = Stage1_SpecialFork.create()
+    double_thorn = Stage1_DoubleThorn.create()
     w_len = 0
     start = time.time()
 
 def exit():
-    global character, character2, background, obstacle, obstacle2, obstacle3, obstacle4, board, start
-    del(character)
-    del(character2)
+    global brave_cookie, ginger_brave_cookie, background, nomal_fork, nomal_thorn, special_fork, double_thorn, board, start
+    del(brave_cookie)
+    del(ginger_brave_cookie)
     del(background)
 
-    for i in obstacle:
-        obstacle.remove(i)
-        del(i)
-    del(obstacle)
+    for fork in nomal_fork:
+        nomal_fork.remove(fork)
+        del(fork)
+    del(nomal_fork)
 
-    for i in obstacle2:
-        obstacle2.remove(i)
-        del(i)
-    del(obstacle2)
+    for thorn in nomal_thorn:
+        nomal_thorn.remove(thorn)
+        del(thorn)
+    del(nomal_thorn)
 
-    for i in obstacle3:
-        obstacle3.remove(i)
-        del(i)
-    del(obstacle3)
+    for thorn in double_thorn:
+        double_thorn.remove(thorn)
+        del(thorn)
+    del(double_thorn)
 
-    for i in obstacle4:
-        obstacle4.remove(i)
-        del(i)
-    del(obstacle4)
+    for fork in special_fork:
+        special_fork.remove(fork)
+        del(fork)
+    del(special_fork)
 
-    for i in board:
-        board.remove(i)
-        del(i)
+    for foothold in board:
+        board.remove(foothold)
+        del(foothold)
     del(board)
 
     end = time.time()
@@ -93,7 +93,7 @@ def resume():
 
 
 def handle_events():
-    global character, character2
+    global brave_cookie, ginger_brave_cookie
     events = get_events()
 
     for event in events:
@@ -113,64 +113,67 @@ def handle_events():
             game_framework.change_state(main_state4)
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-            if type(character) == Character:
-                character = Character2(character.state)
-            elif type(character) == Character2:
-                character = Character(character.state)
+            if type(brave_cookie) == Brave_Cookie:
+                brave_cookie = Ginger_Brave_Cookie(brave_cookie.state)
+            elif type(brave_cookie) == Ginger_Brave_Cookie:
+                brave_cookie = Brave_Cookie(brave_cookie.state)
 
         else:
-            character.handle_events(event)
-            character2.handle_events(event)
+            brave_cookie.handle_events(event)
+            ginger_brave_cookie.handle_events(event)
 
 def update():
-    global character, obstacle, obstacle2, obstacle3, obstacle4, w_len, board
+    global brave_cookie, ginger_brave_cookie, nomal_fork, nomal_thorn, special_fork, double_thorn, w_len, board
     w_len += 1
-    character.update()
-    for Fork1 in obstacle:
-        Fork1.update()
-        if collide(character, Fork1):
+    brave_cookie.update()
+    for Fork in nomal_fork:
+        Fork.update()
+        if collide(brave_cookie, Fork):
             print("collision")
-    for Thorn1 in obstacle2:
-        Thorn1.update()
-        if collide(character, Thorn1):
+    for Fork in special_fork:
+        Fork.update()
+        if collide(brave_cookie, Fork):
             print("collision")
-    for Fork2 in obstacle3:
-        Fork2.update()
-        if collide(character, Fork2):
+    for Thorn in nomal_thorn:
+        Thorn.update()
+        if collide(brave_cookie, Thorn):
             print("collision")
-    for Thorn2 in obstacle4:
-        Thorn2.update()
-        if collide(character, Thorn2):
+    for Thorn in double_thorn:
+        Thorn.update()
+        if collide(brave_cookie, Thorn):
             print("collision")
 
-    for i in board:
-        i.update()
-    if w_len == 2200 and character.y == 200:
+    for foothold in board:
+        foothold.update()
+    if w_len == 2200 and brave_cookie.y == 200:
         game_framework.change_state(main_state2)
-    elif w_len == 2200 and character.y == 250:
+    elif w_len == 2200 and brave_cookie.y == 250:
         game_framework.change_state(main_state3)
 
 def draw():
-    global character, background, obstacle, obstacle2, obstacle3, obstacle4, board
+    global brave_cookie, ginger_brave_cookie, background, nomal_fork, nomal_thorn, special_fork, double_thorn, board
     clear_canvas()
     background.draw()
 
-    for Fork1 in obstacle:
-        Fork1.draw()
-        Fork1.draw_bb()
-    for Thorn1 in obstacle2:
-        Thorn1.draw()
-        Thorn1.draw_bb()
-    for Fork2 in obstacle3:
-        Fork2.draw()
-        Fork2.draw_bb()
-    for Thorn2 in obstacle4:
-        Thorn2.draw()
-        Thorn2.draw_bb()
-    for i in board:
-        i.draw()
-    character.draw()
-    character.draw_bb()
+    for Fork in nomal_fork:
+        Fork.draw()
+        Fork.draw_bb()
+    for Fork in special_fork:
+        Fork.draw()
+        Fork.draw_bb()
+    for Thorn in nomal_thorn:
+        Thorn.draw()
+        Thorn.draw_bb()
+    for Thorn in double_thorn:
+        Thorn.draw()
+        Thorn.draw_bb()
+
+    for foothold in board:
+        foothold.draw()
+
+    brave_cookie.draw()
+    brave_cookie.draw_bb()
+    ginger_brave_cookie.draw_bb()
 
     delay(0.03)
     update_canvas()

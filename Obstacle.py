@@ -11,51 +11,56 @@ board_data_file2 = open('Stage_Data\\Stage2_Board.txt', 'r')
 board_data2 = json.load(board_data_file2)
 board_data_file2.close()
 
-obstacle_data_file1_1 = open('Stage_Data\\Stage1_Obstacle.txt', 'r')
+########################## Stage1_Obstacle #################################
+obstacle_data_file1_1 = open('Stage_Data\\Stage1_NomalFork.txt', 'r')
 obstacle_data1_1 = json.load(obstacle_data_file1_1)
 obstacle_data_file1_1.close()
 
-obstacle_data_file1_2 = open('Stage_Data\\Stage1_Obstacle2.txt', 'r')
+obstacle_data_file1_2 = open('Stage_Data\\Stage1_NomalThorn.txt', 'r')
 obstacle_data1_2 = json.load(obstacle_data_file1_2)
 obstacle_data_file1_2.close()
 
-obstacle_data_file1_3 = open('Stage_Data\\Stage1_Obstacle3.txt', 'r')
+obstacle_data_file1_3 = open('Stage_Data\\Stage1_SpecialFork.txt', 'r')
 obstacle_data1_3 = json.load(obstacle_data_file1_3)
 obstacle_data_file1_3.close()
 
-obstacle_data_file1_4 = open('Stage_Data\\Stage1_Obstacle4.txt', 'r')
+obstacle_data_file1_4 = open('Stage_Data\\Stage1_DoubleThorn.txt', 'r')
 obstacle_data1_4 = json.load(obstacle_data_file1_4)
 obstacle_data_file1_4.close()
 
-obstacle_data_file2_1 = open('Stage_Data\\Stage2_Obstacle.txt', 'r')
+
+########################## Stage2_Obstacle #################################
+obstacle_data_file2_1 = open('Stage_Data\\Stage2_BrownSpear.txt', 'r')
 obstacle_data2_1 = json.load(obstacle_data_file2_1)
 obstacle_data_file2_1.close()
 
-obstacle_data_file2_2 = open('Stage_Data\\Stage2_Obstacle2.txt', 'r')
+obstacle_data_file2_2 = open('Stage_Data\\Stage2_Thorn.txt', 'r')
 obstacle_data2_2 = json.load(obstacle_data_file2_2)
 obstacle_data_file2_2.close()
 
-obstacle_data_file2_3 = open('Stage_Data\\Stage2_Obstacle3.txt', 'r')
+obstacle_data_file2_3 = open('Stage_Data\\Stage2_OatmealSpear.txt', 'r')
 obstacle_data2_3 = json.load(obstacle_data_file2_3)
 obstacle_data_file2_3.close()
 
-obstacle_data_file2_4 = open('Stage_Data\\Stage2_Obstacle4.txt', 'r')
+obstacle_data_file2_4 = open('Stage_Data\\Stage2_NastyThorn.txt', 'r')
 obstacle_data2_4 = json.load(obstacle_data_file2_4)
 obstacle_data_file2_4.close()
 
-obstacle_data_file3_1 = open('Stage_Data\\Stage3_Obstacle.txt', 'r')
+
+########################## Stage3_Obstacle #################################
+obstacle_data_file3_1 = open('Stage_Data\\Stage3_PalmTree.txt', 'r')
 obstacle_data3_1 = json.load(obstacle_data_file3_1)
 obstacle_data_file3_1.close()
 
-obstacle_data_file3_2 = open('Stage_Data\\Stage3_Obstacle2.txt', 'r')
+obstacle_data_file3_2 = open('Stage_Data\\Stage3_Fence.txt', 'r')
 obstacle_data3_2 = json.load(obstacle_data_file3_2)
 obstacle_data_file3_2.close()
 
-obstacle_data_file3_3 = open('Stage_Data\\Stage3_Obstacle3.txt', 'r')
+obstacle_data_file3_3 = open('Stage_Data\\Stage3_HatePalmTree.txt', 'r')
 obstacle_data3_3 = json.load(obstacle_data_file3_3)
 obstacle_data_file3_3.close()
 
-obstacle_data_file3_4 = open('Stage_Data\\Stage3_Obstacle4.txt', 'r')
+obstacle_data_file3_4 = open('Stage_Data\\Stage3_Conch.txt', 'r')
 obstacle_data3_4 = json.load(obstacle_data_file3_4)
 obstacle_data_file3_4.close()
 
@@ -92,24 +97,24 @@ class Stage1_Board:
     def draw(self):
         self.Board.clip_draw(0, 0, 150, 10, self.x, self.y)
 
-class Stage1_Obstacle:
+class Stage1_NomalFork:
     image = None
     def __init__(self):
         self.x = 0
         self.y = 0
-        if Stage1_Obstacle.image == None:
-            self.Fork1 = load_image('Resource\\Map\\Stage1\\Stage1_Fork.png')
+        if Stage1_NomalFork.image == None:
+            self.Fork = load_image('Resource\\Map\\Stage1\\Stage1_Fork.png')
 
     def Fork(self):
-        self.Fork1()
+        self.Fork()
 
     def create():
         obstacle_state_table = {
-            "Fork" : Stage1_Obstacle.Fork
+            "Fork" : Stage1_NomalFork.Fork
         }
         obstacle = []
         for name in obstacle_data1_1:
-            ob = Stage1_Obstacle()
+            ob = Stage1_NomalFork()
             ob.name = name
             ob.x = obstacle_data1_1[name]['x']
             ob.y = obstacle_data1_1[name]['y']
@@ -122,7 +127,7 @@ class Stage1_Obstacle:
         self.x -= 5
 
     def draw(self):
-        self.Fork1.draw(self.x, self.y)
+        self.Fork.draw(self.x, self.y)
 
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
@@ -130,53 +135,13 @@ class Stage1_Obstacle:
     def get_bb(self):
         return self.x - 40, self.y - 220, self.x + 40, self.y + 300
 
-class Stage1_Obstacle2:
-        image = None
-
-        def __init__(self):
-            self.x = 0
-            self.y = 0
-            if Stage1_Obstacle2.image == None:
-                self.Thorn1 = load_image('Resource\\Map\\Stage1\\Stage1_thorn.png')
-
-        def Thorn(self):
-            self.Thorn1()
-
-        def create():
-            obstacle_state_table = {
-                "Thorn": Stage1_Obstacle2.Thorn
-            }
-
-            obstacle = []
-            for name in obstacle_data1_2:
-                ob = Stage1_Obstacle2()
-                ob.name = name
-                ob.x = obstacle_data1_2[name]['x']
-                ob.y = obstacle_data1_2[name]['y']
-                ob.state = obstacle_state_table[obstacle_data1_2[name]['state']]
-                obstacle.append(ob)
-
-            return obstacle
-
-        def update(self):
-            self.x -= 5
-
-        def draw(self):
-            self.Thorn1.draw(self.x, self.y)
-
-        def draw_bb(self):
-            draw_rectangle(*self.get_bb())
-
-        def get_bb(self):
-            return self.x - 20, self.y - 20, self.x + 20, self.y + 20
-
-class Stage1_Obstacle3:
+class Stage1_SpecialFork:
     image = None
 
     def __init__(self):
         self.x = 0
         self.y = 0
-        if Stage1_Obstacle3.image == None:
+        if Stage1_SpecialFork.image == None:
             self.Fork = load_image('Resource\\Map\\Stage1\\Stage1_Fork2.png')
 
     def Fork(self):
@@ -184,12 +149,12 @@ class Stage1_Obstacle3:
 
     def create():
         obstacle_state_table = {
-            "Fork": Stage1_Obstacle3.Fork
+            "Fork": Stage1_SpecialFork.Fork
         }
 
         obstacle = []
         for name in obstacle_data1_3:
-            ob = Stage1_Obstacle3()
+            ob = Stage1_SpecialFork()
             ob.name = name
             ob.x = obstacle_data1_3[name]['x']
             ob.y = obstacle_data1_3[name]['y']
@@ -210,13 +175,54 @@ class Stage1_Obstacle3:
     def get_bb(self):
         return self.x - 40, self.y - 220, self.x + 40, self.y + 300
 
-class Stage1_Obstacle4:
+
+class Stage1_NomalThorn:
     image = None
 
     def __init__(self):
         self.x = 0
         self.y = 0
-        if Stage1_Obstacle4.image == None:
+        if Stage1_NomalThorn.image == None:
+            self.Thorn = load_image('Resource\\Map\\Stage1\\Stage1_thorn3.png')
+
+    def Thorn(self):
+        self.Thorn()
+
+    def create():
+        obstacle_state_table = {
+            "Thorn": Stage1_NomalThorn.Thorn
+        }
+
+        obstacle = []
+        for name in obstacle_data1_2:
+            ob = Stage1_NomalThorn()
+            ob.name = name
+            ob.x = obstacle_data1_2[name]['x']
+            ob.y = obstacle_data1_2[name]['y']
+            ob.state = obstacle_state_table[obstacle_data1_2[name]['state']]
+            obstacle.append(ob)
+
+        return obstacle
+
+    def update(self):
+        self.x -= 5
+
+    def draw(self):
+        self.Thorn.draw(self.x, self.y)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 20, self.y - 20, self.x + 20, self.y + 20
+
+class Stage1_DoubleThorn:
+    image = None
+
+    def __init__(self):
+        self.x = 0
+        self.y = 0
+        if Stage1_DoubleThorn.image == None:
             self.Thorn = load_image('Resource\\Map\\Stage1\\Stage1_thorn2.png')
 
     def Thorn(self):
@@ -224,12 +230,12 @@ class Stage1_Obstacle4:
 
     def create():
         obstacle_state_table = {
-            "Thorn": Stage1_Obstacle4.Thorn
+            "Thorn": Stage1_DoubleThorn.Thorn
         }
 
         obstacle = []
         for name in obstacle_data1_4:
-            ob = Stage1_Obstacle4()
+            ob = Stage1_DoubleThorn()
             ob.name = name
             ob.x = obstacle_data1_4[name]['x']
             ob.y = obstacle_data1_4[name]['y']
@@ -285,12 +291,12 @@ class Stage2_Board:
     def draw(self):
         self.Board.clip_draw(0, 0, 150, 10, self.x, self.y)
 
-class Stage2_Obstacle:
+class Stage2_BrownSpear:
     image = None
     def __init__(self):
         self.x = 0
         self.y = 0
-        if Stage2_Obstacle.image == None:
+        if Stage2_BrownSpear.image == None:
             self.Spear = load_image('Resource\\Map\\Stage2\\Stage2_Spear.png')
 
     def Spear(self):
@@ -298,11 +304,11 @@ class Stage2_Obstacle:
 
     def create():
         obstacle_state_table = {
-            "Fork" : Stage2_Obstacle.Spear
+            "Fork" : Stage2_BrownSpear.Spear
         }
         obstacle = []
         for name in obstacle_data2_1:
-            ob = Stage2_Obstacle()
+            ob = Stage2_BrownSpear()
             ob.name = name
             ob.x = obstacle_data2_1[name]['x']
             ob.y = obstacle_data2_1[name]['y']
@@ -317,45 +323,13 @@ class Stage2_Obstacle:
     def draw(self):
         self.Spear.draw(self.x, self.y)
 
-class Stage2_Obstacle2:
-    image = None
-    def __init__(self):
-        self.x = 0
-        self.y = 0
-        if Stage2_Obstacle2.image == None:
-            self.Thorn = load_image('Resource\\Map\\Stage2\\Stage2_thorn.png')
-
-    def Thorn(self):
-        self.Thorn()
-
-    def create():
-        obstacle_state_table = {
-            "Thorn" : Stage2_Obstacle2.Thorn
-        }
-        obstacle = []
-        for name in obstacle_data2_2:
-            ob = Stage2_Obstacle2()
-            ob.name = name
-            ob.x = obstacle_data2_2[name]['x']
-            ob.y = obstacle_data2_2[name]['y']
-            ob.state = obstacle_state_table[obstacle_data2_2[name]['state']]
-            obstacle.append(ob)
-
-        return obstacle
-
-    def update(self):
-        self.x -= 7
-
-    def draw(self):
-        self.Thorn.draw(self.x, self.y)
-
-class Stage2_Obstacle3:
+class Stage2_OatmealSpear:
     image = None
 
     def __init__(self):
         self.x = 0
         self.y = 0
-        if Stage2_Obstacle3.image == None:
+        if Stage2_OatmealSpear.image == None:
             self.Spear = load_image('Resource\\Map\\Stage2\\Stage2_Spear2.png')
 
     def Spear(self):
@@ -363,11 +337,11 @@ class Stage2_Obstacle3:
 
     def create():
         obstacle_state_table = {
-            "Fork": Stage2_Obstacle3.Spear
+            "Fork": Stage2_OatmealSpear.Spear
         }
         obstacle = []
         for name in obstacle_data2_3:
-            ob = Stage2_Obstacle3()
+            ob = Stage2_OatmealSpear()
             ob.name = name
             ob.x = obstacle_data2_3[name]['x']
             ob.y = obstacle_data2_3[name]['y']
@@ -382,13 +356,45 @@ class Stage2_Obstacle3:
     def draw(self):
         self.Spear.draw(self.x, self.y)
 
-class Stage2_Obstacle4:
+class Stage2_Thorn:
+    image = None
+    def __init__(self):
+        self.x = 0
+        self.y = 0
+        if Stage2_Thorn.image == None:
+            self.Thorn = load_image('Resource\\Map\\Stage2\\Stage2_thorn.png')
+
+    def Thorn(self):
+        self.Thorn()
+
+    def create():
+        obstacle_state_table = {
+            "Thorn" : Stage2_Thorn.Thorn
+        }
+        obstacle = []
+        for name in obstacle_data2_2:
+            ob = Stage2_Thorn()
+            ob.name = name
+            ob.x = obstacle_data2_2[name]['x']
+            ob.y = obstacle_data2_2[name]['y']
+            ob.state = obstacle_state_table[obstacle_data2_2[name]['state']]
+            obstacle.append(ob)
+
+        return obstacle
+
+    def update(self):
+        self.x -= 7
+
+    def draw(self):
+        self.Thorn.draw(self.x, self.y)
+
+class Stage2_NastyThorn:
     image = None
 
     def __init__(self):
         self.x = 0
         self.y = 0
-        if Stage2_Obstacle4.image == None:
+        if Stage2_NastyThorn.image == None:
             self.Thorn = load_image('Resource\\Map\\Stage2\\Stage2_thorn3.png')
 
     def Thorn(self):
@@ -396,11 +402,11 @@ class Stage2_Obstacle4:
 
     def create():
         obstacle_state_table = {
-            "Thorn": Stage2_Obstacle4.Thorn
+            "Thorn": Stage2_NastyThorn.Thorn
         }
         obstacle = []
         for name in obstacle_data2_4:
-            ob = Stage2_Obstacle4()
+            ob = Stage2_NastyThorn()
             ob.name = name
             ob.x = obstacle_data2_4[name]['x']
             ob.y = obstacle_data2_4[name]['y']
@@ -449,12 +455,12 @@ class Stage3_Board:
     def draw(self):
         self.Board.clip_draw(0, 0, 150, 10, self.x, self.y)
 
-class Stage3_Obstacle:
+class Stage3_PalmTree:
     image = None
     def __init__(self):
         self.x = 0
         self.y = 0
-        if Stage3_Obstacle.image == None:
+        if Stage3_PalmTree.image == None:
             self.Spear = load_image('Resource\\Map\\Stage3\\Stage3_Spear.png')
 
     def Spear(self):
@@ -462,11 +468,11 @@ class Stage3_Obstacle:
 
     def create():
         obstacle_state_table = {
-            "Fork" : Stage3_Obstacle.Spear
+            "Fork" : Stage3_PalmTree.Spear
         }
         obstacle = []
         for name in obstacle_data3_1:
-            ob = Stage3_Obstacle()
+            ob = Stage3_PalmTree()
             ob.name = name
             ob.x = obstacle_data3_1[name]['x']
             ob.y = obstacle_data3_1[name]['y']
@@ -481,45 +487,12 @@ class Stage3_Obstacle:
     def draw(self):
         self.Spear.draw(self.x, self.y)
 
-class Stage3_Obstacle2:
+class Stage3_HatePalmTree:
     image = None
     def __init__(self):
         self.x = 0
         self.y = 0
-        if Stage3_Obstacle2.image == None:
-            self.Thorn = load_image('Resource\\Map\\Stage3\\Stage3_thorn.png')
-
-    def Thorn(self):
-        self.Thorn()
-
-    def create():
-        obstacle_state_table = {
-            "Thorn" : Stage3_Obstacle2.Thorn
-        }
-
-        obstacle = []
-        for name in obstacle_data3_2:
-            ob = Stage3_Obstacle2()
-            ob.name = name
-            ob.x = obstacle_data3_2[name]['x']
-            ob.y = obstacle_data3_2[name]['y']
-            ob.state = obstacle_state_table[obstacle_data3_2[name]['state']]
-            obstacle.append(ob)
-
-        return obstacle
-
-    def update(self):
-        self.x -= 8
-
-    def draw(self):
-        self.Thorn.draw(self.x, self.y)
-
-class Stage3_Obstacle3:
-    image = None
-    def __init__(self):
-        self.x = 0
-        self.y = 0
-        if Stage3_Obstacle3.image == None:
+        if Stage3_HatePalmTree.image == None:
             self.Spear = load_image('Resource\\Map\\Stage3\\Stage3_Spear2.png')
 
     def Spear(self):
@@ -527,11 +500,11 @@ class Stage3_Obstacle3:
 
     def create():
         obstacle_state_table = {
-            "Fork" : Stage3_Obstacle3.Spear
+            "Fork" : Stage3_HatePalmTree.Spear
         }
         obstacle = []
         for name in obstacle_data3_3:
-            ob = Stage3_Obstacle3()
+            ob = Stage3_HatePalmTree()
             ob.name = name
             ob.x = obstacle_data3_3[name]['x']
             ob.y = obstacle_data3_3[name]['y']
@@ -546,12 +519,45 @@ class Stage3_Obstacle3:
     def draw(self):
         self.Spear.draw(self.x, self.y)
 
-class Stage3_Obstacle4:
+class Stage3_Fence:
     image = None
     def __init__(self):
         self.x = 0
         self.y = 0
-        if Stage3_Obstacle4.image == None:
+        if Stage3_Fence.image == None:
+            self.Thorn = load_image('Resource\\Map\\Stage3\\Stage3_thorn.png')
+
+    def Thorn(self):
+        self.Thorn()
+
+    def create():
+        obstacle_state_table = {
+            "Thorn" : Stage3_Fence.Thorn
+        }
+
+        obstacle = []
+        for name in obstacle_data3_2:
+            ob = Stage3_Fence()
+            ob.name = name
+            ob.x = obstacle_data3_2[name]['x']
+            ob.y = obstacle_data3_2[name]['y']
+            ob.state = obstacle_state_table[obstacle_data3_2[name]['state']]
+            obstacle.append(ob)
+
+        return obstacle
+
+    def update(self):
+        self.x -= 8
+
+    def draw(self):
+        self.Thorn.draw(self.x, self.y)
+
+class Stage3_Conch:
+    image = None
+    def __init__(self):
+        self.x = 0
+        self.y = 0
+        if Stage3_Conch.image == None:
             self.Thorn = load_image('Resource\\Map\\Stage3\\Stage3_thorn5.png')
 
     def Thorn(self):
@@ -559,12 +565,12 @@ class Stage3_Obstacle4:
 
     def create():
         obstacle_state_table = {
-            "Thorn" : Stage3_Obstacle4.Thorn
+            "Thorn" : Stage3_Conch.Thorn
         }
 
         obstacle = []
         for name in obstacle_data3_4:
-            ob = Stage3_Obstacle4()
+            ob = Stage3_Conch()
             ob.name = name
             ob.x = obstacle_data3_4[name]['x']
             ob.y = obstacle_data3_4[name]['y']

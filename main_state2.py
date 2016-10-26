@@ -4,9 +4,9 @@ import os
 import time
 
 from pico2d import *
-from Character import *
-from Map import *
-from Obstacle import *
+from character import *
+from map import *
+from obstacle import *
 import game_framework
 import title_state
 import main_state
@@ -15,57 +15,57 @@ import main_state4
 
 name = "MainState"
 
-character = None
-character2 = None
+brave_cookie = None
+ginger_brave_cookie = None
 background = None
-obstacle = None
-obstacle2 = None
-obstacle3 = None
-obstacle4 = None
+brown_spear = None
+oatmeal_spear = None
+thorns = None
+nasty_thorn = None
 board = None
 
 def enter():
-    global character, character2, background, obstacle, obstacle2, obstacle3, obstacle4, w_len, board, start
-    character = Character("Run")
-    character2 = Character2("Run")
+    global brave_cookie, ginger_brave_cookie, background, brown_spear, oatmeal_spear, thorns, nasty_thorn, w_len, board, start
+    brave_cookie = Brave_Cookie("Run")
+    ginger_brave_cookie = Ginger_Brave_Cookie("Run")
     background = Stage2_Background()
     board = Stage2_Board.create()
-    obstacle = Stage2_Obstacle.create()
-    obstacle2 = Stage2_Obstacle2.create()
-    obstacle3 = Stage2_Obstacle3.create()
-    obstacle4 = Stage2_Obstacle4.create()
+    brown_spear = Stage2_BrownSpear.create()
+    oatmeal_spear = Stage2_OatmealSpear.create()
+    thorns = Stage2_Thorn.create()
+    nasty_thorn = Stage2_NastyThorn.create()
     w_len = 0
     start = time.time()
 
 def exit():
-    global character, character2, background, obstacle, obstacle2, obstacle3, obstacle4, board, start, end
-    del(character)
-    del(character2)
+    global brave_cookie, ginger_brave_cookie, background, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, start, end
+    del(brave_cookie)
+    del(ginger_brave_cookie)
     del(background)
 
-    for i in obstacle:
-        obstacle.remove(i)
-        del (i)
-    del (obstacle)
+    for spear in brown_spear:
+        brown_spear.remove(spear)
+        del (spear)
+    del (brown_spear)
 
-    for i in obstacle2:
-        obstacle2.remove(i)
-        del (i)
-    del (obstacle2)
+    for spear in oatmeal_spear:
+        oatmeal_spear.remove(spear)
+        del (spear)
+    del (oatmeal_spear)
 
-    for i in obstacle3:
-        obstacle3.remove(i)
-        del (i)
-    del (obstacle3)
+    for thorn in thorns:
+        thorns.remove(thorn)
+        del (thorn)
+    del (thorns)
 
-    for i in obstacle4:
-        obstacle4.remove(i)
-        del (i)
-    del (obstacle4)
+    for thorn in nasty_thorn:
+        nasty_thorn.remove(thorn)
+        del (thorn)
+    del (nasty_thorn)
 
-    for i in board:
-        board.remove(i)
-        del(i)
+    for foothold in board:
+        board.remove(foothold)
+        del(foothold)
     del(board)
 
     end = time.time()
@@ -81,7 +81,7 @@ def resume():
 
 
 def handle_events():
-    global character, character2
+    global brave_cookie, ginger_brave_cookie
     events = get_events()
 
     for event in events:
@@ -101,57 +101,57 @@ def handle_events():
             game_framework.change_state(main_state4)
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-            if type(character) == Character:
-                character = Character2(character.state)
-            elif type(character) == Character2:
-                character = Character(character.state)
+            if type(brave_cookie) == Brave_Cookie:
+                brave_cookie = Ginger_Brave_Cookie(brave_cookie.state)
+            elif type(brave_cookie) == Ginger_Brave_Cookie:
+                brave_cookie = Brave_Cookie(brave_cookie.state)
         else:
-            character.handle_events(event)
-            character2.handle_events(event)
+            brave_cookie.handle_events(event)
+            ginger_brave_cookie.handle_events(event)
 
 def update():
-    global obstacle, obstacle2, obstacle3, obstacle4, w_len, board
+    global brown_spear, oatmeal_spear, thorns, nasty_thorn, w_len, board
     w_len += 1
 
-    character.update()
+    brave_cookie.update()
 
-    for Fork1 in obstacle:
-        Fork1.update()
-    for Thorn1 in obstacle2:
-        Thorn1.update()
-    for Fork2 in obstacle3:
-        Fork2.update()
-    for Thorn2 in obstacle4:
-        Thorn2.update()
+    for Spear in brown_spear:
+        Spear.update()
+    for Spear in oatmeal_spear:
+        Spear.update()
+    for Thorn in thorns:
+        Thorn.update()
+    for Thorn in nasty_thorn:
+        Thorn.update()
 
-    for i in board:
-        i.update()
+    for foothold in board:
+        foothold.update()
 
-    if w_len == 2200 and character.y == 200:
+    if w_len == 2200 and brave_cookie.y == 200:
         game_framework.change_state(main_state3)
-    elif w_len == 2200 and character.y == 250:
+    elif w_len == 2200 and brave_cookie.y == 250:
         game_framework.change_state(main_state4)
 
 
 def draw():
-    global character, background, obstacle, obstacle2, obstacle3, obstacle4, board
+    global brave_cookie, background, brown_spear, oatmeal_spear, thorns, nasty_thorn,board
     clear_canvas()
     background.draw()
 
-    for i in obstacle:
-        i.draw()
-    for i in obstacle2:
-        i.draw()
-    for i in obstacle3:
-        i.draw()
-    for i in obstacle4:
-        i.draw()
+    for Spear in brown_spear:
+        Spear.draw()
+    for Spear in oatmeal_spear:
+        Spear.draw()
+    for Thorn in thorns:
+        Thorn.draw()
+    for Thorn in nasty_thorn:
+        Thorn.draw()
 
-    for i in board:
-        i.draw()
+    for foothold in board:
+        foothold.draw()
 
     background.grounddraw()
-    character.draw()
+    brave_cookie.draw()
 
     delay(0.03)
     update_canvas()
