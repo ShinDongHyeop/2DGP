@@ -11,7 +11,7 @@ logo_time = 0.0
 
 
 def enter():
-    global image, dev, kakao
+    global image, dev, kakao, title
     image = load_image('Resource\\kpu_credit.png')
     dev = load_image('Resource\\title_CI.png')
     kakao = load_image('Resource\\title_kakao.png')
@@ -46,6 +46,7 @@ def draw():
 def handle_events():
     events = get_events()
     pass
+
 
 def pause(): pass
 

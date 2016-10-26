@@ -1,5 +1,7 @@
 import game_framework
 import main_state
+import start_state
+
 from pico2d import *
 
 
