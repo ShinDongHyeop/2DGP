@@ -4,7 +4,7 @@ import os
 import time
 
 from pico2d import *
-from character import *
+from cookie import *
 from map import *
 from obstacle import *
 import game_framework
@@ -126,9 +126,9 @@ def update():
     for foothold in board:
         foothold.update()
 
-    if w_len == 2200 and brave_cookie.y == 200:
+    if w_len == 1550 and brave_cookie.y == 200:
         game_framework.change_state(main_state2)
-    elif w_len == 2200 and brave_cookie.y == 250:
+    elif w_len == 1550 and brave_cookie.y == 250:
         game_framework.change_state(main_state3)
 
 def draw():

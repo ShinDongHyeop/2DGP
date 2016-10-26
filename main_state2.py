@@ -4,7 +4,7 @@ import os
 import time
 
 from pico2d import *
-from character import *
+from cookie import *
 from map import *
 from obstacle import *
 import game_framework
@@ -23,6 +23,26 @@ oatmeal_spear = None
 thorns = None
 nasty_thorn = None
 board = None
+current_time = 0.0
+
+def collide(a, b):
+    left_a, bottom_a, right_a, top_a = a.get_bb()
+    left_b, bottom_b, right_b, top_b = b.get_bb()
+
+    if left_a > right_b: return False
+    if right_a < left_b: return False
+    if top_a < bottom_b: return False
+    if bottom_a > top_b: return False
+
+    return True
+
+def get_frame_time():
+
+    global current_time
+
+    frame_time = get_time() - current_time
+    current_time += frame_time
+    return frame_time
 
 def enter():
     global brave_cookie, ginger_brave_cookie, background, brown_spear, oatmeal_spear, thorns, nasty_thorn, w_len, board, start
@@ -110,26 +130,27 @@ def handle_events():
             ginger_brave_cookie.handle_events(event)
 
 def update():
-    global brown_spear, oatmeal_spear, thorns, nasty_thorn, w_len, board
+    global brave_cookie, ginger_brave_cookie, brown_spear, oatmeal_spear, thorns, nasty_thorn, w_len, board, current_time
     w_len += 1
 
     brave_cookie.update()
+    frame_time = get_frame_time()
 
     for Spear in brown_spear:
-        Spear.update()
+        Spear.update(frame_time)
     for Spear in oatmeal_spear:
-        Spear.update()
+        Spear.update(frame_time)
     for Thorn in thorns:
-        Thorn.update()
+        Thorn.update(frame_time)
     for Thorn in nasty_thorn:
-        Thorn.update()
+        Thorn.update(frame_time)
 
     for foothold in board:
-        foothold.update()
+        foothold.update(frame_time)
 
-    if w_len == 2200 and brave_cookie.y == 200:
+    if w_len == 1550 and brave_cookie.y == 200:
         game_framework.change_state(main_state3)
-    elif w_len == 2200 and brave_cookie.y == 250:
+    elif w_len == 1550 and brave_cookie.y == 250:
         game_framework.change_state(main_state4)
 
 

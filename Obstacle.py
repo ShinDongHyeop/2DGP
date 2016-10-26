@@ -64,8 +64,15 @@ obstacle_data_file3_4 = open('Stage_Data\\Stage3_Conch.txt', 'r')
 obstacle_data3_4 = json.load(obstacle_data_file3_4)
 obstacle_data_file3_4.close()
 
+
 class Stage1_Board:
     image = None
+    PIXEL_PER_METER = (10.0 / 0.3)
+    RUN_SPEED_KMPH = 20.0
+    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
+
     def __init__(self):
         self.x = 0
         self.y = 0
@@ -91,14 +98,21 @@ class Stage1_Board:
 
         return board
 
-    def update(self):
-        self.x -= 5
+    def update(self, frame_time):
+        distance = Stage1_Board.RUN_SPEED_PPS * frame_time
+        self.x -= distance
 
     def draw(self):
         self.Board.clip_draw(0, 0, 150, 10, self.x, self.y)
 
 class Stage1_NomalFork:
     image = None
+    PIXEL_PER_METER = (10.0 / 0.3)
+    RUN_SPEED_KMPH = 20.0
+    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
+
     def __init__(self):
         self.x = 0
         self.y = 0
@@ -123,8 +137,9 @@ class Stage1_NomalFork:
 
         return obstacle
 
-    def update(self):
-        self.x -= 5
+    def update(self, frame_time):
+        distance = Stage1_NomalFork.RUN_SPEED_PPS * frame_time
+        self.x -= distance
 
     def draw(self):
         self.Fork.draw(self.x, self.y)
@@ -137,6 +152,11 @@ class Stage1_NomalFork:
 
 class Stage1_SpecialFork:
     image = None
+    PIXEL_PER_METER = (10.0 / 0.3)
+    RUN_SPEED_KMPH = 20.0
+    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
     def __init__(self):
         self.x = 0
@@ -163,8 +183,9 @@ class Stage1_SpecialFork:
 
         return obstacle
 
-    def update(self):
-        self.x -= 5
+    def update(self, frame_time):
+        distance = Stage1_SpecialFork.RUN_SPEED_PPS * frame_time
+        self.x -= distance
 
     def draw(self):
         self.Fork.draw(self.x, self.y)
@@ -178,6 +199,11 @@ class Stage1_SpecialFork:
 
 class Stage1_NomalThorn:
     image = None
+    PIXEL_PER_METER = (10.0 / 0.3)
+    RUN_SPEED_KMPH = 20.0
+    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
     def __init__(self):
         self.x = 0
@@ -204,8 +230,9 @@ class Stage1_NomalThorn:
 
         return obstacle
 
-    def update(self):
-        self.x -= 5
+    def update(self, frame_time):
+        distance = Stage1_NomalThorn.RUN_SPEED_PPS * frame_time
+        self.x -= distance
 
     def draw(self):
         self.Thorn.draw(self.x, self.y)
@@ -218,6 +245,11 @@ class Stage1_NomalThorn:
 
 class Stage1_DoubleThorn:
     image = None
+    PIXEL_PER_METER = (10.0 / 0.3)
+    RUN_SPEED_KMPH = 20.0
+    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
     def __init__(self):
         self.x = 0
@@ -244,8 +276,9 @@ class Stage1_DoubleThorn:
 
         return obstacle
 
-    def update(self):
-        self.x -= 5
+    def update(self, frame_time):
+        distance = Stage1_DoubleThorn.RUN_SPEED_PPS * frame_time
+        self.x -= distance
 
     def draw(self):
         self.Thorn.draw(self.x, self.y)
@@ -260,6 +293,12 @@ class Stage1_DoubleThorn:
 #################################### Stage 2 #################################################
 class Stage2_Board:
     image = None
+    PIXEL_PER_METER = (10.0 / 0.3)
+    RUN_SPEED_KMPH = 30.0
+    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
+
     def __init__(self):
         self.x = 0
         self.y = 0
@@ -285,14 +324,21 @@ class Stage2_Board:
 
         return board
 
-    def update(self):
-        self.x -= 7
+    def update(self, frame_time):
+        distance = Stage2_Board.RUN_SPEED_PPS * frame_time
+        self.x -= distance
 
     def draw(self):
         self.Board.clip_draw(0, 0, 150, 10, self.x, self.y)
 
 class Stage2_BrownSpear:
     image = None
+    PIXEL_PER_METER = (10.0 / 0.3)
+    RUN_SPEED_KMPH = 30.0
+    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
+
     def __init__(self):
         self.x = 0
         self.y = 0
@@ -317,14 +363,19 @@ class Stage2_BrownSpear:
 
         return obstacle
 
-    def update(self):
-        self.x -= 7
-
+    def update(self, frame_time):
+        distance = Stage2_BrownSpear.RUN_SPEED_PPS * frame_time
+        self.x -= distance
     def draw(self):
         self.Spear.draw(self.x, self.y)
 
 class Stage2_OatmealSpear:
     image = None
+    PIXEL_PER_METER = (10.0 / 0.3)
+    RUN_SPEED_KMPH = 30.0
+    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
     def __init__(self):
         self.x = 0
@@ -350,14 +401,21 @@ class Stage2_OatmealSpear:
 
         return obstacle
 
-    def update(self):
-        self.x -= 7
+    def update(self, frame_time):
+        distance = Stage2_OatmealSpear.RUN_SPEED_PPS * frame_time
+        self.x -= distance
 
     def draw(self):
         self.Spear.draw(self.x, self.y)
 
 class Stage2_Thorn:
     image = None
+    PIXEL_PER_METER = (10.0 / 0.3)
+    RUN_SPEED_KMPH = 30.0
+    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
+
     def __init__(self):
         self.x = 0
         self.y = 0
@@ -382,14 +440,20 @@ class Stage2_Thorn:
 
         return obstacle
 
-    def update(self):
-        self.x -= 7
+    def update(self, frame_time):
+        distance = Stage2_Thorn.RUN_SPEED_PPS * frame_time
+        self.x -= distance
 
     def draw(self):
         self.Thorn.draw(self.x, self.y)
 
 class Stage2_NastyThorn:
     image = None
+    PIXEL_PER_METER = (10.0 / 0.3)
+    RUN_SPEED_KMPH = 30.0
+    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
     def __init__(self):
         self.x = 0
@@ -415,8 +479,9 @@ class Stage2_NastyThorn:
 
         return obstacle
 
-    def update(self):
-        self.x -= 7
+    def update(self, frame_time):
+        distance = Stage2_NastyThorn.RUN_SPEED_PPS * frame_time
+        self.x -= distance
 
     def draw(self):
         self.Thorn.draw(self.x, self.y)
@@ -424,6 +489,12 @@ class Stage2_NastyThorn:
 ############################ Stage 3 ###############################################
 class Stage3_Board:
     image = None
+    PIXEL_PER_METER = (10.0 / 0.3)
+    RUN_SPEED_KMPH = 30.0
+    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
+
     def __init__(self):
         self.x = 0
         self.y = 0
@@ -449,14 +520,21 @@ class Stage3_Board:
 
         return board
 
-    def update(self):
-        self.x -= 5
+    def update(self, frame_time):
+        distance = Stage3_Board.RUN_SPEED_PPS * frame_time
+        self.x -= distance
 
     def draw(self):
         self.Board.clip_draw(0, 0, 150, 10, self.x, self.y)
 
 class Stage3_PalmTree:
     image = None
+    PIXEL_PER_METER = (10.0 / 0.3)
+    RUN_SPEED_KMPH = 30.0
+    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
+
     def __init__(self):
         self.x = 0
         self.y = 0
@@ -481,14 +559,21 @@ class Stage3_PalmTree:
 
         return obstacle
 
-    def update(self):
-        self.x -= 8
+    def update(self, frame_time):
+        distance = Stage3_PalmTree.RUN_SPEED_PPS * frame_time
+        self.x -= distance
 
     def draw(self):
         self.Spear.draw(self.x, self.y)
 
 class Stage3_HatePalmTree:
     image = None
+    PIXEL_PER_METER = (10.0 / 0.3)
+    RUN_SPEED_KMPH = 30.0
+    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
+
     def __init__(self):
         self.x = 0
         self.y = 0
@@ -513,14 +598,21 @@ class Stage3_HatePalmTree:
 
         return obstacle
 
-    def update(self):
-        self.x -= 8
+    def update(self, frame_time):
+        distance = Stage3_HatePalmTree.RUN_SPEED_PPS * frame_time
+        self.x -= distance
 
     def draw(self):
         self.Spear.draw(self.x, self.y)
 
 class Stage3_Fence:
     image = None
+    PIXEL_PER_METER = (10.0 / 0.3)
+    RUN_SPEED_KMPH = 30.0
+    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
+
     def __init__(self):
         self.x = 0
         self.y = 0
@@ -546,14 +638,21 @@ class Stage3_Fence:
 
         return obstacle
 
-    def update(self):
-        self.x -= 8
+    def update(self, frame_time):
+        distance = Stage3_Fence.RUN_SPEED_PPS * frame_time
+        self.x -= distance
 
     def draw(self):
         self.Thorn.draw(self.x, self.y)
 
 class Stage3_Conch:
     image = None
+    PIXEL_PER_METER = (10.0 / 0.3)
+    RUN_SPEED_KMPH = 30.0
+    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
+
     def __init__(self):
         self.x = 0
         self.y = 0
@@ -579,8 +678,9 @@ class Stage3_Conch:
 
         return obstacle
 
-    def update(self):
-        self.x -= 8
+    def update(self, frame_time):
+        distance = Stage3_Conch.RUN_SPEED_PPS * frame_time
+        self.x -= distance
 
     def draw(self):
         self.Thorn.draw(self.x, self.y)

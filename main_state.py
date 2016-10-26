@@ -4,7 +4,7 @@ import os
 import time
 
 from pico2d import *
-from character import *
+from cookie import *
 from map import *
 from obstacle import *
 import game_framework
@@ -23,6 +23,7 @@ nomal_thorn = None
 special_fork = None
 double_thorn = None
 board = None
+current_time = 0.0
 
 def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
@@ -34,6 +35,14 @@ def collide(a, b):
     if bottom_a > top_b: return False
 
     return True
+
+def get_frame_time():
+
+    global current_time
+
+    frame_time = get_time() - current_time
+    current_time += frame_time
+    return frame_time
 
 def enter():
     global brave_cookie, ginger_brave_cookie, background, nomal_fork, nomal_thorn, special_fork, double_thorn,  w_len, board, start
@@ -123,31 +132,35 @@ def handle_events():
             ginger_brave_cookie.handle_events(event)
 
 def update():
-    global brave_cookie, ginger_brave_cookie, nomal_fork, nomal_thorn, special_fork, double_thorn, w_len, board
+    global brave_cookie, ginger_brave_cookie, nomal_fork, nomal_thorn, special_fork, double_thorn, w_len, board, current_time
     w_len += 1
+
+    frame_time = get_frame_time()
     brave_cookie.update()
+    #ginger_brave_cookie.update()
+
     for Fork in nomal_fork:
-        Fork.update()
+        Fork.update(frame_time)
         if collide(brave_cookie, Fork):
             print("collision")
     for Fork in special_fork:
-        Fork.update()
+        Fork.update(frame_time)
         if collide(brave_cookie, Fork):
             print("collision")
     for Thorn in nomal_thorn:
-        Thorn.update()
+        Thorn.update(frame_time)
         if collide(brave_cookie, Thorn):
             print("collision")
     for Thorn in double_thorn:
-        Thorn.update()
+        Thorn.update(frame_time)
         if collide(brave_cookie, Thorn):
             print("collision")
 
     for foothold in board:
-        foothold.update()
-    if w_len == 2200 and brave_cookie.y == 200:
+        foothold.update(frame_time)
+    if w_len == 1550 and brave_cookie.y == 200:
         game_framework.change_state(main_state2)
-    elif w_len == 2200 and brave_cookie.y == 250:
+    elif w_len == 1550 and brave_cookie.y == 250:
         game_framework.change_state(main_state3)
 
 def draw():

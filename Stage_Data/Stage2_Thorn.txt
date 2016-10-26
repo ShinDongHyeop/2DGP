@@ -1,15 +1,12 @@
 {
-    "Thorn1"   : {"state" : "Thorn", "x"  : 1750, "y" : 140},
-    "Thorn2"   : {"state" : "Thorn", "x"  : 1800, "y" : 140},
-    "Thorn3"   : {"state" : "Thorn", "x"  : 1950, "y" : 150},
-    "Thorn4"   : {"state" : "Thorn", "x"  : 3900, "y" : 150},
-    "Thorn5"   : {"state" : "Thorn", "x"  : 4100, "y" : 150},
-    "Thorn6"   : {"state" : "Thorn", "x"  : 5300, "y" : 150},
-    "Thorn7"   : {"state" : "Thorn", "x"  : 7900, "y" : 160},
-    "Thorn8"   : {"state" : "Thorn", "x"  : 10300, "y" : 160},
-    "Thorn9"   : {"state" : "Thorn", "x"  : 10900, "y" : 160},
-    "Thorn10"   : {"state" : "Thorn", "x"  : 11850, "y" : 160},
-    "Thorn11"   : {"state" : "Thorn", "x"  : 13000, "y" : 160},
-    "Thorn12"   : {"state" : "Thorn", "x"  : 13200, "y" : 160},
-    "Thorn13"   : {"state" : "Thorn", "x"  : 13850, "y" : 160}
+    "Thorn1"   : {"state" : "Thorn", "x"  : 4600, "y" : 150},
+    "Thorn2"   : {"state" : "Thorn", "x"  : 5300, "y" : 150},
+    "Thorn3"   : {"state" : "Thorn", "x"  : 6900, "y" : 160},
+    "Thorn4"   : {"state" : "Thorn", "x"  : 7700, "y" : 160},
+    "Thorn5"   : {"state" : "Thorn", "x"  : 8300, "y" : 160},
+    "Thorn6"   : {"state" : "Thorn", "x"  : 8350, "y" : 160},
+    "Thorn7"   : {"state" : "Thorn", "x"  : 8400, "y" : 160},
+    "Thorn8"   : {"state" : "Thorn", "x"  : 9400, "y" : 160},
+    "Thorn9"   : {"state" : "Thorn", "x"  : 10300, "y" : 160},
+    "Thorn10"   : {"state" : "Thorn", "x"  : 13000, "y" : 160}
 }

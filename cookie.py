@@ -27,7 +27,7 @@ class Brave_Cookie:
         global xsize
         xsize += 1
 
-        if xsize > 2200:
+        if xsize > 1550:
             xsize = 0
 
         if self.state == "Jump":
@@ -41,7 +41,7 @@ class Brave_Cookie:
         elif self.state == "Jump" and self.state == "Slide":
             self.frame = 0
 
-        if self.state == "Jump" and (xsize >= 2050 and xsize <= 2200):
+        if self.state == "Jump" and (xsize >= 1440 and xsize <= 1550):
             if (self.y - 40 - self.jump_gravity) > 210:
                 self.jump_gravity += 2
                 self.y -= self.jump_gravity / 2
@@ -100,7 +100,7 @@ class Brave_Cookie:
                 if (self.y - 40) == 160:
                     self.jump_gravity = -30
 
-                if (xsize >= 2050 and xsize <= 2200) and (self.y - 40) == 210:
+                if (xsize >= 1440 and xsize <= 1550) and (self.y - 40) == 210:
                     self.jump_gravity = -30
 
 
@@ -134,7 +134,7 @@ class Ginger_Brave_Cookie:
         global xsize
         xsize += 1
 
-        if xsize > 2200:
+        if xsize > 1550:
             xsize = 0
 
         if self.state == "Jump":
@@ -148,7 +148,7 @@ class Ginger_Brave_Cookie:
         elif self.state == "Slide":
             self.frame = 0
 
-        if self.state == "Jump" and (xsize >= 2050 and xsize <= 2200):
+        if self.state == "Jump" and (xsize >= 1440 and xsize <= 1550):
             if (self.y - 40 - self.jump_gravity) > 210:
                 self.jump_gravity += 2
                 self.y -= self.jump_gravity / 2
@@ -200,7 +200,7 @@ class Ginger_Brave_Cookie:
                 if (self.y - 40) == 160:
                     self.jump_gravity = -30
 
-                if (xsize >= 2050 and xsize <= 2200) and (self.y - 40) == 210:
+                if (xsize >= 1440 and xsize <= 1550) and (self.y - 40) == 210:
                     self.jump_gravity = -30
 
         elif event.type == SDL_KEYUP:
