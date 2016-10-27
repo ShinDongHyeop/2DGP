@@ -1,9 +1,6 @@
 from pico2d import *
 import game_framework
 
-xsize = 0
-
-
 class Brave_Cookie:
     image = None
 
@@ -11,6 +8,7 @@ class Brave_Cookie:
         self.x = 150
         self.y = 200
         self.frame = 0
+        self.map_size = 0
         self.jump = 0
         self.jump_gravity = 0
         self.state = state
@@ -24,11 +22,10 @@ class Brave_Cookie:
             self.Cookie1_jump2 = load_image('Resource\\Character1\\cookie_run_jump2.png')
 
     def update(self):
-        global xsize
-        xsize += 1
+        self.map_size += 1
 
-        if xsize > 1550:
-            xsize = 0
+        if self.map_size > 1550:
+            self.map_size = 0
 
         if self.state == "Jump":
             self.gravity()
@@ -41,7 +38,7 @@ class Brave_Cookie:
         elif self.state == "Jump" and self.state == "Slide":
             self.frame = 0
 
-        if self.state == "Jump" and (xsize >= 1440 and xsize <= 1550):
+        if self.state == "Jump" and (self.map_size >= 1440 and self.map_size <= 1550):
             if (self.y - 40 - self.jump_gravity) > 210:
                 self.jump_gravity += 2
                 self.y -= self.jump_gravity / 2
@@ -49,8 +46,7 @@ class Brave_Cookie:
                 self.y = 250
                 self.jump_gravity = 0
                 self.state = "Run"
-
-        print("xsize : ", xsize)
+        print("map_sie : ", self.map_size)
 
     def gravity(self):
         if (self.y - 40 - self.jump_gravity) > 160:
@@ -84,7 +80,6 @@ class Brave_Cookie:
 
 
     def handle_events(self, event):
-        global xsize
         events = get_events()
 
         if event.type == SDL_QUIT:
@@ -100,7 +95,7 @@ class Brave_Cookie:
                 if (self.y - 40) == 160:
                     self.jump_gravity = -30
 
-                if (xsize >= 1440 and xsize <= 1550) and (self.y - 40) == 210:
+                if (self.map_size >= 1440 and self.map_size <= 1550) and (self.y - 40) == 210:
                     self.jump_gravity = -30
 
 
@@ -116,6 +111,7 @@ class Ginger_Brave_Cookie:
         self.x = 150
         self.y = 200
         self.frame = 0
+        self.map_size = 0
         self.jump = 0
         self.jump_gravity = 0
         self.state = state
@@ -131,11 +127,10 @@ class Ginger_Brave_Cookie:
         pass
 
     def update(self):
-        global xsize
-        xsize += 1
+        self.map_size += 1
 
-        if xsize > 1550:
-            xsize = 0
+        if self.map_size > 1550:
+            self.map_size = 0
 
         if self.state == "Jump":
             self.gravity()
@@ -148,7 +143,7 @@ class Ginger_Brave_Cookie:
         elif self.state == "Slide":
             self.frame = 0
 
-        if self.state == "Jump" and (xsize >= 1440 and xsize <= 1550):
+        if self.state == "Jump" and (self.map_size >= 1440 and self.map_size <= 1550):
             if (self.y - 40 - self.jump_gravity) > 210:
                 self.jump_gravity += 2
                 self.y -= self.jump_gravity / 2
@@ -200,7 +195,7 @@ class Ginger_Brave_Cookie:
                 if (self.y - 40) == 160:
                     self.jump_gravity = -30
 
-                if (xsize >= 1440 and xsize <= 1550) and (self.y - 40) == 210:
+                if (self.map_size >= 1440 and self.map_size <= 1550) and (self.y - 40) == 210:
                     self.jump_gravity = -30
 
         elif event.type == SDL_KEYUP:

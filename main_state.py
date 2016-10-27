@@ -12,6 +12,7 @@ import title_state
 import main_state2
 import main_state3
 import main_state4
+from get_frame_time import *
 
 name = "MainState"
 
@@ -23,7 +24,6 @@ nomal_thorn = None
 special_fork = None
 double_thorn = None
 board = None
-current_time = 0.0
 
 def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
@@ -35,14 +35,6 @@ def collide(a, b):
     if bottom_a > top_b: return False
 
     return True
-
-def get_frame_time():
-
-    global current_time
-
-    frame_time = get_time() - current_time
-    current_time += frame_time
-    return frame_time
 
 def enter():
     global brave_cookie, ginger_brave_cookie, background, nomal_fork, nomal_thorn, special_fork, double_thorn,  w_len, board, start
@@ -137,7 +129,7 @@ def update():
 
     frame_time = get_frame_time()
     brave_cookie.update()
-    #ginger_brave_cookie.update()
+    ginger_brave_cookie.update()
 
     for Fork in nomal_fork:
         Fork.update(frame_time)

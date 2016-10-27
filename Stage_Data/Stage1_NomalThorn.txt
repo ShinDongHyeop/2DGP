@@ -8,6 +8,5 @@
     "Thorn7"   : {"state" : "Thorn", "x"  : 6100, "y" : 175},
     "Thorn8"   : {"state" : "Thorn", "x"  : 7100, "y" : 175},
     "Thorn9"   : {"state" : "Thorn", "x"  : 7700, "y" : 175},
-    "Thorn10"   : {"state" : "Thorn", "x"  : 8960, "y" : 175},
-    "Thorn11"   : {"state" : "Thorn", "x"  : 9700, "y" : 175}
+    "Thorn10"   : {"state" : "Thorn", "x"  : 8960, "y" : 175}
 }
