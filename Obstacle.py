@@ -11,6 +11,7 @@ board_data_file2 = open('Stage_Data\\Stage2_Board.txt', 'r')
 board_data2 = json.load(board_data_file2)
 board_data_file2.close()
 
+
 ########################## Stage1_Obstacle #################################
 obstacle_data_file1_1 = open('Stage_Data\\Stage1_NomalFork.txt', 'r')
 obstacle_data1_1 = json.load(obstacle_data_file1_1)
@@ -64,6 +65,24 @@ obstacle_data_file3_4 = open('Stage_Data\\Stage3_Conch.txt', 'r')
 obstacle_data3_4 = json.load(obstacle_data_file3_4)
 obstacle_data_file3_4.close()
 
+########################## Stage4_Obstacle #################################
+obstacle_data_file4_1 = open('Stage_Data\\Stage4_DirtyTotem.txt', 'r')
+obstacle_data4_1 = json.load(obstacle_data_file4_1)
+obstacle_data_file4_1.close()
+
+obstacle_data_file4_2 = open('Stage_Data\\Stage4_BlueFlower.txt', 'r')
+obstacle_data4_2 = json.load(obstacle_data_file4_2)
+obstacle_data_file4_2.close()
+
+obstacle_data_file4_3 = open('Stage_Data\\Stage4_Totem.txt', 'r')
+obstacle_data4_3 = json.load(obstacle_data_file4_3)
+obstacle_data_file4_3.close()
+
+obstacle_data_file4_4 = open('Stage_Data\\Stage4_RedFlower.txt', 'r')
+obstacle_data4_4 = json.load(obstacle_data_file4_4)
+obstacle_data_file4_4.close()
+
+############################# Stage1 ########################################
 class Stage1_SPEED:
     PIXEL_PER_METER = (10.0 / 0.3)
     RUN_SPEED_KMPH = 20.0
@@ -101,12 +120,9 @@ class Stage1_Board:
         if Stage1_Board.image == None:
             self.Board = load_image('Resource\\Map\\Board.png')
 
-    def Board(self):
-        self.Board()
-
-    def create():
+    def create(self):
         board_state_table = {
-            "Board" : Stage1_Board.Board
+            "Board" : self.Board
         }
 
         board = []
@@ -121,34 +137,30 @@ class Stage1_Board:
         return board
 
     def update(self, frame_time):
-        if Stage1_SPEED.RUN_SPEED_PPS * frame_time > 13:
-            self.distance = 0
-        else:
+        print("frame_time : ", frame_time)
+        if Stage1_SPEED.RUN_SPEED_PPS * frame_time < 12:
             self.distance = Stage1_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
 
     def draw(self):
         self.Board.clip_draw(0, 0, 150, 10, self.x, self.y)
 
-class Stage1_NomalFork:
+class Stage1_Nomal_Fork:
     image = None
 
     def __init__(self):
         self.x = 0
         self.y = 0
-        if Stage1_NomalFork.image == None:
+        if Stage1_Nomal_Fork.image == None:
             self.Fork = load_image('Resource\\Map\\Stage1\\Stage1_Fork.png')
 
-    def Fork(self):
-        self.Fork()
-
-    def create():
+    def create(self):
         obstacle_state_table = {
-            "Fork" : Stage1_NomalFork.Fork
+            "Fork" : self.Fork
         }
         obstacle = []
         for name in obstacle_data1_1:
-            ob = Stage1_NomalFork()
+            ob = Stage1_Nomal_Fork()
             ob.name = name
             ob.x = obstacle_data1_1[name]['x']
             ob.y = obstacle_data1_1[name]['y']
@@ -158,9 +170,7 @@ class Stage1_NomalFork:
         return obstacle
 
     def update(self, frame_time):
-        if Stage1_SPEED.RUN_SPEED_PPS * frame_time > 13:
-            self.distance = 0
-        else:
+        if Stage1_SPEED.RUN_SPEED_PPS * frame_time < 12:
             self.distance = Stage1_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
 
@@ -173,26 +183,23 @@ class Stage1_NomalFork:
     def get_bb(self):
         return self.x - 40, self.y - 220, self.x + 40, self.y + 300
 
-class Stage1_SpecialFork:
+class Stage1_Special_Fork:
     image = None
 
     def __init__(self):
         self.x = 0
         self.y = 0
-        if Stage1_SpecialFork.image == None:
+        if Stage1_Special_Fork.image == None:
             self.Fork = load_image('Resource\\Map\\Stage1\\Stage1_Fork2.png')
 
-    def Fork(self):
-        self.Fork()
-
-    def create():
+    def create(self):
         obstacle_state_table = {
-            "Fork": Stage1_SpecialFork.Fork
+            "Fork": self.Fork
         }
 
         obstacle = []
         for name in obstacle_data1_3:
-            ob = Stage1_SpecialFork()
+            ob = Stage1_Special_Fork()
             ob.name = name
             ob.x = obstacle_data1_3[name]['x']
             ob.y = obstacle_data1_3[name]['y']
@@ -202,9 +209,7 @@ class Stage1_SpecialFork:
         return obstacle
 
     def update(self, frame_time):
-        if Stage1_SPEED.RUN_SPEED_PPS * frame_time > 13:
-            self.distance = 0
-        else:
+        if Stage1_SPEED.RUN_SPEED_PPS * frame_time < 12:
             self.distance = Stage1_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
 
@@ -218,26 +223,23 @@ class Stage1_SpecialFork:
         return self.x - 40, self.y - 220, self.x + 40, self.y + 300
 
 
-class Stage1_NomalThorn:
+class Stage1_Nomal_Thorn:
     image = None
 
     def __init__(self):
         self.x = 0
         self.y = 0
-        if Stage1_NomalThorn.image == None:
+        if Stage1_Nomal_Thorn.image == None:
             self.Thorn = load_image('Resource\\Map\\Stage1\\Stage1_thorn3.png')
 
-    def Thorn(self):
-        self.Thorn()
-
-    def create():
+    def create(self):
         obstacle_state_table = {
-            "Thorn": Stage1_NomalThorn.Thorn
+            "Thorn": self.Thorn
         }
 
         obstacle = []
         for name in obstacle_data1_2:
-            ob = Stage1_NomalThorn()
+            ob = Stage1_Nomal_Thorn()
             ob.name = name
             ob.x = obstacle_data1_2[name]['x']
             ob.y = obstacle_data1_2[name]['y']
@@ -247,9 +249,7 @@ class Stage1_NomalThorn:
         return obstacle
 
     def update(self, frame_time):
-        if Stage1_SPEED.RUN_SPEED_PPS * frame_time > 13:
-            self.distance = 0
-        else:
+        if Stage1_SPEED.RUN_SPEED_PPS * frame_time > 12:
             self.distance = Stage1_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
 
@@ -262,26 +262,23 @@ class Stage1_NomalThorn:
     def get_bb(self):
         return self.x - 20, self.y - 20, self.x + 20, self.y + 20
 
-class Stage1_DoubleThorn:
+class Stage1_Double_Thorn:
     image = None
 
     def __init__(self):
         self.x = 0
         self.y = 0
-        if Stage1_DoubleThorn.image == None:
+        if Stage1_Double_Thorn.image == None:
             self.Thorn = load_image('Resource\\Map\\Stage1\\Stage1_thorn2.png')
 
-    def Thorn(self):
-        self.Thorn()
-
-    def create():
+    def create(self):
         obstacle_state_table = {
-            "Thorn": Stage1_DoubleThorn.Thorn
+            "Thorn": self.Thorn
         }
 
         obstacle = []
         for name in obstacle_data1_4:
-            ob = Stage1_DoubleThorn()
+            ob = Stage1_Double_Thorn()
             ob.name = name
             ob.x = obstacle_data1_4[name]['x']
             ob.y = obstacle_data1_4[name]['y']
@@ -291,9 +288,7 @@ class Stage1_DoubleThorn:
         return obstacle
 
     def update(self, frame_time):
-        if Stage1_SPEED.RUN_SPEED_PPS * frame_time > 13:
-            self.distance = 0
-        else:
+        if Stage1_SPEED.RUN_SPEED_PPS * frame_time < 12:
             self.distance = Stage1_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
 
@@ -317,12 +312,9 @@ class Stage2_Board:
         if Stage2_Board.image == None:
             self.Board = load_image('Resource\\Map\\Board.png')
 
-    def Board(self):
-        self.Board()
-
-    def create():
+    def create(self):
         board_state_table = {
-            "Board": Stage2_Board.Board
+            "Board": self.Board
         }
 
         board = []
@@ -337,34 +329,30 @@ class Stage2_Board:
         return board
 
     def update(self, frame_time):
-        if Stage2_SPEED.RUN_SPEED_PPS * frame_time > 13:
-            self.distance = 0
-        else:
+        print("frame_time : ", frame_time)
+        if Stage2_SPEED.RUN_SPEED_PPS * frame_time < 18:
             self.distance = Stage2_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
 
     def draw(self):
         self.Board.clip_draw(0, 0, 150, 10, self.x, self.y)
 
-class Stage2_BrownSpear:
+class Stage2_Brown_Spear:
     image = None
 
     def __init__(self):
         self.x = 0
         self.y = 0
-        if Stage2_BrownSpear.image == None:
+        if Stage2_Brown_Spear.image == None:
             self.Spear = load_image('Resource\\Map\\Stage2\\Stage2_Spear.png')
 
-    def Spear(self):
-        self.Spear()
-
-    def create():
+    def create(self):
         obstacle_state_table = {
-            "Fork" : Stage2_BrownSpear.Spear
+            "Fork" : self.Spear
         }
         obstacle = []
         for name in obstacle_data2_1:
-            ob = Stage2_BrownSpear()
+            ob = Stage2_Brown_Spear()
             ob.name = name
             ob.x = obstacle_data2_1[name]['x']
             ob.y = obstacle_data2_1[name]['y']
@@ -374,34 +362,29 @@ class Stage2_BrownSpear:
         return obstacle
 
     def update(self, frame_time):
-        if Stage2_SPEED.RUN_SPEED_PPS * frame_time > 13:
-            self.distance = 0
-        else:
+        if Stage2_SPEED.RUN_SPEED_PPS * frame_time < 18:
             self.distance = Stage2_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
 
     def draw(self):
         self.Spear.draw(self.x, self.y)
 
-class Stage2_OatmealSpear:
+class Stage2_Oatmeal_Spear:
     image = None
 
     def __init__(self):
         self.x = 0
         self.y = 0
-        if Stage2_OatmealSpear.image == None:
+        if Stage2_Oatmeal_Spear.image == None:
             self.Spear = load_image('Resource\\Map\\Stage2\\Stage2_Spear2.png')
 
-    def Spear(self):
-        self.Spear()
-
-    def create():
+    def create(self):
         obstacle_state_table = {
-            "Fork": Stage2_OatmealSpear.Spear
+            "Fork": self.Spear
         }
         obstacle = []
         for name in obstacle_data2_3:
-            ob = Stage2_OatmealSpear()
+            ob = Stage2_Oatmeal_Spear()
             ob.name = name
             ob.x = obstacle_data2_3[name]['x']
             ob.y = obstacle_data2_3[name]['y']
@@ -411,9 +394,7 @@ class Stage2_OatmealSpear:
         return obstacle
 
     def update(self, frame_time):
-        if Stage2_SPEED.RUN_SPEED_PPS * frame_time > 13:
-            self.distance = 0
-        else:
+        if Stage2_SPEED.RUN_SPEED_PPS * frame_time < 18:
             self.distance = Stage2_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
 
@@ -429,12 +410,9 @@ class Stage2_Thorn:
         if Stage2_Thorn.image == None:
             self.Thorn = load_image('Resource\\Map\\Stage2\\Stage2_thorn.png')
 
-    def Thorn(self):
-        self.Thorn()
-
-    def create():
+    def create(self):
         obstacle_state_table = {
-            "Thorn" : Stage2_Thorn.Thorn
+            "Thorn" : self.Thorn
         }
         obstacle = []
         for name in obstacle_data2_2:
@@ -448,34 +426,29 @@ class Stage2_Thorn:
         return obstacle
 
     def update(self, frame_time):
-        if Stage2_SPEED.RUN_SPEED_PPS * frame_time > 13:
-            self.distance = 0
-        else:
+        if Stage2_SPEED.RUN_SPEED_PPS * frame_time < 18:
             self.distance = Stage2_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
 
     def draw(self):
         self.Thorn.draw(self.x, self.y)
 
-class Stage2_NastyThorn:
+class Stage2_Nasty_Thorn:
     image = None
 
     def __init__(self):
         self.x = 0
         self.y = 0
-        if Stage2_NastyThorn.image == None:
+        if Stage2_Nasty_Thorn.image == None:
             self.Thorn = load_image('Resource\\Map\\Stage2\\Stage2_thorn3.png')
 
-    def Thorn(self):
-        self.Thorn()
-
-    def create():
+    def create(self):
         obstacle_state_table = {
-            "Thorn": Stage2_NastyThorn.Thorn
+            "Thorn": self.Thorn
         }
         obstacle = []
         for name in obstacle_data2_4:
-            ob = Stage2_NastyThorn()
+            ob = Stage2_Nasty_Thorn()
             ob.name = name
             ob.x = obstacle_data2_4[name]['x']
             ob.y = obstacle_data2_4[name]['y']
@@ -485,9 +458,7 @@ class Stage2_NastyThorn:
         return obstacle
 
     def update(self, frame_time):
-        if Stage2_SPEED.RUN_SPEED_PPS * frame_time > 13:
-            self.distance = 0
-        else:
+        if Stage2_SPEED.RUN_SPEED_PPS * frame_time < 18:
             self.distance = Stage2_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
 
@@ -504,12 +475,9 @@ class Stage3_Board:
         if Stage3_Board.image == None:
             self.Board = load_image('Resource\\Map\\Board.png')
 
-    def Board(self):
-        self.Board()
-
-    def create():
+    def create(self):
         board_state_table = {
-            "Board" : Stage3_Board.Board
+            "Board" : self.Board
         }
 
         board = []
@@ -524,39 +492,29 @@ class Stage3_Board:
         return board
 
     def update(self, frame_time):
-        if Stage3_SPEED.RUN_SPEED_PPS * frame_time > 13:
-            self.distance = 0
-        else:
+        if Stage3_SPEED.RUN_SPEED_PPS * frame_time < 18:
             self.distance = Stage3_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
 
     def draw(self):
         self.Board.clip_draw(0, 0, 150, 10, self.x, self.y)
 
-class Stage3_PalmTree:
+class Stage3_Palm_Tree:
     image = None
-    PIXEL_PER_METER = (10.0 / 0.3)
-    RUN_SPEED_KMPH = 30.0
-    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
-    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
     def __init__(self):
         self.x = 0
         self.y = 0
-        if Stage3_PalmTree.image == None:
+        if Stage3_Palm_Tree.image == None:
             self.Spear = load_image('Resource\\Map\\Stage3\\Stage3_Spear.png')
 
-    def Spear(self):
-        self.Spear()
-
-    def create():
+    def create(self):
         obstacle_state_table = {
-            "Fork" : Stage3_PalmTree.Spear
+            "Fork" : self.Spear
         }
         obstacle = []
         for name in obstacle_data3_1:
-            ob = Stage3_PalmTree()
+            ob = Stage3_Palm_Tree()
             ob.name = name
             ob.x = obstacle_data3_1[name]['x']
             ob.y = obstacle_data3_1[name]['y']
@@ -566,39 +524,29 @@ class Stage3_PalmTree:
         return obstacle
 
     def update(self, frame_time):
-        if Stage3_SPEED.RUN_SPEED_PPS * frame_time > 13:
-            self.distance = 0
-        else:
+        if Stage3_SPEED.RUN_SPEED_PPS * frame_time < 18:
             self.distance = Stage3_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
 
     def draw(self):
         self.Spear.draw(self.x, self.y)
 
-class Stage3_HatePalmTree:
+class Stage3_Hate_Palm_Tree:
     image = None
-    PIXEL_PER_METER = (10.0 / 0.3)
-    RUN_SPEED_KMPH = 30.0
-    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
-    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
     def __init__(self):
         self.x = 0
         self.y = 0
-        if Stage3_HatePalmTree.image == None:
+        if Stage3_Hate_Palm_Tree.image == None:
             self.Spear = load_image('Resource\\Map\\Stage3\\Stage3_Spear2.png')
 
-    def Spear(self):
-        self.Spear()
-
-    def create():
+    def create(self):
         obstacle_state_table = {
-            "Fork" : Stage3_HatePalmTree.Spear
+            "Fork" : self.Spear
         }
         obstacle = []
         for name in obstacle_data3_3:
-            ob = Stage3_HatePalmTree()
+            ob = Stage3_Hate_Palm_Tree()
             ob.name = name
             ob.x = obstacle_data3_3[name]['x']
             ob.y = obstacle_data3_3[name]['y']
@@ -608,9 +556,7 @@ class Stage3_HatePalmTree:
         return obstacle
 
     def update(self, frame_time):
-        if Stage3_SPEED.RUN_SPEED_PPS * frame_time > 13:
-            self.distance = 0
-        else:
+        if Stage3_SPEED.RUN_SPEED_PPS * frame_time < 18:
             self.distance = Stage3_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
 
@@ -619,11 +565,6 @@ class Stage3_HatePalmTree:
 
 class Stage3_Fence:
     image = None
-    PIXEL_PER_METER = (10.0 / 0.3)
-    RUN_SPEED_KMPH = 30.0
-    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
-    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
     def __init__(self):
         self.x = 0
@@ -631,12 +572,9 @@ class Stage3_Fence:
         if Stage3_Fence.image == None:
             self.Thorn = load_image('Resource\\Map\\Stage3\\Stage3_thorn.png')
 
-    def Thorn(self):
-        self.Thorn()
-
-    def create():
+    def create(self):
         obstacle_state_table = {
-            "Thorn" : Stage3_Fence.Thorn
+            "Thorn" : self.Thorn
         }
 
         obstacle = []
@@ -651,9 +589,7 @@ class Stage3_Fence:
         return obstacle
 
     def update(self, frame_time):
-        if Stage3_SPEED.RUN_SPEED_PPS * frame_time > 13:
-            self.distance = 0
-        else:
+        if Stage3_SPEED.RUN_SPEED_PPS * frame_time < 18:
             self.distance = Stage3_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
     def draw(self):
@@ -661,11 +597,6 @@ class Stage3_Fence:
 
 class Stage3_Conch:
     image = None
-    PIXEL_PER_METER = (10.0 / 0.3)
-    RUN_SPEED_KMPH = 30.0
-    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
-    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
     def __init__(self):
         self.x = 0
@@ -673,12 +604,9 @@ class Stage3_Conch:
         if Stage3_Conch.image == None:
             self.Thorn = load_image('Resource\\Map\\Stage3\\Stage3_thorn5.png')
 
-    def Thorn(self):
-        self.Thorn()
-
-    def create():
+    def create(self):
         obstacle_state_table = {
-            "Thorn" : Stage3_Conch.Thorn
+            "Thorn" : self.Thorn
         }
 
         obstacle = []
@@ -693,10 +621,138 @@ class Stage3_Conch:
         return obstacle
 
     def update(self, frame_time):
-        if Stage3_SPEED.RUN_SPEED_PPS * frame_time > 13:
-            self.distance = 0
-        else:
+        if Stage3_SPEED.RUN_SPEED_PPS * frame_time < 18:
             self.distance = Stage3_SPEED.RUN_SPEED_PPS * frame_time
+            self.x -= self.distance
+
+    def draw(self):
+        self.Thorn.draw(self.x, self.y)
+
+############################ Stage 4 ###############################################
+
+class Stage4_Dirty_Totem:
+    image = None
+
+    def __init__(self):
+        self.x = 0
+        self.y = 0
+        if Stage4_Dirty_Totem.image == None:
+            self.Spear = load_image('Resource\\Map\\Stage4\\Stage4_Spear.png')
+
+    def create(self):
+        obstacle_state_table = {
+            "Fork" : self.Spear
+        }
+        obstacle = []
+        for name in obstacle_data4_1:
+            ob = Stage4_Dirty_Totem()
+            ob.name = name
+            ob.x = obstacle_data4_1[name]['x']
+            ob.y = obstacle_data4_1[name]['y']
+            ob.state = obstacle_state_table[obstacle_data4_1[name]['state']]
+            obstacle.append(ob)
+
+        return obstacle
+
+    def update(self, frame_time):
+        if Stage4_SPEED.RUN_SPEED_PPS * frame_time < 18:
+            self.distance = Stage4_SPEED.RUN_SPEED_PPS * frame_time
+            self.x -= self.distance
+
+    def draw(self):
+        self.Spear.draw(self.x, self.y)
+
+class Stage4_Totem:
+    image = None
+
+    def __init__(self):
+        self.x = 0
+        self.y = 0
+        if Stage4_Totem.image == None:
+            self.Spear = load_image('Resource\\Map\\Stage4\\Stage4_Spear2.png')
+
+    def create(self):
+        obstacle_state_table = {
+            "Fork": self.Spear
+        }
+        obstacle = []
+        for name in obstacle_data4_3:
+            ob = Stage4_Totem()
+            ob.name = name
+            ob.x = obstacle_data4_3[name]['x']
+            ob.y = obstacle_data4_3[name]['y']
+            ob.state = obstacle_state_table[obstacle_data4_3[name]['state']]
+            obstacle.append(ob)
+
+        return obstacle
+
+    def update(self, frame_time):
+        if Stage4_SPEED.RUN_SPEED_PPS * frame_time < 18:
+            self.distance = Stage4_SPEED.RUN_SPEED_PPS * frame_time
+            self.x -= self.distance
+
+    def draw(self):
+        self.Spear.draw(self.x, self.y)
+
+class Stage4_Blue_Flower:
+    image = None
+
+    def __init__(self):
+        self.x = 0
+        self.y = 0
+        if Stage4_Blue_Flower.image == None:
+            self.Thorn = load_image('Resource\\Map\\Stage4\\Stage4_thorn3.png')
+
+    def create(self):
+        obstacle_state_table = {
+            "Thorn" : self.Thorn
+        }
+        obstacle = []
+        for name in obstacle_data4_2:
+            ob = Stage4_Blue_Flower()
+            ob.name = name
+            ob.x = obstacle_data4_2[name]['x']
+            ob.y = obstacle_data4_2[name]['y']
+            ob.state = obstacle_state_table[obstacle_data4_2[name]['state']]
+            obstacle.append(ob)
+
+        return obstacle
+
+    def update(self, frame_time):
+        if Stage4_SPEED.RUN_SPEED_PPS * frame_time < 18:
+            self.distance = Stage4_SPEED.RUN_SPEED_PPS * frame_time
+            self.x -= self.distance
+
+    def draw(self):
+        self.Thorn.draw(self.x, self.y)
+
+class Stage4_Red_Flower:
+    image = None
+
+    def __init__(self):
+        self.x = 0
+        self.y = 0
+        if Stage4_Red_Flower.image == None:
+            self.Thorn = load_image('Resource\\Map\\Stage4\\Stage4_thorn4.png')
+
+    def create(self):
+        obstacle_state_table = {
+            "Thorn": self.Thorn
+        }
+        obstacle = []
+        for name in obstacle_data4_4:
+            ob = Stage4_Red_Flower()
+            ob.name = name
+            ob.x = obstacle_data4_4[name]['x']
+            ob.y = obstacle_data4_4[name]['y']
+            ob.state = obstacle_state_table[obstacle_data4_4[name]['state']]
+            obstacle.append(ob)
+
+        return obstacle
+
+    def update(self, frame_time):
+        if Stage4_SPEED.RUN_SPEED_PPS * frame_time < 18:
+            self.distance = Stage4_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
 
     def draw(self):

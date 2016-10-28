@@ -16,61 +16,74 @@ import main_state3
 name = "MainState"
 
 brave_cookie = None
-ginger_brave_Cookie = None
+ginger_brave_cookie = None
 background = None
-palm_tree = None
-hate_palm_tree = None
-fence = None
-conch = None
-board = None
+blue_flowe = None
+red_flowe = None
+totem = None
+dirty_totem = None
+current_time = 0.0
+
+def collide(a, b):
+    left_a, bottom_a, right_a, top_a = a.get_bb()
+    left_b, bottom_b, right_b, top_b = b.get_bb()
+
+    if left_a > right_b: return False
+    if right_a < left_b: return False
+    if top_a < bottom_b: return False
+    if bottom_a > top_b: return False
+
+    return True
+
+def get_frame_time():
+
+    global current_time
+
+    frame_time = get_time() - current_time
+    current_time += frame_time
+    return frame_time
 
 def enter():
-    global brave_cookie, ginger_brave_cookie, background, palm_tree, hate_palm_tree, fence, conch, board, w_len, start
+    global brave_cookie, ginger_brave_cookie, background, blue_flower, red_flower, totem, dirty_totem, w_len, start
     brave_cookie = Brave_Cookie("Run")
     ginger_brave_cookie = Ginger_Brave_Cookie("Run")
     background = Stage4_Background()
-    palm_tree = Stage3_PalmTree.create()
-    hate_palm_tree = Stage3_HatePalmTree.create()
-    fence = Stage3_Fence.create()
-    conch = Stage3_Conch.create()
-    board = Stage2_Board.create()
+    blue_flower = Stage4_Blue_Flower().create()
+    red_flower = Stage4_Red_Flower().create()
+    totem = Stage4_Totem().create()
+    dirty_totem = Stage4_Dirty_Totem().create()
     w_len = 0
     start = time.time()
 
 def exit():
-    global brave_cookie, ginger_brave_cookie, background, palm_tree, hate_palm_tree, fence, conch, board, start, end
+    global brave_cookie, ginger_brave_cookie, background, blue_flower, red_flower, totem, dirty_totem, start, end
     del(brave_cookie)
     del(ginger_brave_cookie)
     del(background)
 
-    for Spear in palm_tree:
-        palm_tree.remove(Spear)
+    for Spear in totem:
+        totem.remove(Spear)
         del (Spear)
-    del (palm_tree)
+    del (totem)
 
-    for Spear in hate_palm_tree:
-        hate_palm_tree.remove(Spear)
+    for Spear in dirty_totem:
+        dirty_totem.remove(Spear)
         del (Spear)
-    del (hate_palm_tree)
+    del (dirty_totem)
 
-    for Thorn in fence:
-        fence.remove(Thorn)
+    for Thorn in blue_flower:
+        blue_flower.remove(Thorn)
         del(Thorn)
-    del (fence)
+    del (blue_flower)
 
-    for Thorn in conch:
-        conch.remove(Thorn)
+    for Thorn in red_flower:
+        red_flower.remove(Thorn)
         del (Thorn)
-    del (conch)
-
-    for foothold in board:
-        board.remove(foothold)
-        del(foothold)
-    del(board)
+    del (red_flower)
 
     end = time.time()
 
-    print("Stage3 Clear Time : ", (end - start))
+    print("Stage4 Clear Time : ", (end - start))
 
 def pause():
     pass
@@ -99,55 +112,52 @@ def handle_events():
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_3:
             game_framework.change_state(main_state3)
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-            if type(brave_cookie) == Brave_Cookie:
-                brave_cookie = Ginger_Brave_Cookie(brave_cookie.state)
-            elif type(brave_cookie) == Ginger_Brave_Cookie:
-                brave_cookie = Brave_Cookie(brave_cookie.state)
 
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
+            if brave_cookie == Brave_Cookie:
+                brave_cookie = Ginger_Brave_Cookie(brave_cookie.state)
+            elif brave_cookie == Ginger_Brave_Cookie:
+                brave_cookie = Brave_Cookie(brave_cookie.state)
         else:
             brave_cookie.handle_events(event)
             ginger_brave_cookie.handle_events(event)
 
 def update():
-    global brave_cookie, palm_tree, hate_palm_tree, fence, conch, w_len, board
+    global brave_cookie, ginger_brave_cookie, blue_flower, red_flower, totem, dirty_totem, w_len
     w_len += 1
+
+    frame_time = get_frame_time()
     brave_cookie.update()
+    ginger_brave_cookie.update()
 
-    for Spear in palm_tree:
-        Spear.update()
-    for Spear in hate_palm_tree:
-        Spear.update()
-    for Thorn in fence:
-        Thorn.update()
-    for Thorn in conch:
-        Thorn.update()
-
-    for foothold in board:
-        foothold.update()
+    for Spear in dirty_totem:
+        Spear.update(frame_time)
+    for Spear in totem:
+        Spear.update(frame_time)
+    for Thorn in blue_flower:
+        Thorn.update(frame_time)
+    for Thorn in red_flower:
+        Thorn.update(frame_time)
 
     if w_len == 1550 and brave_cookie.y == 200:
-        game_framework.change_state(main_state2)
-    elif w_len == 1550 and brave_cookie.y == 250:
-        game_framework.change_state(main_state3)
+        game_framework.change_state(title_state)
+
 
 def draw():
-    global brave_cookie, ginger_brave_cookie, background, palm_tree, hate_palm_tree, fence, conch, board
+    global brave_cookie, background, blue_flower, red_flower, totem, dirty_totem
     clear_canvas()
     background.draw()
 
-    for Spear in palm_tree:
+    for Spear in dirty_totem:
         Spear.draw()
-    for Spear in hate_palm_tree:
+    for Spear in totem:
         Spear.draw()
-    for Thorn in fence:
+    for Thorn in blue_flower:
         Thorn.draw()
-    for Thorn in conch:
+    for Thorn in red_flower:
         Thorn.draw()
-
-    for foothold in board:
-        foothold.draw()
 
     brave_cookie.draw()
+
     delay(0.03)
     update_canvas()
