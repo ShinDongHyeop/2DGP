@@ -15,12 +15,12 @@ class Brave_Cookie:
         self.state = "Run"
 
         if Brave_Cookie.image == None:
-            self.Cookie1_run = load_image('Resource\\Character1\\cookie_run.png')
-            self.Cookie1_dead = load_image('Resource\\Character1\\cookie_run_dead.png')
-            self.Cookie1_slide = load_image('Resource\\Character1\\cookie_run_slide.png')
-            self.Cookie1_jump1 = load_image('Resource\\Character1\\cookie_run_jump.png')
-            self.Cookie1_jump2 = load_image('Resource\\Character1\\cookie_run_jump2.png')
-
+            self.Brave_Cookie_run = load_image('Resource\\Character1\\cookie_run.png')
+            self.Brave_Cookie_dead = load_image('Resource\\Character1\\cookie_run_dead.png')
+            self.Brave_Cookie_slide = load_image('Resource\\Character1\\cookie_run_slide.png')
+            self.Brave_Cookie_jump1 = load_image('Resource\\Character1\\cookie_run_jump.png')
+            self.Brave_Cookie_jump2 = load_image('Resource\\Character1\\cookie_run_jump2.png')
+            self.Brave_Cookie_collid = load_image('Resource\\Character1\\cookie_run_collid.png')
     def update(self):
         self.map_size += 1
 
@@ -46,7 +46,7 @@ class Brave_Cookie:
                 self.y = 250
                 self.jump_gravity = 0
                 self.state = "Run"
-        print("map_sie : ", self.map_size)
+        print("map_size : ", self.map_size)
 
     def gravity(self):
         if (self.y - 40 - self.jump_gravity) > 160:
@@ -58,14 +58,18 @@ class Brave_Cookie:
 
     def draw(self):
         if self.state == "Run":
-            self.Cookie1_run.clip_draw(self.frame * 75, 0, 75, 100, self.x, self.y)
+            self.Brave_Cookie_run.clip_draw(self.frame * 75, 0, 75, 100, self.x, self.y)
         elif self.state == "Slide":
-            self.Cookie1_slide.draw(self.x, self.y - 30)
+            self.Brave_Cookie_slide.draw(self.x, self.y - 30)
+
+        elif self.state == "Collid":
+            self.Brave_Cookie_collid.draw(self.x, self.y)
+
         elif self.state == "Jump":
             if self.jump % 2 == 1:
-                self.Cookie1_jump1.draw(self.x, self.y)
+                self.Brave_Cookie_jump1.draw(self.x, self.y)
             elif self.jump % 2 == 0:
-                self.Cookie1_jump2.draw(self.x, self.y)
+                self.Brave_Cookie_jump2.draw(self.x, self.y)
 
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
@@ -74,7 +78,7 @@ class Brave_Cookie:
         if self.state == "Run":
             return self.x - 20, self. y - 10, self.x + 15, self.y + 10
         elif self.state == "Slide":
-            return self.x - 5 , self. y - 60, self.x + 25, self.y + -5
+            return self.x - 5 , self. y - 60, self.x + 25, self.y + 5
         elif self.state == "Jump":
             return self.x - 15, self. y - 10, self.x + 25, self.y + 10
 
@@ -118,10 +122,10 @@ class Ginger_Brave_Cookie:
         self.state = "Run"
 
         if Ginger_Brave_Cookie.image == None:
-            self.Cookie2_run = load_image('Resource\\Character2\\Cookie2_Run.png')
-            self.Cookie2_dead = load_image('Resource\\Character2\\Cookie2_Dead.png')
-            self.Cookie2_slide = load_image('Resource\\Character2\\Cookie2_Slide.png')
-            self.Cookie2_jump = load_image('Resource\\Character2\\Cookie2_Jump.png')
+            self.Ginger_Brave_Cookie_run = load_image('Resource\\Character2\\Cookie2_Run.png')
+            self.Ginger_Brave_Cookie_dead = load_image('Resource\\Character2\\Cookie2_Dead.png')
+            self.Ginger_Brave_Cookie_slide = load_image('Resource\\Character2\\Cookie2_Slide.png')
+            self.Ginger_Brave_Cookie_jump = load_image('Resource\\Character2\\Cookie2_Jump.png')
 
     def __del__(self):
         pass
@@ -162,11 +166,11 @@ class Ginger_Brave_Cookie:
 
     def draw(self):
         if self.state == "Run":
-            self.Cookie2_run.clip_draw(self.frame * 47, 0, 47, 100, self.x, self.y)
+            self.Ginger_Brave_Cookie_run.clip_draw(self.frame * 47, 0, 47, 100, self.x, self.y)
         elif self.state == "Slide":
-            self.Cookie2_slide.clip_draw(self.frame * 69, 0, 69, 69, self.x, self.y - 30)
+            self.Ginger_Brave_Cookie_slide.clip_draw(self.frame * 69, 0, 69, 69, self.x, self.y - 30)
         elif self.state == "Jump":
-            self.Cookie2_jump.clip_draw(self.frame * 51, 0, 51, 100, self.x, self.y)
+            self.Ginger_Brave_Cookie_jump.clip_draw(self.frame * 51, 0, 51, 100, self.x, self.y)
 
     def draw_bb(self):
         draw_rectangle(*self.get_bb())

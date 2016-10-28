@@ -12,7 +12,6 @@ import title_state
 import main_state
 import main_state2
 import main_state4
-from get_frame_time import *
 
 name = "MainState"
 
@@ -24,6 +23,7 @@ hate_palm_tree = None
 fence = None
 conch = None
 board = None
+current_time = 0.0
 
 def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
@@ -36,16 +36,24 @@ def collide(a, b):
 
     return True
 
+def get_frame_time():
+
+    global current_time
+
+    frame_time = get_time() - current_time
+    current_time += frame_time
+    return frame_time
+
 def enter():
     global brave_cookie, ginger_brave_cookie, background, palm_tree, hate_palm_tree, fence, conch, board, w_len, start
     brave_cookie = Brave_Cookie("Run")
     ginger_brave_cookie = Ginger_Brave_Cookie("Run")
     background = Stage3_Background()
-    palm_tree = Stage3_PalmTree.create()
-    hate_palm_tree = Stage3_HatePalmTree.create()
-    fence = Stage3_Fence.create()
-    conch = Stage3_Conch.create()
-    board = Stage2_Board.create()
+    palm_tree = Stage3_Palm_Tree().create()
+    hate_palm_tree = Stage3_Hate_Palm_Tree().create()
+    fence = Stage3_Fence().create()
+    conch = Stage3_Conch().create()
+    board = Stage2_Board().create()
     w_len = 0
     start = time.time()
 
@@ -112,9 +120,9 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_4:
             game_framework.change_state(main_state4)
         elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-            if type(brave_cookie) == Brave_Cookie:
+            if brave_cookie == Brave_Cookie:
                 brave_cookie = Ginger_Brave_Cookie(brave_cookie.state)
-            elif type(brave_cookie) == Ginger_Brave_Cookie:
+            elif brave_cookie == Ginger_Brave_Cookie:
                 brave_cookie = Brave_Cookie(brave_cookie.state)
 
         else:
@@ -122,11 +130,14 @@ def handle_events():
             ginger_brave_cookie.handle_events(event)
 
 def update():
-    global brave_cookie, palm_tree, hate_palm_tree, fence, conch, w_len, board, current_time
+    global brave_cookie, ginger_brave_cookie, palm_tree, hate_palm_tree, fence, conch, w_len, board
     w_len += 1
 
-    brave_cookie.update()
     frame_time = get_frame_time()
+    brave_cookie.update()
+    ginger_brave_cookie.update()
+
+
 
     for Spear in palm_tree:
         Spear.update(frame_time)

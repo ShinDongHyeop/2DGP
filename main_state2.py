@@ -12,7 +12,6 @@ import title_state
 import main_state
 import main_state3
 import main_state4
-from get_frame_time import *
 
 name = "MainState"
 
@@ -24,6 +23,7 @@ oatmeal_spear = None
 thorns = None
 nasty_thorn = None
 board = None
+current_time = 0.0
 
 def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
@@ -36,16 +36,24 @@ def collide(a, b):
 
     return True
 
+def get_frame_time():
+
+    global current_time
+
+    frame_time = get_time() - current_time
+    current_time += frame_time
+    return frame_time
+
 def enter():
     global brave_cookie, ginger_brave_cookie, background, brown_spear, oatmeal_spear, thorns, nasty_thorn, w_len, board, start
     brave_cookie = Brave_Cookie("Run")
     ginger_brave_cookie = Ginger_Brave_Cookie("Run")
     background = Stage2_Background()
-    board = Stage2_Board.create()
-    brown_spear = Stage2_BrownSpear.create()
-    oatmeal_spear = Stage2_OatmealSpear.create()
-    thorns = Stage2_Thorn.create()
-    nasty_thorn = Stage2_NastyThorn.create()
+    board = Stage2_Board().create()
+    brown_spear = Stage2_Brown_Spear().create()
+    oatmeal_spear = Stage2_Oatmeal_Spear().create()
+    thorns = Stage2_Thorn().create()
+    nasty_thorn = Stage2_Nasty_Thorn().create()
     w_len = 0
     start = time.time()
 
@@ -113,19 +121,20 @@ def handle_events():
             game_framework.change_state(main_state4)
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-            if type(brave_cookie) == Brave_Cookie:
+            if brave_cookie == Brave_Cookie:
                 brave_cookie = Ginger_Brave_Cookie(brave_cookie.state)
-            elif type(brave_cookie) == Ginger_Brave_Cookie:
+            elif brave_cookie == Ginger_Brave_Cookie:
                 brave_cookie = Brave_Cookie(brave_cookie.state)
         else:
             brave_cookie.handle_events(event)
             ginger_brave_cookie.handle_events(event)
 
 def update():
-    global brave_cookie, ginger_brave_cookie, brown_spear, oatmeal_spear, thorns, nasty_thorn, w_len, board, current_time
+    global brave_cookie, ginger_brave_cookie, brown_spear, oatmeal_spear, thorns, nasty_thorn, w_len, board
     w_len += 1
 
     brave_cookie.update()
+    ginger_brave_cookie.update()
     frame_time = get_frame_time()
 
     for Spear in brown_spear:

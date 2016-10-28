@@ -12,7 +12,6 @@ import title_state
 import main_state2
 import main_state3
 import main_state4
-from get_frame_time import *
 
 name = "MainState"
 
@@ -24,6 +23,7 @@ nomal_thorn = None
 special_fork = None
 double_thorn = None
 board = None
+current_time = 0.0
 
 def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
@@ -36,16 +36,24 @@ def collide(a, b):
 
     return True
 
+def get_frame_time():
+
+    global current_time
+
+    frame_time = get_time() - current_time
+    current_time += frame_time
+    return frame_time
+
 def enter():
     global brave_cookie, ginger_brave_cookie, background, nomal_fork, nomal_thorn, special_fork, double_thorn,  w_len, board, start
     brave_cookie = Brave_Cookie("Run")
     ginger_brave_cookie = Ginger_Brave_Cookie("Run")
     background = Stage1_Background()
-    board = Stage1_Board.create()
-    nomal_fork = Stage1_NomalFork.create()
-    nomal_thorn = Stage1_NomalThorn.create()
-    special_fork = Stage1_SpecialFork.create()
-    double_thorn = Stage1_DoubleThorn.create()
+    board = Stage1_Board().create()
+    nomal_fork = Stage1_Nomal_Fork().create()
+    nomal_thorn = Stage1_Nomal_Thorn().create()
+    special_fork = Stage1_Special_Fork().create()
+    double_thorn = Stage1_Double_Thorn().create()
     w_len = 0
     start = time.time()
 
@@ -114,9 +122,9 @@ def handle_events():
             game_framework.change_state(main_state4)
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-            if type(brave_cookie) == Brave_Cookie:
+            if brave_cookie == Brave_Cookie:
                 brave_cookie = Ginger_Brave_Cookie(brave_cookie.state)
-            elif type(brave_cookie) == Ginger_Brave_Cookie:
+            elif brave_cookie == Ginger_Brave_Cookie:
                 brave_cookie = Brave_Cookie(brave_cookie.state)
 
         else:
@@ -124,7 +132,7 @@ def handle_events():
             ginger_brave_cookie.handle_events(event)
 
 def update():
-    global brave_cookie, ginger_brave_cookie, nomal_fork, nomal_thorn, special_fork, double_thorn, w_len, board, current_time
+    global brave_cookie, ginger_brave_cookie, nomal_fork, nomal_thorn, special_fork, double_thorn, w_len, board
     w_len += 1
 
     frame_time = get_frame_time()

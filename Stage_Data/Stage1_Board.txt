@@ -1,8 +1,8 @@
 {
-    "Board1"   : {"state" : "Board", "x"  : 9200, "y" : 195},
-    "Board2"   : {"state" : "Board", "x"  : 9350, "y" : 195},
-    "Board3"   : {"state" : "Board", "x"  : 9500, "y" : 195},
-    "Board4"   : {"state" : "Board", "x"  : 9650, "y" : 195},
-    "Board5"   : {"state" : "Board", "x"  : 9800, "y" : 195},
-    "Board6"   : {"state" : "Board", "x"  : 9950, "y" : 195}
+    "Board1"   : {"state" : "Board", "x"  : 9350, "y" : 195},
+    "Board2"   : {"state" : "Board", "x"  : 9500, "y" : 195},
+    "Board3"   : {"state" : "Board", "x"  : 9650, "y" : 195},
+    "Board4"   : {"state" : "Board", "x"  : 9800, "y" : 195},
+    "Board5"   : {"state" : "Board", "x"  : 9950, "y" : 195},
+    "Board6"   : {"state" : "Board", "x"  : 10100, "y" : 195}
 }
