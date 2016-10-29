@@ -9,8 +9,10 @@ class Brave_Cookie:
         self.y = 200
         self.frame = 0
         self.map_size = 0
+        self.hp = 600.0
         self.jump = 0
         self.jump_gravity = 0
+        self.collision_time = 0
         self.state = state
         self.state = "Run"
 
@@ -20,9 +22,15 @@ class Brave_Cookie:
             self.Brave_Cookie_slide = load_image('Resource\\Character1\\cookie_run_slide.png')
             self.Brave_Cookie_jump1 = load_image('Resource\\Character1\\cookie_run_jump.png')
             self.Brave_Cookie_jump2 = load_image('Resource\\Character1\\cookie_run_jump2.png')
-            self.Brave_Cookie_collid = load_image('Resource\\Character1\\cookie_run_collid.png')
+            self.Brave_Cookie_collide = load_image('Resource\\Character1\\cookie_run_collid.png')
+            self.Brave_Cookie_hp = load_image('Resource\\Item\\hp.png')
+
+    def bump(self):
+        self.hp -= 5
+
     def update(self):
         self.map_size += 1
+        self.hp -= 0.01
 
         if self.map_size > 1550:
             self.map_size = 0
@@ -62,14 +70,16 @@ class Brave_Cookie:
         elif self.state == "Slide":
             self.Brave_Cookie_slide.draw(self.x, self.y - 30)
 
-        elif self.state == "Collid":
-            self.Brave_Cookie_collid.draw(self.x, self.y)
+        elif self.state == "Collide":
+            self.Brave_Cookie_collide.clip_draw(self.frame * 53, 0, 53, 81, self.x, self.y)
 
         elif self.state == "Jump":
             if self.jump % 2 == 1:
                 self.Brave_Cookie_jump1.draw(self.x, self.y)
             elif self.jump % 2 == 0:
                 self.Brave_Cookie_jump2.draw(self.x, self.y)
+
+        self.Brave_Cookie_hp.draw_to_origin(0, 500, self.hp, 50)
 
     def draw_bb(self):
         draw_rectangle(*self.get_bb())

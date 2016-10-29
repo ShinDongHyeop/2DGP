@@ -142,7 +142,9 @@ def update():
     for Fork in nomal_fork:
         Fork.update(frame_time)
         if collide(brave_cookie, Fork):
+            brave_cookie.bump()
             print("collision")
+
     for Fork in special_fork:
         Fork.update(frame_time)
         if collide(brave_cookie, Fork):

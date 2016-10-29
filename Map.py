@@ -9,8 +9,6 @@ class Stage1_Background:
         self.Background.draw(400, 200)
         self.Ground.draw(400, 350)
 
-
-
 class Stage2_Background:
     def __init__(self):
         self.Background = load_image('Resource\\Map\\Stage2\\Second_Background.png')
@@ -18,7 +16,6 @@ class Stage2_Background:
 
     def draw(self):
         self.Background.draw(400, 200)
-
 
     def grounddraw(self):
         self.Ground.draw(400, 350)
