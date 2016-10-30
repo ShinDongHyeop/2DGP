@@ -162,18 +162,23 @@ def draw():
 
     for Spear in brown_spear:
         Spear.draw()
+        Spear.draw_bb()
     for Spear in oatmeal_spear:
         Spear.draw()
+        Spear.draw_bb()
     for Thorn in thorns:
         Thorn.draw()
+        Thorn.draw_bb()
     for Thorn in nasty_thorn:
         Thorn.draw()
+        Thorn.draw_bb()
 
     for foothold in board:
         foothold.draw()
 
     background.grounddraw()
     brave_cookie.draw()
+    brave_cookie.draw_bb()
 
     delay(0.03)
     update_canvas()

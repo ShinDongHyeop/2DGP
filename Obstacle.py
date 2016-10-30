@@ -338,6 +338,12 @@ class Stage2_Board:
     def draw(self):
         self.Board.clip_draw(0, 0, 150, 10, self.x, self.y)
 
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 220, self.x + 40, self.y + 300
+
 class Stage2_Brown_Spear:
     image = None
 
@@ -369,6 +375,12 @@ class Stage2_Brown_Spear:
 
     def draw(self):
         self.Spear.draw(self.x, self.y)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 220, self.x + 40, self.y + 300
 
 class Stage2_Oatmeal_Spear:
     image = None
@@ -402,6 +414,12 @@ class Stage2_Oatmeal_Spear:
     def draw(self):
         self.Spear.draw(self.x, self.y)
 
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 220, self.x + 40, self.y + 300
+
 class Stage2_Thorn:
     image = None
 
@@ -434,6 +452,12 @@ class Stage2_Thorn:
     def draw(self):
         self.Thorn.draw(self.x, self.y)
 
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 20, self.y - 20, self.x + 20, self.y + 55
+
 class Stage2_Nasty_Thorn:
     image = None
 
@@ -465,6 +489,12 @@ class Stage2_Nasty_Thorn:
 
     def draw(self):
         self.Thorn.draw(self.x, self.y)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 20, self.y - 20, self.x + 20, self.y + 20
 
 ############################ Stage 3 ###############################################
 class Stage3_Board:
@@ -500,6 +530,7 @@ class Stage3_Board:
     def draw(self):
         self.Board.clip_draw(0, 0, 150, 10, self.x, self.y)
 
+
 class Stage3_Palm_Tree:
     image = None
 
@@ -531,6 +562,12 @@ class Stage3_Palm_Tree:
 
     def draw(self):
         self.Spear.draw(self.x, self.y)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 220, self.x + 40, self.y + 300
 
 class Stage3_Hate_Palm_Tree:
     image = None
@@ -564,6 +601,12 @@ class Stage3_Hate_Palm_Tree:
     def draw(self):
         self.Spear.draw(self.x, self.y)
 
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 220, self.x + 40, self.y + 300
+
 class Stage3_Fence:
     image = None
 
@@ -595,6 +638,12 @@ class Stage3_Fence:
             self.x -= self.distance
     def draw(self):
         self.Thorn.draw(self.x, self.y)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 220, self.x + 40, self.y + 300
 
 class Stage3_Conch:
     image = None
@@ -628,6 +677,12 @@ class Stage3_Conch:
 
     def draw(self):
         self.Thorn.draw(self.x, self.y)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 220, self.x + 40, self.y + 300
 
 ############################ Stage 4 ###############################################
 
@@ -663,6 +718,12 @@ class Stage4_Dirty_Totem:
     def draw(self):
         self.Spear.draw(self.x, self.y)
 
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 220, self.x + 40, self.y + 300
+
 class Stage4_Totem:
     image = None
 
@@ -694,6 +755,12 @@ class Stage4_Totem:
 
     def draw(self):
         self.Spear.draw(self.x, self.y)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 220, self.x + 40, self.y + 300
 
 class Stage4_Blue_Flower:
     image = None
@@ -727,6 +794,12 @@ class Stage4_Blue_Flower:
     def draw(self):
         self.Thorn.draw(self.x, self.y)
 
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 220, self.x + 40, self.y + 300
+
 class Stage4_Red_Flower:
     image = None
 
@@ -758,3 +831,9 @@ class Stage4_Red_Flower:
 
     def draw(self):
         self.Thorn.draw(self.x, self.y)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 220, self.x + 40, self.y + 300

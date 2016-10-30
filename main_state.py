@@ -188,7 +188,6 @@ def draw():
 
     brave_cookie.draw()
     brave_cookie.draw_bb()
-    ginger_brave_cookie.draw_bb()
 
     delay(0.03)
     update_canvas()

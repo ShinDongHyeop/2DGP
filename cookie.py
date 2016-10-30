@@ -88,7 +88,7 @@ class Brave_Cookie:
         if self.state == "Run":
             return self.x - 20, self. y - 10, self.x + 15, self.y + 10
         elif self.state == "Slide":
-            return self.x - 5 , self. y - 60, self.x + 25, self.y + 5
+            return self.x - 5 , self. y - 50, self.x + 25, self.y - 20
         elif self.state == "Jump":
             return self.x - 15, self. y - 10, self.x + 25, self.y + 10
 
@@ -189,7 +189,7 @@ class Ginger_Brave_Cookie:
         if self.state == "Run":
             return self.x - 20, self. y - 10, self.x + 15, self.y + 10
         elif self.state == "Slide":
-            return self.x - 5 , self. y - 60, self.x + 25, self.y + -5
+            return self.x - 5 , self. y - 50, self.x + 25, self.y - 20
         elif self.state == "Jump":
             return self.x - 15, self. y - 10, self.x + 25, self.y + 10
 
