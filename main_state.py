@@ -143,23 +143,26 @@ def update():
         Fork.update(frame_time)
         if collide(brave_cookie, Fork):
             brave_cookie.bump()
-            print("collision")
-
+            nomal_fork.remove(Fork)
     for Fork in special_fork:
         Fork.update(frame_time)
         if collide(brave_cookie, Fork):
-            print("collision")
+            brave_cookie.bump()
+            special_fork.remove(Fork)
     for Thorn in nomal_thorn:
         Thorn.update(frame_time)
         if collide(brave_cookie, Thorn):
-            print("collision")
+            brave_cookie.bump()
+            nomal_thorn.remove(Thorn)
     for Thorn in double_thorn:
         Thorn.update(frame_time)
         if collide(brave_cookie, Thorn):
-            print("collision")
+            brave_cookie.bump()
+            double_thorn.remove(Thorn)
 
     for foothold in board:
         foothold.update(frame_time)
+
     if w_len == 1550 and brave_cookie.y == 200:
         game_framework.change_state(main_state2)
     elif w_len == 1550 and brave_cookie.y == 250:

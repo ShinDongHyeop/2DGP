@@ -141,12 +141,24 @@ def update():
 
     for Spear in palm_tree:
         Spear.update(frame_time)
+        if collide(brave_cookie, Spear):
+            brave_cookie.bump()
+            palm_tree.remove(Spear)
     for Spear in hate_palm_tree:
         Spear.update(frame_time)
+        if collide(brave_cookie, Spear):
+            brave_cookie.bump()
+            hate_palm_tree.remove(Spear)
+    for thorn in conch:
+        thorn.update(frame_time)
+        if collide(brave_cookie, thorn):
+            brave_cookie.bump()
+            conch.remove(thorn)
     for Thorn in fence:
         Thorn.update(frame_time)
-    for Thorn in conch:
-        Thorn.update(frame_time)
+        if collide(brave_cookie, Thorn):
+            brave_cookie.bump()
+            fence.remove(Thorn)
 
     for foothold in board:
         foothold.update(frame_time)
@@ -163,12 +175,16 @@ def draw():
 
     for Spear in palm_tree:
         Spear.draw()
+        Spear.draw_bb()
     for Spear in hate_palm_tree:
         Spear.draw()
+        Spear.draw_bb()
     for Thorn in fence:
         Thorn.draw()
+        Thorn.draw_bb()
     for Thorn in conch:
         Thorn.draw()
+        Thorn.draw_bb()
 
     for foothold in board:
         foothold.draw()

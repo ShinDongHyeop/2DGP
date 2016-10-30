@@ -139,12 +139,24 @@ def update():
 
     for Spear in brown_spear:
         Spear.update(frame_time)
+        if collide(brave_cookie, Spear):
+            brave_cookie.bump()
+            brown_spear.remove(Spear)
     for Spear in oatmeal_spear:
         Spear.update(frame_time)
+        if collide(brave_cookie, Spear):
+            brave_cookie.bump()
+            oatmeal_spear.remove(Spear)
     for Thorn in thorns:
         Thorn.update(frame_time)
+        if collide(brave_cookie, Thorn):
+            brave_cookie.bump()
+            thorns.remove(Thorn)
     for Thorn in nasty_thorn:
         Thorn.update(frame_time)
+        if collide(brave_cookie, Thorn):
+            brave_cookie.bump()
+            nasty_thorn.remove(Thorn)
 
     for foothold in board:
         foothold.update(frame_time)

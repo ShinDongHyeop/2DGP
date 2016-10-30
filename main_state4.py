@@ -132,12 +132,24 @@ def update():
 
     for Spear in dirty_totem:
         Spear.update(frame_time)
+        if collide(brave_cookie, Spear):
+            brave_cookie.bump()
+            dirty_totem.remove(Spear)
     for Spear in totem:
         Spear.update(frame_time)
+        if collide(brave_cookie, Spear):
+            brave_cookie.bump()
+            totem.remove(Spear)
     for Thorn in blue_flower:
         Thorn.update(frame_time)
+        if collide(brave_cookie, Thorn):
+            brave_cookie.bump()
+            blue_flower.remove(Thorn)
     for Thorn in red_flower:
         Thorn.update(frame_time)
+        if collide(brave_cookie, Thorn):
+            brave_cookie.bump()
+            red_flower.remove(Thorn)
 
     if w_len == 1550 and brave_cookie.y == 200:
         game_framework.change_state(title_state)
@@ -150,12 +162,16 @@ def draw():
 
     for Spear in dirty_totem:
         Spear.draw()
+        Spear.draw_bb()
     for Spear in totem:
         Spear.draw()
+        Spear.draw_bb()
     for Thorn in blue_flower:
         Thorn.draw()
+        Thorn.draw_bb()
     for Thorn in red_flower:
         Thorn.draw()
+        Thorn.draw_bb()
 
     brave_cookie.draw()
 

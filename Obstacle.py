@@ -636,6 +636,7 @@ class Stage3_Fence:
         if Stage3_SPEED.RUN_SPEED_PPS * frame_time < 18:
             self.distance = Stage3_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
+
     def draw(self):
         self.Thorn.draw(self.x, self.y)
 
@@ -643,7 +644,7 @@ class Stage3_Fence:
         draw_rectangle(*self.get_bb())
 
     def get_bb(self):
-        return self.x - 40, self.y - 220, self.x + 40, self.y + 300
+        return self.x - 20, self.y - 20, self.x + 20, self.y + 20
 
 class Stage3_Conch:
     image = None
@@ -682,7 +683,7 @@ class Stage3_Conch:
         draw_rectangle(*self.get_bb())
 
     def get_bb(self):
-        return self.x - 40, self.y - 220, self.x + 40, self.y + 300
+        return self.x - 20, self.y - 20, self.x + 20, self.y + 40
 
 ############################ Stage 4 ###############################################
 
@@ -722,7 +723,7 @@ class Stage4_Dirty_Totem:
         draw_rectangle(*self.get_bb())
 
     def get_bb(self):
-        return self.x - 40, self.y - 220, self.x + 40, self.y + 300
+        return self.x - 60, self.y - 220, self.x + 60, self.y + 300
 
 class Stage4_Totem:
     image = None
@@ -760,7 +761,7 @@ class Stage4_Totem:
         draw_rectangle(*self.get_bb())
 
     def get_bb(self):
-        return self.x - 40, self.y - 220, self.x + 40, self.y + 300
+        return self.x - 60, self.y - 220, self.x + 60, self.y + 300
 
 class Stage4_Blue_Flower:
     image = None
@@ -798,7 +799,7 @@ class Stage4_Blue_Flower:
         draw_rectangle(*self.get_bb())
 
     def get_bb(self):
-        return self.x - 40, self.y - 220, self.x + 40, self.y + 300
+        return self.x - 20, self.y - 20, self.x + 20, self.y + 50
 
 class Stage4_Red_Flower:
     image = None
@@ -836,4 +837,4 @@ class Stage4_Red_Flower:
         draw_rectangle(*self.get_bb())
 
     def get_bb(self):
-        return self.x - 40, self.y - 220, self.x + 40, self.y + 300
+        return self.x - 20, self.y - 20, self.x + 20, self.y + 50
