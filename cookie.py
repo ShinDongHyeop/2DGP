@@ -52,8 +52,6 @@ class Brave_Cookie:
                 self.jump_gravity = 0
         print("map_size : ", self.map_size)
 
-    #def climb(self):
-
     def gravity(self):
         if (self.y - 40 - self.jump_gravity) > 160:
             self.jump_gravity += 2
