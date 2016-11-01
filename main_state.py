@@ -7,6 +7,7 @@ from pico2d import *
 from cookie import *
 from map import *
 from obstacle import *
+from item import *
 import game_framework
 import title_state
 import main_state2
@@ -23,6 +24,7 @@ nomal_thorn = None
 special_fork = None
 double_thorn = None
 board = None
+item_jelly = None
 current_time = 0.0
 
 def collide(a, b):
@@ -45,7 +47,7 @@ def get_frame_time():
     return frame_time
 
 def enter():
-    global brave_cookie, ginger_brave_cookie, background, nomal_fork, nomal_thorn, special_fork, double_thorn,  w_len, board, start
+    global brave_cookie, ginger_brave_cookie, background, nomal_fork, nomal_thorn, special_fork, double_thorn,  w_len, board, start, item_jelly
     brave_cookie = Brave_Cookie("Run")
     ginger_brave_cookie = Ginger_Brave_Cookie("Run")
     background = Stage1_Background()
@@ -54,14 +56,16 @@ def enter():
     nomal_thorn = Stage1_Nomal_Thorn().create()
     special_fork = Stage1_Special_Fork().create()
     double_thorn = Stage1_Double_Thorn().create()
+    item_jelly = [Stage1_Item_Jelly() for i in range(100)]
     w_len = 0
     start = time.time()
 
 def exit():
-    global brave_cookie, ginger_brave_cookie, background, nomal_fork, nomal_thorn, special_fork, double_thorn, board, start
+    global brave_cookie, ginger_brave_cookie, background, nomal_fork, nomal_thorn, special_fork, double_thorn, board, start, item_jelly
     del(brave_cookie)
     del(ginger_brave_cookie)
     del(background)
+    del(item_jelly)
 
     for fork in nomal_fork:
         nomal_fork.remove(fork)
@@ -122,9 +126,9 @@ def handle_events():
             game_framework.change_state(main_state4)
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-            if brave_cookie == Brave_Cookie:
+            if type(brave_cookie) == Brave_Cookie:
                 brave_cookie = Ginger_Brave_Cookie(brave_cookie.state)
-            elif brave_cookie == Ginger_Brave_Cookie:
+            elif type(brave_cookie) == Ginger_Brave_Cookie:
                 brave_cookie = Brave_Cookie(brave_cookie.state)
 
         else:
@@ -132,12 +136,17 @@ def handle_events():
             ginger_brave_cookie.handle_events(event)
 
 def update():
-    global brave_cookie, ginger_brave_cookie, nomal_fork, nomal_thorn, special_fork, double_thorn, w_len, board
+    global brave_cookie, ginger_brave_cookie, nomal_fork, nomal_thorn, special_fork, double_thorn, w_len, board, item_jelly
     w_len += 1
 
     frame_time = get_frame_time()
     brave_cookie.update()
     ginger_brave_cookie.update()
+
+    for item in item_jelly:
+        item.update(frame_time)
+        if collide(brave_cookie, item):
+            item_jelly.remove(item)
 
     for Fork in nomal_fork:
         Fork.update(frame_time)
@@ -169,9 +178,11 @@ def update():
         game_framework.change_state(main_state3)
 
 def draw():
-    global brave_cookie, ginger_brave_cookie, background, nomal_fork, nomal_thorn, special_fork, double_thorn, board
+    global brave_cookie, ginger_brave_cookie, background, nomal_fork, nomal_thorn, special_fork, double_thorn, board, item_jelly
     clear_canvas()
     background.draw()
+    for item in item_jelly:
+        item.draw()
 
     for Fork in nomal_fork:
         Fork.draw()

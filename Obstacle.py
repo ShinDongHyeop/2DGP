@@ -151,7 +151,6 @@ class Stage1_Nomal_Fork:
     def __init__(self):
         self.x = 0
         self.y = 0
-        self.collision_time = 0
         if Stage1_Nomal_Fork.image == None:
             self.Fork = load_image('Resource\\Map\\Stage1\\Stage1_Fork.png')
 
@@ -174,7 +173,6 @@ class Stage1_Nomal_Fork:
         if Stage1_SPEED.RUN_SPEED_PPS * frame_time < 12:
             self.distance = Stage1_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
-            self.collision_time = 0
 
     def draw(self):
         self.Fork.draw(self.x, self.y)
@@ -369,7 +367,7 @@ class Stage2_Brown_Spear:
         return obstacle
 
     def update(self, frame_time):
-        if Stage2_SPEED.RUN_SPEED_PPS * frame_time < 18:
+        if Stage2_SPEED.RUN_SPEED_PPS * frame_time > 18:
             self.distance = Stage2_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
 

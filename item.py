@@ -34,8 +34,8 @@ class Stage1_Item_Jelly:
     image = None
 
     def __init__(self):
-        self.x = 0
-        self.y = 0
+        self.x = random.randint(300, 8700)
+        self.y = random.randint(170, 300)
         self.collision_time = 0
         if Stage1_Item_Jelly.image == None:
             self.Item_Jelly = load_image('Resource\\Item\\item_Jelly.png')
@@ -44,7 +44,6 @@ class Stage1_Item_Jelly:
         if Stage1_SPEED.RUN_SPEED_PPS * frame_time < 12:
             self.distance = Stage1_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
-            self.collision_time = 0
 
     def draw(self):
         self.Item_Jelly.draw(self.x, self.y)

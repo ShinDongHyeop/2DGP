@@ -35,16 +35,13 @@ class Brave_Cookie:
         if self.map_size > 1550:
             self.map_size = 0
 
-        if self.state == "Jump":
-            self.gravity()
+        self.gravity()
         if self.state == "Run":
             self.frame = (self.frame + 1) % 6
         elif self.state == "Dead":
             self.frame = (self.frame + 1) % 4
         elif self.state == "Jump" and self.y <= 210:
             self.state = "Run"
-        elif self.state == "Jump" and self.state == "Slide":
-            self.frame = 0
 
         if self.state == "Jump" and (self.map_size >= 1440 and self.map_size <= 1550):
             if (self.y - 40 - self.jump_gravity) > 210:
@@ -53,8 +50,9 @@ class Brave_Cookie:
             else:
                 self.y = 250
                 self.jump_gravity = 0
-                self.state = "Run"
         print("map_size : ", self.map_size)
+
+    #def climb(self):
 
     def gravity(self):
         if (self.y - 40 - self.jump_gravity) > 160:
