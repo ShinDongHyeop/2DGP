@@ -36,7 +36,6 @@ class Stage1_Item_Jelly:
     def __init__(self):
         self.x = random.randint(300, 8700)
         self.y = random.randint(170, 300)
-        self.collision_time = 0
         if Stage1_Item_Jelly.image == None:
             self.Item_Jelly = load_image('Resource\\Item\\item_Jelly.png')
 
@@ -47,6 +46,29 @@ class Stage1_Item_Jelly:
 
     def draw(self):
         self.Item_Jelly.draw(self.x, self.y)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 20, self.y - 20, self.x + 20, self.y + 20
+
+class Stage1_Hp_Jelly:
+    image = None
+
+    def __init__(self):
+        self.x = 0
+        self.y = 0
+        if Stage1_Hp_Jelly.image == None:
+            self.Hp_Jelly = load_image('Resource\\Item\\hp_jelly.png')
+
+    def update(self, frame_time):
+        if Stage1_SPEED.RUN_SPEED_PPS * frame_time < 12:
+            self.distance = Stage1_SPEED.RUN_SPEED_PPS * frame_time
+            self.x -= self.distance
+
+    def draw(self):
+        self.Hp_Jelly.draw(self.x, self.y)
 
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
