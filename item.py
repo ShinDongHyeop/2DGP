@@ -59,7 +59,6 @@ class Stage1_Item_Jelly:
     def get_bb(self):
         return self.x - 20, self.y - 20, self.x + 20, self.y + 20
 
-
 class Stage1_Hp_Jelly:
     image = None
 
