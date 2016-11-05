@@ -1,0 +1,6 @@
+{
+    "hp_jelly1"   : {"state" : "Hp", "x"  : 3700, "y" : 300},
+    "hp_jelly2"   : {"state" : "Hp", "x"  : 8100, "y" : 170},
+    "hp_jelly3"   : {"state" : "Hp", "x"  : 10500, "y" : 250},
+    "hp_jelly4"   : {"state" : "Hp", "x"  : 10500, "y" : 170}
+}
