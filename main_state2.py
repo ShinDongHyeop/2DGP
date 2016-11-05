@@ -202,23 +202,23 @@ def draw():
 
     for item in score_jelly:
         item.draw()
-        item.draw_bb()
+        #item.draw_bb()
     for item in hp_jelly:
         item.draw()
-        item.draw_bb()
+        #item.draw_bb()
 
     for Spear in brown_spear:
         Spear.draw()
-        Spear.draw_bb()
+        #Spear.draw_bb()
     for Spear in oatmeal_spear:
         Spear.draw()
-        Spear.draw_bb()
+        #Spear.draw_bb()
     for Thorn in thorns:
         Thorn.draw()
-        Thorn.draw_bb()
+        #Thorn.draw_bb()
     for Thorn in nasty_thorn:
         Thorn.draw()
-        Thorn.draw_bb()
+        #Thorn.draw_bb()
 
     for foothold in board:
         foothold.draw()

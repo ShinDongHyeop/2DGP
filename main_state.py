@@ -206,28 +206,27 @@ def draw():
 
     for item in score_jelly:
         item.draw()
-        item.draw_bb()
-
+        #item.draw_bb()
     for item in hp_jelly:
         item.draw()
-        item.draw_bb()
+        #item.draw_bb()
 
     for Fork in nomal_fork:
         Fork.draw()
-        Fork.draw_bb()
+        #Fork.draw_bb()
     for Fork in special_fork:
         Fork.draw()
-        Fork.draw_bb()
+        #Fork.draw_bb()
     for Thorn in nomal_thorn:
         Thorn.draw()
-        Thorn.draw_bb()
+        #Thorn.draw_bb()
     for Thorn in double_thorn:
         Thorn.draw()
-        Thorn.draw_bb()
+        #Thorn.draw_bb()
 
     for item in hp_jelly:
         item.draw()
-        item.draw_bb()
+        #item.draw_bb()
 
     for foothold in board:
         foothold.draw()
