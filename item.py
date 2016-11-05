@@ -20,6 +20,17 @@ score_jelly_data2 = open('Stage_Data\\Stage2_Score_Jelly.txt', 'r')
 score_jelly2 = json.load(score_jelly_data2)
 score_jelly_data2.close()
 
+############################ Stage2 Item ###################################
+
+hp_jelly_data3 = open('Stage_Data\\Stage3_Hp_Jelly.txt', 'r')
+hp_jelly3 = json.load(hp_jelly_data3)
+hp_jelly_data3.close()
+
+score_jelly_data3 = open('Stage_Data\\Stage3_Score_Jelly.txt', 'r')
+score_jelly3 = json.load(score_jelly_data3)
+score_jelly_data3.close()
+
+############################ Stage3 Item ###################################
 class Stage1_SPEED:
 
     PIXEL_PER_METER = (10.0 / 0.3)
@@ -206,7 +217,7 @@ class Stage2_Hp_Jelly:
     def get_bb(self):
         return self.x - 20, self.y - 20, self.x + 20, self.y + 20
 
-'''
+
 class Stage3_Score_Jelly:
     image = None
 
@@ -221,8 +232,24 @@ class Stage3_Score_Jelly:
             self.distance = Stage3_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
 
+    def create(self):
+        score_state_table = {
+            "Jelly" : self.Score_Jelly
+        }
+
+        score = []
+        for name in score_jelly3:
+            item = Stage3_Score_Jelly()
+            item.name = name
+            item.x = score_jelly3[name]['x']
+            item.y = score_jelly3[name]['y']
+            item.state = score_state_table[score_jelly3[name]['state']]
+            score.append(item)
+
+        return score
+
     def draw(self):
-        self.Item_Jelly.draw(self.x, self.y)
+        self.Score_Jelly.draw(self.x, self.y)
 
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
@@ -269,6 +296,7 @@ class Stage3_Hp_Jelly:
     def get_bb(self):
         return self.x - 20, self.y - 20, self.x + 20, self.y + 20
 
+'''
 class Stage4_Score_Jelly:
     image = None
 

@@ -7,6 +7,7 @@ from pico2d import *
 from cookie import *
 from map import *
 from obstacle import *
+from item import *
 import game_framework
 import title_state
 import main_state
@@ -45,7 +46,8 @@ def get_frame_time():
     return frame_time
 
 def enter():
-    global brave_cookie, ginger_brave_cookie, background, palm_tree, hate_palm_tree, fence, conch, board, w_len, start
+    global brave_cookie, ginger_brave_cookie, background, palm_tree, hate_palm_tree, fence, conch, board, w_len, start, \
+            score_jelly, hp_jelly
     brave_cookie = Brave_Cookie("Run")
     ginger_brave_cookie = Ginger_Brave_Cookie("Run")
     background = Stage3_Background()
@@ -54,15 +56,27 @@ def enter():
     fence = Stage3_Fence().create()
     conch = Stage3_Conch().create()
     board = Stage2_Board().create()
+    score_jelly = Stage2_Score_Jelly().create()
+    hp_jelly = Stage2_Hp_Jelly().create()
     w_len = 0
     start = time.time()
 
 def exit():
-    global brave_cookie, ginger_brave_cookie, background, palm_tree, hate_palm_tree, fence, conch, board, start, end
+    global brave_cookie, ginger_brave_cookie, background, palm_tree, hate_palm_tree, fence, conch, board, start, end, \
+        score_jelly, hp_jelly
     del(brave_cookie)
     del(ginger_brave_cookie)
     del(background)
 
+    for item in score_jelly:
+        score_jelly.remove(item)
+        del(item)
+    del(score_jelly)
+
+    for item in hp_jelly:
+        hp_jelly.remove(item)
+        del(item)
+    del(hp_jelly)
     for Spear in palm_tree:
         palm_tree.remove(Spear)
         del (Spear)
@@ -130,14 +144,22 @@ def handle_events():
             ginger_brave_cookie.handle_events(event)
 
 def update():
-    global brave_cookie, ginger_brave_cookie, palm_tree, hate_palm_tree, fence, conch, w_len, board
+    global brave_cookie, ginger_brave_cookie, palm_tree, hate_palm_tree, fence, conch, w_len, board, \
+            score_jelly, hp_jelly
     w_len += 1
 
     frame_time = get_frame_time()
     brave_cookie.update()
     ginger_brave_cookie.update()
 
-
+    for item in score_jelly:
+        item.update(frame_time)
+        if collide(brave_cookie, item):
+            score_jelly.remove(item)
+    for item in hp_jelly:
+        item.update(frame_time)
+        if collide(brave_cookie, item):
+            hp_jelly.remove(item)
 
     for Spear in palm_tree:
         Spear.update(frame_time)
@@ -169,22 +191,30 @@ def update():
         game_framework.change_state(main_state4)
 
 def draw():
-    global brave_cookie, ginger_brave_cookie, background, palm_tree, hate_palm_tree, fence, conch, board
+    global brave_cookie, ginger_brave_cookie, background, palm_tree, hate_palm_tree, fence, conch, board, \
+            score_jelly, hp_jelly
     clear_canvas()
     background.draw()
 
+    for item in score_jelly:
+        item.draw()
+        #item.draw_bb()
+    for item in hp_jelly:
+        item.draw()
+        #item.draw_bb()
+
     for Spear in palm_tree:
         Spear.draw()
-        Spear.draw_bb()
+        #Spear.draw_bb()
     for Spear in hate_palm_tree:
         Spear.draw()
-        Spear.draw_bb()
+        #Spear.draw_bb()
     for Thorn in fence:
         Thorn.draw()
-        Thorn.draw_bb()
+        #Thorn.draw_bb()
     for Thorn in conch:
         Thorn.draw()
-        Thorn.draw_bb()
+        #Thorn.draw_bb()
 
     for foothold in board:
         foothold.draw()
