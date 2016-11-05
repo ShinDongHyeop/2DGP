@@ -367,7 +367,7 @@ class Stage2_Brown_Spear:
         return obstacle
 
     def update(self, frame_time):
-        if Stage2_SPEED.RUN_SPEED_PPS * frame_time > 18:
+        if Stage2_SPEED.RUN_SPEED_PPS * frame_time < 18:
             self.distance = Stage2_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
 

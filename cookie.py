@@ -9,7 +9,7 @@ class Brave_Cookie:
         self.y = 200
         self.frame = 0
         self.map_size = 0
-        self.hp = 600.0
+        self.hp = 400.0
         self.jump = 0
         self.jump_gravity = 0
         self.collision_time = 0

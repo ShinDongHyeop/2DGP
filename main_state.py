@@ -48,7 +48,9 @@ def get_frame_time():
     return frame_time
 
 def enter():
-    global brave_cookie, ginger_brave_cookie, background, nomal_fork, nomal_thorn, special_fork, double_thorn,  w_len, board, start, item_jelly, hp_jelly
+    global brave_cookie, ginger_brave_cookie, background, nomal_fork, nomal_thorn, special_fork, double_thorn,  w_len, board,\
+            start, score_jelly, hp_jelly
+
     brave_cookie = Brave_Cookie("Run")
     ginger_brave_cookie = Ginger_Brave_Cookie("Run")
     background = Stage1_Background()
@@ -57,17 +59,28 @@ def enter():
     nomal_thorn = Stage1_Nomal_Thorn().create()
     special_fork = Stage1_Special_Fork().create()
     double_thorn = Stage1_Double_Thorn().create()
-    item_jelly = [Stage1_Item_Jelly() for i in range(100)]
+    score_jelly = Stage1_Score_Jelly().create()
     hp_jelly = Stage1_Hp_Jelly().create()
+
     w_len = 0
     start = time.time()
 
 def exit():
-    global brave_cookie, ginger_brave_cookie, background, nomal_fork, nomal_thorn, special_fork, double_thorn, board, start, item_jelly, hp_jelly
+    global brave_cookie, ginger_brave_cookie, background, nomal_fork, nomal_thorn, special_fork, double_thorn, board, start, \
+            score_jelly, hp_jelly
     del(brave_cookie)
     del(ginger_brave_cookie)
     del(background)
-    del(item_jelly)
+
+    for item in score_jelly:
+        score_jelly.remove(item)
+        del(item)
+    del(score_jelly)
+
+    for item in hp_jelly:
+        hp_jelly.remove(item)
+        del(item)
+    del(hp_jelly)
 
     for fork in nomal_fork:
         nomal_fork.remove(fork)
@@ -138,17 +151,18 @@ def handle_events():
             ginger_brave_cookie.handle_events(event)
 
 def update():
-    global brave_cookie, ginger_brave_cookie, nomal_fork, nomal_thorn, special_fork, double_thorn, w_len, board, item_jelly, hp_jelly
+    global brave_cookie, ginger_brave_cookie, nomal_fork, nomal_thorn, special_fork, double_thorn, w_len, board, \
+            score_jelly, hp_jelly
     w_len += 1
 
     frame_time = get_frame_time()
     brave_cookie.update()
     ginger_brave_cookie.update()
 
-    for item in item_jelly:
+    for item in score_jelly:
         item.update(frame_time)
         if collide(brave_cookie, item):
-            item_jelly.remove(item)
+            score_jelly.remove(item)
 
     for item in hp_jelly:
         item.update(frame_time)
@@ -185,13 +199,18 @@ def update():
         game_framework.change_state(main_state3)
 
 def draw():
-    global brave_cookie, ginger_brave_cookie, background, nomal_fork, nomal_thorn, special_fork, double_thorn, board, item_jelly, hp_jelly
+    global brave_cookie, ginger_brave_cookie, background, nomal_fork, nomal_thorn, special_fork, double_thorn, board, \
+            score_jelly, hp_jelly
     clear_canvas()
     background.draw()
-    for item in item_jelly:
+
+    for item in score_jelly:
         item.draw()
         item.draw_bb()
 
+    for item in hp_jelly:
+        item.draw()
+        item.draw_bb()
 
     for Fork in nomal_fork:
         Fork.draw()
