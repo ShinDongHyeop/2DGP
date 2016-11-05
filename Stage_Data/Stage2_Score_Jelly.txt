@@ -295,8 +295,6 @@
     "jelly314" : {"state" : "Jelly", "x" : 15600, "y" : 170},
     "jelly315" : {"state" : "Jelly", "x" : 15650, "y" : 250},
     "jelly316" : {"state" : "Jelly", "x" : 15650, "y" : 170},
-    "jelly317" : {"state" : "Jelly", "x" : 15700, "y" : 250},
-    "jelly318" : {"state" : "Jelly", "x" : 15700, "y" : 170},
     "jelly319" : {"state" : "Jelly", "x" : 15750, "y" : 250},
     "jelly320" : {"state" : "Jelly", "x" : 15750, "y" : 170},
     "jelly321" : {"state" : "Jelly", "x" : 15800, "y" : 250},
