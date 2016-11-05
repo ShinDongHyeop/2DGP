@@ -7,6 +7,7 @@ from pico2d import *
 from cookie import *
 from map import *
 from obstacle import *
+from item import *
 import game_framework
 import title_state
 import main_state
@@ -45,7 +46,8 @@ def get_frame_time():
     return frame_time
 
 def enter():
-    global brave_cookie, ginger_brave_cookie, background, brown_spear, oatmeal_spear, thorns, nasty_thorn, w_len, board, start
+    global brave_cookie, ginger_brave_cookie, background, brown_spear, oatmeal_spear, thorns, nasty_thorn, w_len, board, start, \
+            score_jelly, hp_jelly
     brave_cookie = Brave_Cookie("Run")
     ginger_brave_cookie = Ginger_Brave_Cookie("Run")
     background = Stage2_Background()
@@ -54,14 +56,28 @@ def enter():
     oatmeal_spear = Stage2_Oatmeal_Spear().create()
     thorns = Stage2_Thorn().create()
     nasty_thorn = Stage2_Nasty_Thorn().create()
+    score_jelly = Stage2_Score_Jelly().create()
+    hp_jelly = Stage2_Hp_Jelly().create()
+
     w_len = 0
     start = time.time()
 
 def exit():
-    global brave_cookie, ginger_brave_cookie, background, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, start, end
+    global brave_cookie, ginger_brave_cookie, background, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, start, end, \
+            score_jelly, hp_jelly
     del(brave_cookie)
     del(ginger_brave_cookie)
     del(background)
+
+    for item in score_jelly:
+        score_jelly.remove(item)
+        del(item)
+    del(score_jelly)
+
+    for item in hp_jelly:
+        hp_jelly.remove(item)
+        del(item)
+    del(hp_jelly)
 
     for spear in brown_spear:
         brown_spear.remove(spear)
@@ -130,12 +146,22 @@ def handle_events():
             ginger_brave_cookie.handle_events(event)
 
 def update():
-    global brave_cookie, ginger_brave_cookie, brown_spear, oatmeal_spear, thorns, nasty_thorn, w_len, board
+    global brave_cookie, ginger_brave_cookie, brown_spear, oatmeal_spear, thorns, nasty_thorn, w_len, board, \
+            score_jelly, hp_jelly
     w_len += 1
 
     brave_cookie.update()
     ginger_brave_cookie.update()
     frame_time = get_frame_time()
+
+    for item in score_jelly:
+        item.update(frame_time)
+        if collide(brave_cookie, item):
+            score_jelly.remove(item)
+    for item in hp_jelly:
+        item.update(frame_time)
+        if collide(brave_cookie, item):
+            hp_jelly.remove(item)
 
     for Spear in brown_spear:
         Spear.update(frame_time)
@@ -168,9 +194,18 @@ def update():
 
 
 def draw():
-    global brave_cookie, background, brown_spear, oatmeal_spear, thorns, nasty_thorn,board
+    global brave_cookie, background, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, \
+        score_jelly, hp_jelly
+
     clear_canvas()
     background.draw()
+
+    for item in score_jelly:
+        item.draw()
+        item.draw_bb()
+    for item in hp_jelly:
+        item.draw()
+        item.draw_bb()
 
     for Spear in brown_spear:
         Spear.draw()
