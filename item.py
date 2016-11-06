@@ -2,6 +2,8 @@ import random
 import json
 from pico2d import *
 
+
+############################ Stage1 Item ###################################
 hp_jelly_data1 = open('Stage_Data\\Stage1_Hp_Jelly.txt', 'r')
 hp_jelly = json.load(hp_jelly_data1)
 hp_jelly_data1.close()
@@ -10,8 +12,7 @@ score_jelly_data1 = open('Stage_Data\\Stage1_Score_Jelly.txt', 'r')
 score_jelly = json.load(score_jelly_data1)
 score_jelly_data1.close()
 
-############################ Stage1 Item ###################################
-
+############################ Stage2 Item ###################################
 hp_jelly_data2 = open('Stage_Data\\Stage2_Hp_Jelly.txt', 'r')
 hp_jelly2 = json.load(hp_jelly_data2)
 hp_jelly_data2.close()
@@ -20,8 +21,7 @@ score_jelly_data2 = open('Stage_Data\\Stage2_Score_Jelly.txt', 'r')
 score_jelly2 = json.load(score_jelly_data2)
 score_jelly_data2.close()
 
-############################ Stage2 Item ###################################
-
+############################ Stage3 Item ###################################
 hp_jelly_data3 = open('Stage_Data\\Stage3_Hp_Jelly.txt', 'r')
 hp_jelly3 = json.load(hp_jelly_data3)
 hp_jelly_data3.close()
@@ -30,7 +30,15 @@ score_jelly_data3 = open('Stage_Data\\Stage3_Score_Jelly.txt', 'r')
 score_jelly3 = json.load(score_jelly_data3)
 score_jelly_data3.close()
 
-############################ Stage3 Item ###################################
+############################ Stage4 Item ###################################
+hp_jelly_data4 = open('Stage_Data\\Stage4_Hp_Jelly.txt', 'r')
+hp_jelly4 = json.load(hp_jelly_data4)
+hp_jelly_data4.close()
+
+score_jelly_data4 = open('Stage_Data\\Stage4_Score_Jelly.txt', 'r')
+score_jelly4 = json.load(score_jelly_data4)
+score_jelly_data4.close()
+
 class Stage1_SPEED:
 
     PIXEL_PER_METER = (10.0 / 0.3)
@@ -296,7 +304,7 @@ class Stage3_Hp_Jelly:
     def get_bb(self):
         return self.x - 20, self.y - 20, self.x + 20, self.y + 20
 
-'''
+
 class Stage4_Score_Jelly:
     image = None
 
@@ -306,13 +314,29 @@ class Stage4_Score_Jelly:
         if Stage4_Score_Jelly.image == None:
             self.Score_Jelly = load_image('Resource\\Item\\item_Jelly.png')
 
+    def create(self):
+        score_state_table = {
+            "Jelly" : self.Score_Jelly
+        }
+
+        score = []
+        for name in score_jelly4:
+            item = Stage4_Score_Jelly()
+            item.name = name
+            item.x = score_jelly4[name]['x']
+            item.y = score_jelly4[name]['y']
+            item.state = score_state_table[score_jelly4[name]['state']]
+            score.append(item)
+
+        return score
+
     def update(self, frame_time):
         if Stage4_SPEED.RUN_SPEED_PPS * frame_time < 24:
             self.distance = Stage4_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
 
     def draw(self):
-        self.Item_Jelly.draw(self.x, self.y)
+        self.Score_Jelly.draw(self.x, self.y)
 
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
@@ -346,7 +370,7 @@ class Stage4_Hp_Jelly:
         return hp
 
     def update(self, frame_time):
-        if Stage4_SPEED.RUN_SPEED_PPS * frame_time < 12:
+        if Stage4_SPEED.RUN_SPEED_PPS * frame_time < 24:
             self.distance = Stage4_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
 
@@ -358,4 +382,3 @@ class Stage4_Hp_Jelly:
 
     def get_bb(self):
         return self.x - 20, self.y - 20, self.x + 20, self.y + 20
-'''
