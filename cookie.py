@@ -12,7 +12,6 @@ class Brave_Cookie:
         self.hp = 400.0
         self.jump = 0
         self.jump_gravity = 0
-        self.collision_time = 0
         self.state = state
         self.state = "Run"
 
@@ -31,7 +30,6 @@ class Brave_Cookie:
     def update(self):
         self.map_size += 1
         self.hp -= 0.01
-
         if self.map_size > 1550:
             self.map_size = 0
 
@@ -122,6 +120,7 @@ class Ginger_Brave_Cookie:
         self.y = 200
         self.frame = 0
         self.map_size = 0
+        self.hp = 400.0
         self.jump = 0
         self.jump_gravity = 0
         self.state = state
@@ -138,6 +137,7 @@ class Ginger_Brave_Cookie:
 
     def update(self):
         self.map_size += 1
+        self.hp -= 0.01
 
         if self.map_size > 1550:
             self.map_size = 0
