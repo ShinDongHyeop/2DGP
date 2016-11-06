@@ -56,8 +56,8 @@ def enter():
     fence = Stage3_Fence().create()
     conch = Stage3_Conch().create()
     board = Stage2_Board().create()
-    score_jelly = Stage2_Score_Jelly().create()
-    hp_jelly = Stage2_Hp_Jelly().create()
+    score_jelly = Stage3_Score_Jelly().create()
+    hp_jelly = Stage3_Hp_Jelly().create()
     w_len = 0
     start = time.time()
 
@@ -72,26 +72,23 @@ def exit():
         score_jelly.remove(item)
         del(item)
     del(score_jelly)
-
     for item in hp_jelly:
         hp_jelly.remove(item)
         del(item)
     del(hp_jelly)
+
     for Spear in palm_tree:
         palm_tree.remove(Spear)
         del (Spear)
     del (palm_tree)
-
     for Spear in hate_palm_tree:
         hate_palm_tree.remove(Spear)
         del (Spear)
     del (hate_palm_tree)
-
     for Thorn in fence:
         fence.remove(Thorn)
         del(Thorn)
     del (fence)
-
     for Thorn in conch:
         conch.remove(Thorn)
         del (Thorn)
@@ -193,6 +190,7 @@ def update():
 def draw():
     global brave_cookie, ginger_brave_cookie, background, palm_tree, hate_palm_tree, fence, conch, board, \
             score_jelly, hp_jelly
+
     clear_canvas()
     background.draw()
 
