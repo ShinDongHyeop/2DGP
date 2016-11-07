@@ -1,5 +1,6 @@
 from pico2d import *
 import game_framework
+import title_state
 
 class Brave_Cookie:
     image = None
@@ -25,11 +26,14 @@ class Brave_Cookie:
             self.Brave_Cookie_hp = load_image('Resource\\Item\\hp.png')
 
     def bump(self):
-        self.hp -= 5
+        self.hp -= 40
+
+    def heal(self):
+        self.hp += 60
 
     def update(self):
         self.map_size += 1
-        self.hp -= 0.01
+        self.hp -= 0.1
         if self.map_size > 1550:
             self.map_size = 0
 
@@ -131,13 +135,17 @@ class Ginger_Brave_Cookie:
             self.Ginger_Brave_Cookie_dead = load_image('Resource\\Character2\\Cookie2_Dead.png')
             self.Ginger_Brave_Cookie_slide = load_image('Resource\\Character2\\Cookie2_Slide.png')
             self.Ginger_Brave_Cookie_jump = load_image('Resource\\Character2\\Cookie2_Jump.png')
+            self.Ginger_Brave_Cookie_hp = load_image('Resource\\Item\\hp.png')
 
-    def __del__(self):
-        pass
+    def bump(self):
+        self.hp -= 40
+
+    def heal(self):
+        self.hp += 60
 
     def update(self):
         self.map_size += 1
-        self.hp -= 0.01
+        self.hp -= 0.1
 
         if self.map_size > 1550:
             self.map_size = 0
@@ -177,7 +185,7 @@ class Ginger_Brave_Cookie:
             self.Ginger_Brave_Cookie_slide.clip_draw(self.frame * 69, 0, 69, 69, self.x, self.y - 30)
         elif self.state == "Jump":
             self.Ginger_Brave_Cookie_jump.clip_draw(self.frame * 51, 0, 51, 100, self.x, self.y)
-
+        self.Ginger_Brave_Cookie_hp.draw_to_origin(0, 500, self.hp, 50)
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
 

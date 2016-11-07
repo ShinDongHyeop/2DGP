@@ -168,6 +168,7 @@ def update():
         item.update(frame_time)
         if collide(brave_cookie, item):
             hp_jelly.remove(item)
+            brave_cookie.heal()
 
     for Fork in nomal_fork:
         Fork.update(frame_time)
