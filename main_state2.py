@@ -137,9 +137,9 @@ def handle_events():
             game_framework.change_state(main_state4)
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-            if brave_cookie == Brave_Cookie:
+            if type(brave_cookie) == Brave_Cookie:
                 brave_cookie = Ginger_Brave_Cookie(brave_cookie.state)
-            elif brave_cookie == Ginger_Brave_Cookie:
+            elif type(brave_cookie) == Ginger_Brave_Cookie:
                 brave_cookie = Brave_Cookie(brave_cookie.state)
         else:
             brave_cookie.handle_events(event)
@@ -162,6 +162,7 @@ def update():
         item.update(frame_time)
         if collide(brave_cookie, item):
             hp_jelly.remove(item)
+            brave_cookie.heal()
 
     for Spear in brown_spear:
         Spear.update(frame_time)
