@@ -157,6 +157,7 @@ def update():
         item.update(frame_time)
         if collide(brave_cookie, item):
             hp_jelly.remove(item)
+            brave_cookie.heal()
 
     for Spear in palm_tree:
         Spear.update(frame_time)
