@@ -172,24 +172,20 @@ def update():
 
     for Fork in nomal_fork:
         Fork.update(frame_time)
-        if collide(brave_cookie, Fork):
-            brave_cookie.bump()
-            nomal_fork.remove(Fork)
+        if collide(brave_cookie, Fork) and brave_cookie.state != "Collide":
+            brave_cookie.bump("Collide")
     for Fork in special_fork:
         Fork.update(frame_time)
-        if collide(brave_cookie, Fork):
-            brave_cookie.bump()
-            special_fork.remove(Fork)
+        if collide(brave_cookie, Fork) and brave_cookie.state != "Collide":
+            brave_cookie.bump("Collide")
     for Thorn in nomal_thorn:
         Thorn.update(frame_time)
-        if collide(brave_cookie, Thorn):
-            brave_cookie.bump()
-            nomal_thorn.remove(Thorn)
+        if collide(brave_cookie, Thorn) and brave_cookie.state != "Collide":
+            brave_cookie.bump("Collide")
     for Thorn in double_thorn:
         Thorn.update(frame_time)
-        if collide(brave_cookie, Thorn):
-            brave_cookie.bump()
-            double_thorn.remove(Thorn)
+        if collide(brave_cookie, Thorn) and brave_cookie.state != "Collide":
+            brave_cookie.bump("Collide")
 
     for foothold in board:
         foothold.update(frame_time)
@@ -233,7 +229,7 @@ def draw():
         foothold.draw()
 
     brave_cookie.draw()
-    brave_cookie.draw_bb()
+#    brave_cookie.draw_bb()
 
     delay(0.03)
     update_canvas()
