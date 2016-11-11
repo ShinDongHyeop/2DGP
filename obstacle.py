@@ -268,6 +268,8 @@ class Stage1_Double_Thorn:
     def __init__(self):
         self.x = 0
         self.y = 0
+        self.state = "None"
+        self.collision_time = 0
         if Stage1_Double_Thorn.image == None:
             self.Thorn = load_image('Resource\\Map\\Stage1\\Stage1_thorn2.png')
 
@@ -287,10 +289,24 @@ class Stage1_Double_Thorn:
 
         return obstacle
 
+    def bump(self, state):
+        self.state = state
+
+        if self.collision_time < 3:
+            self.state = "Collide"
+            self.collision_time += 1
+            self.distance = 0
+        else:
+            self.state = "None"
+            self.collision_time = 0
+
     def update(self, frame_time):
-        if Stage1_SPEED.RUN_SPEED_PPS * frame_time < 12:
+        if Stage1_SPEED.RUN_SPEED_PPS * frame_time < 12 and self.state != "Collide":
             self.distance = Stage1_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
+
+        elif Stage1_SPEED.RUN_SPEED_PPS * frame_time < 12 and self.state == "Collide":
+            self.bump("Collide")
 
     def draw(self):
         self.Thorn.draw(self.x, self.y)

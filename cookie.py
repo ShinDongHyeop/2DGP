@@ -28,12 +28,12 @@ class Brave_Cookie:
 
     def bump(self, state):
         self.state = state
-        self.state = "Collide"
         self.hp -= 40
         if self.collision_time < 3:
             self.state = "Collide"
             self.collision_time += 1
             self.map_size += 0
+
         else:
             self.state = "Run"
             self.collision_time = 0

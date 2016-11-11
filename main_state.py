@@ -186,6 +186,7 @@ def update():
         Thorn.update(frame_time)
         if collide(brave_cookie, Thorn) and brave_cookie.state != "Collide":
             brave_cookie.bump("Collide")
+            Thorn.bump("Collide")
 
     for foothold in board:
         foothold.update(frame_time)
