@@ -53,7 +53,7 @@ def enter():
 
     brave_cookie = Brave_Cookie("Run")
     ginger_brave_cookie = Ginger_Brave_Cookie("Run")
-    background = Stage1_Background()
+    background = Stage1_Background(800, 600)
     board = Stage1_Board().create()
     nomal_fork = Stage1_Nomal_Fork().create()
     nomal_thorn = Stage1_Nomal_Thorn().create()
@@ -156,6 +156,7 @@ def update():
     frame_time = get_frame_time()
     brave_cookie.update()
     ginger_brave_cookie.update()
+    background.update(frame_time)
 
     for item in score_jelly:
         item.update(frame_time)
