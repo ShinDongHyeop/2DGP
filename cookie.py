@@ -30,7 +30,6 @@ class Brave_Cookie:
         self.state = state
         self.hp -= 40
         if self.collision_time < 3:
-            self.state = "Collide"
             self.collision_time += 1
             self.map_size += 0
 
@@ -140,6 +139,7 @@ class Ginger_Brave_Cookie:
         self.hp = 400.0
         self.jump = 0
         self.jump_gravity = 0
+        self.collision_time = 0
         self.state = state
         self.state = "Run"
 
@@ -148,31 +148,43 @@ class Ginger_Brave_Cookie:
             self.Ginger_Brave_Cookie_dead = load_image('Resource\\Character2\\Cookie2_Dead.png')
             self.Ginger_Brave_Cookie_slide = load_image('Resource\\Character2\\Cookie2_Slide.png')
             self.Ginger_Brave_Cookie_jump = load_image('Resource\\Character2\\Cookie2_Jump.png')
+            self.Ginger_Brave_Cookie_collide = load_image('Resource\\Character2\\Cookie2_Collide.png')
             self.Ginger_Brave_Cookie_hp = load_image('Resource\\Item\\hp.png')
 
-    def bump(self):
+    def bump(self, state):
+        self.state = state
         self.hp -= 40
+        if self.collision_time < 3:
+            self.collision_time += 1
+            self.map_size += 0
+
+        else:
+            self.state = "Run"
+            self.collision_time = 0
 
     def heal(self):
         self.hp += 60
 
     def update(self):
-        self.map_size += 1
         self.hp -= 0.1
 
         if self.map_size > 1550:
             self.map_size = 0
 
-        if self.state == "Jump":
-            self.gravity()
+
+        self.gravity()
         if self.state == "Run":
+            self.map_size += 1
             self.frame = (self.frame + 1) % 3
         elif self.state == "Dead":
             self.frame = (self.frame + 1) % 2
         elif self.state == "Jump" and self.y <= 210:
             self.state = "Run"
-        elif self.state == "Slide":
+        elif self.state == "Slide" or self.state == "Jump":
+            self.map_size += 1
             self.frame = 0
+        elif self.state == "Collide":
+            self.bump("Collide")
 
         if self.state == "Jump" and (self.map_size >= 1440 and self.map_size <= 1550):
             if (self.y - 40 - self.jump_gravity) > 210:
@@ -181,7 +193,6 @@ class Ginger_Brave_Cookie:
             else:
                 self.y = 250
                 self.jump_gravity = 0
-                self.state = "Run"
 
     def gravity(self):
         if(self.y - 40 - self.jump_gravity) > 160:
@@ -198,7 +209,10 @@ class Ginger_Brave_Cookie:
             self.Ginger_Brave_Cookie_slide.clip_draw(self.frame * 69, 0, 69, 69, self.x, self.y - 30)
         elif self.state == "Jump":
             self.Ginger_Brave_Cookie_jump.clip_draw(self.frame * 51, 0, 51, 100, self.x, self.y)
+        elif self.state == "Collide":
+            self.Ginger_Brave_Cookie_collide.draw(self.x, self.y)
         self.Ginger_Brave_Cookie_hp.draw_to_origin(0, 500, self.hp, 50)
+
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
 
@@ -209,6 +223,8 @@ class Ginger_Brave_Cookie:
             return self.x - 5 , self. y - 50, self.x + 25, self.y - 20
         elif self.state == "Jump":
             return self.x - 15, self. y - 10, self.x + 25, self.y + 10
+        elif self.state == "Collide":
+            return self.x - 0, self. y - 0, self.x + 0, self.y + 0
 
     def handle_events(self, event):
         events = get_events()
