@@ -46,11 +46,13 @@ def get_frame_time():
     return frame_time
 
 def enter():
-    global brave_cookie, ginger_brave_cookie, background, brown_spear, oatmeal_spear, thorns, nasty_thorn, w_len, board, start, \
+    global brave_cookie, ginger_brave_cookie, background, ground, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, start, \
             score_jelly, hp_jelly
+
     brave_cookie = Brave_Cookie("Run")
     ginger_brave_cookie = Ginger_Brave_Cookie("Run")
-    background = Stage2_Background()
+    background = Stage2_Background(800, 600)
+    ground = Stage2_Background(800, 150)
     board = Stage2_Board().create()
     brown_spear = Stage2_Brown_Spear().create()
     oatmeal_spear = Stage2_Oatmeal_Spear().create()
@@ -59,15 +61,15 @@ def enter():
     score_jelly = Stage2_Score_Jelly().create()
     hp_jelly = Stage2_Hp_Jelly().create()
 
-    w_len = 0
     start = time.time()
 
 def exit():
-    global brave_cookie, ginger_brave_cookie, background, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, start, end, \
+    global brave_cookie, ginger_brave_cookie, background, ground, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, start, end, \
             score_jelly, hp_jelly
     del(brave_cookie)
     del(ginger_brave_cookie)
     del(background)
+    del(ground)
 
     for item in score_jelly:
         score_jelly.remove(item)
@@ -146,13 +148,14 @@ def handle_events():
             ginger_brave_cookie.handle_events(event)
 
 def update():
-    global brave_cookie, ginger_brave_cookie, brown_spear, oatmeal_spear, thorns, nasty_thorn, w_len, board, \
+    global brave_cookie, ginger_brave_cookie, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, \
             score_jelly, hp_jelly
-    w_len += 1
 
+    frame_time = get_frame_time()
     brave_cookie.update()
     ginger_brave_cookie.update()
-    frame_time = get_frame_time()
+    background.update(frame_time)
+    ground.update(frame_time)
 
     for item in score_jelly:
         item.update(frame_time)
@@ -166,36 +169,38 @@ def update():
 
     for Spear in brown_spear:
         Spear.update(frame_time)
-        if collide(brave_cookie, Spear):
-            brave_cookie.bump()
-            brown_spear.remove(Spear)
+        if collide(brave_cookie, Spear) and brave_cookie.state != "Collide":
+            brave_cookie.bump("Collide")
     for Spear in oatmeal_spear:
         Spear.update(frame_time)
-        if collide(brave_cookie, Spear):
-            brave_cookie.bump()
-            oatmeal_spear.remove(Spear)
+        if collide(brave_cookie, Spear) and brave_cookie.state != "Collide":
+            brave_cookie.bump("Collide")
     for Thorn in thorns:
         Thorn.update(frame_time)
-        if collide(brave_cookie, Thorn):
-            brave_cookie.bump()
-            thorns.remove(Thorn)
+        if collide(brave_cookie, Thorn) and brave_cookie.state != "Collide":
+            brave_cookie.bump("Collide")
     for Thorn in nasty_thorn:
         Thorn.update(frame_time)
-        if collide(brave_cookie, Thorn):
-            brave_cookie.bump()
-            nasty_thorn.remove(Thorn)
+        if collide(brave_cookie, Thorn) and brave_cookie.state != "Collide":
+            brave_cookie.bump("Collide")
 
     for foothold in board:
         foothold.update(frame_time)
 
-    if w_len == 1550 and brave_cookie.y == 200:
+    if brave_cookie.hp <= 0:
+        brave_cookie.map_size += 0
+        print(brave_cookie.map_size)
+        brave_cookie = ginger_brave_cookie
+
+    if brave_cookie.map_size == 1550 and brave_cookie.y == 200:
         game_framework.change_state(main_state3)
-    elif w_len == 1550 and brave_cookie.y == 250:
+    elif brave_cookie.map_size == 1550 and brave_cookie.y == 250:
         game_framework.change_state(main_state4)
 
 
+
 def draw():
-    global brave_cookie, background, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, \
+    global brave_cookie, ginger_brave_cookie, background, ground, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, \
         score_jelly, hp_jelly
 
     clear_canvas()
@@ -224,9 +229,8 @@ def draw():
     for foothold in board:
         foothold.draw()
 
-    background.grounddraw()
+    ground.ground_draw()
     brave_cookie.draw()
-    brave_cookie.draw_bb()
 
     delay(0.03)
     update_canvas()

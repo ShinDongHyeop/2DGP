@@ -48,12 +48,13 @@ def get_frame_time():
     return frame_time
 
 def enter():
-    global brave_cookie, ginger_brave_cookie, background, nomal_fork, nomal_thorn, special_fork, double_thorn, board,\
+    global brave_cookie, ginger_brave_cookie, background, ground, nomal_fork, nomal_thorn, special_fork, double_thorn, board,\
             start, score_jelly, hp_jelly
 
     brave_cookie = Brave_Cookie("Run")
     ginger_brave_cookie = Ginger_Brave_Cookie("Run")
     background = Stage1_Background(800, 600)
+    ground = Stage1_Background(800, 150)
     board = Stage1_Board().create()
     nomal_fork = Stage1_Nomal_Fork().create()
     nomal_thorn = Stage1_Nomal_Thorn().create()
@@ -65,11 +66,12 @@ def enter():
     start = time.time()
 
 def exit():
-    global brave_cookie, ginger_brave_cookie, background, nomal_fork, nomal_thorn, special_fork, double_thorn, board, start, \
+    global brave_cookie, ginger_brave_cookie, background, ground, nomal_fork, nomal_thorn, special_fork, double_thorn, board, start, \
             score_jelly, hp_jelly
     del(brave_cookie)
     del(ginger_brave_cookie)
     del(background)
+    del(ground)
 
     for item in score_jelly:
         score_jelly.remove(item)
@@ -150,13 +152,14 @@ def handle_events():
             ginger_brave_cookie.handle_events(event)
 
 def update():
-    global brave_cookie, ginger_brave_cookie, nomal_fork, nomal_thorn, special_fork, double_thorn, board, \
+    global brave_cookie, ginger_brave_cookie, background, ground, nomal_fork, nomal_thorn, special_fork, double_thorn, board, \
             score_jelly, hp_jelly
 
     frame_time = get_frame_time()
     brave_cookie.update()
     ginger_brave_cookie.update()
     background.update(frame_time)
+    ground.update(frame_time)
 
     for item in score_jelly:
         item.update(frame_time)
@@ -185,7 +188,7 @@ def update():
         Thorn.update(frame_time)
         if collide(brave_cookie, Thorn) and brave_cookie.state != "Collide":
             brave_cookie.bump("Collide")
-            Thorn.bump("Collide")
+            #Thorn.bump("Collide")
 
     for foothold in board:
         foothold.update(frame_time)
@@ -201,11 +204,11 @@ def update():
         game_framework.change_state(main_state3)
 
 def draw():
-    global brave_cookie, ginger_brave_cookie, background, nomal_fork, nomal_thorn, special_fork, double_thorn, board, \
+    global brave_cookie, ginger_brave_cookie, background, ground, nomal_fork, nomal_thorn, special_fork, double_thorn, board, \
             score_jelly, hp_jelly
     clear_canvas()
     background.draw()
-
+    ground.ground_draw()
     for item in score_jelly:
         item.draw()
         #item.draw_bb()
