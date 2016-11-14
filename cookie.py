@@ -4,7 +4,8 @@ import title_state
 
 class Brave_Cookie:
     image = None
-
+    score_sound = None
+    hp_sound = None
     def __init__(self, state):
         self.x = 150
         self.y = 200
@@ -25,10 +26,20 @@ class Brave_Cookie:
             self.Brave_Cookie_jump2 = load_image('Resource\\Character1\\cookie_run_jump2.png')
             self.Brave_Cookie_collide = load_image('Resource\\Character1\\cookie_run_collid.png')
             self.Brave_Cookie_hp = load_image('Resource\\Item\\hp.png')
+        if Brave_Cookie.score_sound == None:
+            Brave_Cookie.score_sound = load_wav('Resource\\Sound\\jelly.wav')
+            Brave_Cookie.score_sound.set_volume(32)
+
+        if Brave_Cookie.hp_sound == None:
+            Brave_Cookie.hp_sound = load_wav('Resource\\Sound\\hp_jelly.wav')
+            Brave_Cookie.hp_sound.set_volume(32)
+
+    def score(self, item):
+        self.score_sound.play()
 
     def bump(self, state):
         self.state = state
-        self.hp -= 40
+        #self.hp -= 40
         if self.collision_time < 3:
             self.collision_time += 1
             self.map_size += 0
@@ -37,8 +48,9 @@ class Brave_Cookie:
             self.state = "Run"
             self.collision_time = 0
 
-    def heal(self):
+    def heal(self, item):
         self.hp += 60
+        self.hp_sound.play()
 
     def update(self):
         self.hp -= 0.1
