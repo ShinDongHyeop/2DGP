@@ -46,11 +46,13 @@ def get_frame_time():
     return frame_time
 
 def enter():
-    global brave_cookie, ginger_brave_cookie, background, palm_tree, hate_palm_tree, fence, conch, board, w_len, start, \
+    global brave_cookie, ginger_brave_cookie, background, ground, palm_tree, hate_palm_tree, fence, conch, board, start, \
             score_jelly, hp_jelly
+
     brave_cookie = Brave_Cookie("Run")
     ginger_brave_cookie = Ginger_Brave_Cookie("Run")
-    background = Stage3_Background()
+    background = Stage3_Background(800, 600)
+    ground = Stage3_Background(800, 150)
     palm_tree = Stage3_Palm_Tree().create()
     hate_palm_tree = Stage3_Hate_Palm_Tree().create()
     fence = Stage3_Fence().create()
@@ -58,15 +60,16 @@ def enter():
     board = Stage2_Board().create()
     score_jelly = Stage3_Score_Jelly().create()
     hp_jelly = Stage3_Hp_Jelly().create()
-    w_len = 0
+
     start = time.time()
 
 def exit():
-    global brave_cookie, ginger_brave_cookie, background, palm_tree, hate_palm_tree, fence, conch, board, start, end, \
+    global brave_cookie, ginger_brave_cookie, background, ground, palm_tree, hate_palm_tree, fence, conch, board, start, end, \
         score_jelly, hp_jelly
     del(brave_cookie)
     del(ginger_brave_cookie)
     del(background)
+    del(ground)
 
     for item in score_jelly:
         score_jelly.remove(item)
@@ -141,13 +144,14 @@ def handle_events():
             ginger_brave_cookie.handle_events(event)
 
 def update():
-    global brave_cookie, ginger_brave_cookie, palm_tree, hate_palm_tree, fence, conch, w_len, board, \
+    global brave_cookie, ginger_brave_cookie, background, ground, palm_tree, hate_palm_tree, fence, conch, board, \
             score_jelly, hp_jelly
-    w_len += 1
 
     frame_time = get_frame_time()
     brave_cookie.update()
     ginger_brave_cookie.update()
+    background.update(frame_time)
+    ground.update(frame_time)
 
     for item in score_jelly:
         item.update(frame_time)
@@ -161,39 +165,41 @@ def update():
 
     for Spear in palm_tree:
         Spear.update(frame_time)
-        if collide(brave_cookie, Spear):
-            brave_cookie.bump()
-            palm_tree.remove(Spear)
+        if collide(brave_cookie, Spear) and brave_cookie.state != "Collide":
+            brave_cookie.bump("Collide")
     for Spear in hate_palm_tree:
         Spear.update(frame_time)
-        if collide(brave_cookie, Spear):
-            brave_cookie.bump()
-            hate_palm_tree.remove(Spear)
+        if collide(brave_cookie, Spear) and brave_cookie.state != "Collide":
+            brave_cookie.bump("Collide")
     for thorn in conch:
         thorn.update(frame_time)
-        if collide(brave_cookie, thorn):
-            brave_cookie.bump()
-            conch.remove(thorn)
+        if collide(brave_cookie, thorn) and brave_cookie.state != "Collide":
+            brave_cookie.bump("Collide")
     for Thorn in fence:
         Thorn.update(frame_time)
-        if collide(brave_cookie, Thorn):
-            brave_cookie.bump()
-            fence.remove(Thorn)
+        if collide(brave_cookie, Thorn) and brave_cookie.state != "Collide":
+            brave_cookie.bump("Collide")
 
     for foothold in board:
         foothold.update(frame_time)
 
-    if w_len == 1550 and brave_cookie.y == 200:
+    if brave_cookie.hp <= 0:
+        brave_cookie.map_size += 0
+        print(brave_cookie.map_size)
+        brave_cookie = ginger_brave_cookie
+
+    if brave_cookie.map_size == 1550 and brave_cookie.y == 200:
         game_framework.change_state(main_state2)
-    elif w_len == 1550 and brave_cookie.y == 250:
+    elif brave_cookie.map_size == 1550 and brave_cookie.y == 250:
         game_framework.change_state(main_state4)
 
 def draw():
-    global brave_cookie, ginger_brave_cookie, background, palm_tree, hate_palm_tree, fence, conch, board, \
+    global brave_cookie, ginger_brave_cookie, background, ground, palm_tree, hate_palm_tree, fence, conch, board, \
             score_jelly, hp_jelly
 
     clear_canvas()
     background.draw()
+    ground.ground_draw()
 
     for item in score_jelly:
         item.draw()
