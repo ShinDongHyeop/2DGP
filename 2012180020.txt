@@ -1,0 +1,85 @@
+Tue Nov 15 09:37:25 2016 +0900 Stage2, 3, 4 score sound, hp_jelly sound 추가
+Mon Nov 14 23:32:27 2016 +0900 Stage1 score sound, hp_jelly sound 추가
+Mon Nov 14 23:07:21 2016 +0900 Stage4 Scrolling 구현
+Mon Nov 14 23:07:11 2016 +0900 Stage3 Scrolling 구현
+Sun Nov 13 22:13:08 2016 +0900 Stage2 Scrolling 구현
+Sun Nov 13 00:35:47 2016 +0900 Stage1 Scrolling 구현
+Sat Nov 12 15:11:03 2016 +0900 brave_cookie 사망시 캐릭터 변환
+Sat Nov 12 15:08:04 2016 +0900 Revert "brave"
+Sat Nov 12 15:07:56 2016 +0900 brave
+Sat Nov 12 15:07:52 2016 +0900 ginger_brave_cookie 코드 누락된 부분 수정
+Sat Nov 12 15:07:12 2016 +0900 ginger_brave_cookie collide 이미지 추가
+Fri Nov 11 20:17:49 2016 +0900 장애물 충돌시 장애물이 멈춤
+Thu Nov 10 21:54:50 2016 +0900 충돌시 brave_cookie 이미지 변환과 맵 시간 정지
+Wed Nov 9 22:54:03 2016 +0900 stage 3,4 hp회복 추가
+Tue Nov 8 10:12:32 2016 +0900 Stage2 Hp jelly 습득 시 hp 회복
+Mon Nov 7 22:55:50 2016 +0900 hp 밸런스 조정 및 hp 회복 추가
+Sun Nov 6 16:44:21 2016 +0900 필요없는 변수이름 제거 및 밸런스 조정
+Sun Nov 6 16:43:30 2016 +0900 오타 수정
+Sun Nov 6 16:43:18 2016 +0900 Item 위치 수정
+Sun Nov 6 16:43:07 2016 +0900 Stage4 Score Jelly, Hp Jelly 구현 및 배치 완료
+Sun Nov 6 13:37:43 2016 +0900 Stage4 score jelly draw 완료
+Sun Nov 6 00:24:09 2016 +0900 obstacle draw_bb 제거
+Sun Nov 6 00:23:50 2016 +0900 일부 장애물 위치 수정
+Sun Nov 6 00:23:32 2016 +0900 Stage3 Score Jelly, Hp Jelly 배치 완료
+Sat Nov 5 22:13:37 2016 +0900 Stage2 Score Jelly, Hp Jelly 배치 완료
+Sat Nov 5 18:35:05 2016 +0900 Stage1 Hp Jelly, Score Jelly 배치 완료
+Sat Nov 5 18:34:24 2016 +0900 .
+Sat Nov 5 18:07:27 2016 +0900 Stage1 score jelly, hp jelly 배치 완료
+Fri Nov 4 20:06:09 2016 +0900 stage 2,3,4 item class 추가
+Fri Nov 4 19:05:26 2016 +0900 .
+Thu Nov 3 21:02:29 2016 +0900 Hp_jelly, stage1에 임시 배치 완료
+Wed Nov 2 21:29:34 2016 +0900 item모듈의 Stage1 hp jelly 추가
+Tue Nov 1 13:54:24 2016 +0900 모듈 명 변경
+Tue Nov 1 13:53:38 2016 +0900 .
+Tue Nov 1 13:38:51 2016 +0900 버그 수정
+Mon Oct 31 23:13:11 2016 +0900 Item 모듈 생성 및 Stage1 점수젤리 클래스 생성
+Sun Oct 30 18:29:25 2016 +0900 Stage 2, 3, 4 충돌체크 완료
+Sun Oct 30 17:40:38 2016 +0900 stage2 get_bb 완료
+Sat Oct 29 17:08:21 2016 +0900 Stage4 장애물 배치 완료
+Fri Oct 28 18:58:52 2016 +0900 장애물 수정 및 함수명 변경
+Fri Oct 28 18:58:25 2016 +0900 Stage4 임시구현
+Thu Oct 27 22:30:10 2016 +0900 장애물 위치 수정
+Thu Oct 27 22:29:57 2016 +0900 시간 수정 및 장애물 수정
+Thu Oct 27 00:03:52 2016 +0900 시간개념 추가 및 장애물 수정
+Wed Oct 26 22:50:23 2016 +0900 장애물 수정
+Wed Oct 26 21:39:36 2016 +0900 파일명 변경
+Wed Oct 26 21:39:23 2016 +0900 클래스명 / 함수명 / 변수명 변경
+Tue Oct 25 14:32:53 2016 +0900 파일명 변경
+Mon Oct 24 23:19:41 2016 +0900 충돌체크 추가
+Sun Oct 23 00:54:53 2016 +0900 스테이지 클리어 시간 계산
+Sat Oct 22 18:26:11 2016 +0900 장애물 추가
+Thu Oct 20 12:28:11 2016 +0900 맵 이동 수정
+Thu Oct 20 00:50:30 2016 +0900 장애물 배치 및 맵 이동
+Thu Oct 20 00:50:15 2016 +0900 Spacebar로 캐릭터 변경
+Wed Oct 19 21:56:51 2016 +0900 .
+Wed Oct 19 21:56:41 2016 +0900 맵 수정
+Sat Oct 15 00:27:29 2016 +0900 2DGP_2차발표
+Fri Oct 14 22:13:26 2016 +0900 캐릭터 애니메이션 수정
+Fri Oct 14 21:45:53 2016 +0900 애니메이션 수정
+Fri Oct 14 21:25:54 2016 +0900 장애물 구현
+Fri Oct 14 20:10:13 2016 +0900 Stage_Data
+Fri Oct 14 19:15:40 2016 +0900 game_framework_change_main_state
+Thu Oct 13 22:04:49 2016 +0900 Item
+Tue Oct 11 22:34:35 2016 +0900 .
+Tue Oct 11 22:34:26 2016 +0900 Obstacle add
+Tue Oct 11 22:33:37 2016 +0900 Combine Character with Character2
+Mon Oct 10 00:13:27 2016 +0900 Obstacle Size
+Mon Oct 10 00:13:05 2016 +0900 Obstacle
+Mon Oct 10 00:12:30 2016 +0900 Stage4_Resource
+Sun Oct 9 17:17:12 2016 +0900 Stage2, Stage3 Add
+Sun Oct 9 17:12:17 2016 +0900 Framework Adjust
+Sun Oct 9 17:05:31 2016 +0900 Framework Adjust
+Sat Oct 1 23:41:46 2016 +0900 framework
+Sat Oct 1 16:23:05 2016 +0900 Character2_Control
+Sat Oct 1 16:22:17 2016 +0900 Character_Controll
+Sat Oct 1 16:02:23 2016 +0900 Map
+Sat Oct 1 16:01:24 2016 +0900 Sound
+Sat Oct 1 16:01:04 2016 +0900 .
+Thu Sep 29 22:46:54 2016 +0900 Cookie_Sprite_Sheet
+Thu Sep 29 21:37:10 2016 +0900 Sprite_Sheet
+Sat Sep 24 17:55:57 2016 +0900 Resoruce
+Sat Sep 24 17:52:26 2016 +0900 Resource
+Thu Sep 22 21:17:59 2016 +0900 2DGP1차발표_2012180020신동협
+Thu Sep 22 21:17:03 2016 +0900 Revert ":octocat: Added .gitattributes & .gitignore files"
+Thu Sep 22 21:15:55 2016 +0900 :octocat: Added .gitattributes & .gitignore files
