@@ -6,6 +6,7 @@ class Brave_Cookie:
     image = None
     score_sound = None
     hp_sound = None
+    state_sound = None
     def __init__(self, state):
         self.x = 150
         self.y = 200
@@ -29,10 +30,17 @@ class Brave_Cookie:
         if Brave_Cookie.score_sound == None:
             Brave_Cookie.score_sound = load_wav('Resource\\Sound\\jelly.wav')
             Brave_Cookie.score_sound.set_volume(32)
-
         if Brave_Cookie.hp_sound == None:
             Brave_Cookie.hp_sound = load_wav('Resource\\Sound\\hp_jelly.wav')
             Brave_Cookie.hp_sound.set_volume(32)
+        if Brave_Cookie.state_sound == None:
+            self.jump_sound = load_wav('Resource\\Sound\\jump.wav')
+            self.jump_sound.set_volume(32)
+            self.slide_sound = load_wav('Resource\\Sound\\slide.wav')
+            self.slide_sound.set_volume(32)
+            self.collide_sound = load_wav('Resource\\Sound\\collide.wav')
+            self.collide_sound.set_volume(32)
+
 
     def score(self, item):
         self.score_sound.play()
@@ -41,12 +49,8 @@ class Brave_Cookie:
         self.state = state
         #self.hp -= 40
         if self.collision_time < 3:
-            self.collision_time += 1
+            self.state = "Collide"
             self.map_size += 0
-
-        else:
-            self.state = "Run"
-            self.collision_time = 0
 
     def heal(self, item):
         self.hp += 60
@@ -69,7 +73,11 @@ class Brave_Cookie:
         elif self.state == "Slide" or self.state == "Jump":
             self.map_size += 1
         elif self.state == "Collide":
-            self.bump("Collide")
+            self.collision_time += 1
+            if self.collision_time > 3:
+                self.state = "Run"
+                self.collision_time = 0
+            print(self.collision_time)
 
         if self.state == "Jump" and (self.map_size >= 1440 and self.map_size <= 1550):
             if (self.y - 40 - self.jump_gravity) > 210:
@@ -142,6 +150,8 @@ class Brave_Cookie:
 
 class Ginger_Brave_Cookie:
     image = None
+    sound = None
+    state_sound = None
 
     def __init__(self, state):
         self.x = 150
@@ -162,10 +172,25 @@ class Ginger_Brave_Cookie:
             self.Ginger_Brave_Cookie_jump = load_image('Resource\\Character2\\Cookie2_Jump.png')
             self.Ginger_Brave_Cookie_collide = load_image('Resource\\Character2\\Cookie2_Collide.png')
             self.Ginger_Brave_Cookie_hp = load_image('Resource\\Item\\hp.png')
+        if Ginger_Brave_Cookie.sound == None:
+            self.score_sound = load_wav('Resource\\Sound\\jelly.wav')
+            self.score_sound.set_volume(32)
+            self.hp_sound = load_wav('Resource\\Sound\\hp_jelly.wav')
+            self.hp_sound.set_volume(32)
+        if Ginger_Brave_Cookie.state_sound == None:
+            self.jump_sound = load_wav('Resource\\Sound\\jump.wav')
+            self.jump_sound.set_volume(32)
+            self.slide_sound = load_wav('Resource\\Sound\\slide.wav')
+            self.slide_sound.set_volume(32)
+            self.collide_sound = load_wav('Resource\\Sound\\collide.wav')
+            self.collide_sound.set_volume(32)
+
+    def score(self, item):
+        self.score_sound.play()
 
     def bump(self, state):
         self.state = state
-        self.hp -= 40
+        #self.hp -= 40
         if self.collision_time < 3:
             self.collision_time += 1
             self.map_size += 0
@@ -174,15 +199,15 @@ class Ginger_Brave_Cookie:
             self.state = "Run"
             self.collision_time = 0
 
-    def heal(self):
+    def heal(self, item):
         self.hp += 60
+        self.hp_sound.play()
 
     def update(self):
         self.hp -= 0.1
 
         if self.map_size > 1550:
             self.map_size = 0
-
 
         self.gravity()
         if self.state == "Run":

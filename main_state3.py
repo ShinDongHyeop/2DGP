@@ -157,11 +157,12 @@ def update():
         item.update(frame_time)
         if collide(brave_cookie, item):
             score_jelly.remove(item)
+            brave_cookie.score(item)
     for item in hp_jelly:
         item.update(frame_time)
         if collide(brave_cookie, item):
             hp_jelly.remove(item)
-            brave_cookie.heal()
+            brave_cookie.heal(item)
 
     for Spear in palm_tree:
         Spear.update(frame_time)
@@ -189,9 +190,9 @@ def update():
         brave_cookie = ginger_brave_cookie
 
     if brave_cookie.map_size == 1550 and brave_cookie.y == 200:
-        game_framework.change_state(main_state2)
-    elif brave_cookie.map_size == 1550 and brave_cookie.y == 250:
         game_framework.change_state(main_state4)
+    elif brave_cookie.map_size == 1550 and brave_cookie.y == 250:
+        game_framework.change_state(main_state2)
 
 def draw():
     global brave_cookie, ginger_brave_cookie, background, ground, palm_tree, hate_palm_tree, fence, conch, board, \

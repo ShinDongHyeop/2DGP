@@ -280,12 +280,12 @@ class Stage3_Hp_Jelly:
         }
 
         hp = []
-        for name in hp_jelly:
+        for name in hp_jelly3:
             item = Stage3_Hp_Jelly()
             item.name = name
-            item.x = hp_jelly[name]['x']
-            item.y = hp_jelly[name]['y']
-            item.state = hp_state_table[hp_jelly[name]['state']]
+            item.x = hp_jelly3[name]['x']
+            item.y = hp_jelly3[name]['y']
+            item.state = hp_state_table[hp_jelly3[name]['state']]
             hp.append(item)
 
         return hp

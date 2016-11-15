@@ -150,11 +150,12 @@ def update():
         item.update(frame_time)
         if collide(brave_cookie, item):
             score_jelly.remove(item)
+            brave_cookie.score(item)
     for item in hp_jelly:
         item.update(frame_time)
         if collide(brave_cookie, item):
             hp_jelly.remove(item)
-            brave_cookie.heal()
+            brave_cookie.heal(item)
 
     for Spear in dirty_totem:
         Spear.update(frame_time)
