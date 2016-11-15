@@ -3,6 +3,7 @@
     "Thorn2"   : {"state" : "Thorn", "x"  : 1350, "y" : 200},
     "Thorn3"   : {"state" : "Thorn", "x"  : 1400, "y" : 200},
     "Thorn4"   : {"state" : "Thorn", "x"  : 2400, "y" : 200},
+    "Thorn21"   : {"state" : "Thorn", "x"  : 3450, "y" : 200},
     "Thorn5"   : {"state" : "Thorn", "x"  : 3500, "y" : 200},
     "Thorn6"   : {"state" : "Thorn", "x"  : 3550, "y" : 200},
     "Thorn7"   : {"state" : "Thorn", "x"  : 3900, "y" : 200},

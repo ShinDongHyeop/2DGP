@@ -189,9 +189,9 @@ def update():
         foothold.update(frame_time)
 
     if brave_cookie.hp <= 0:
-        brave_cookie.map_size += 0
-        print(brave_cookie.map_size)
-        brave_cookie = ginger_brave_cookie
+        # brave_cookie.map_size += 0
+        # print(brave_cookie.map_size)
+        game_framework.change_state(title_state)
 
     if brave_cookie.map_size == 1550 and brave_cookie.y == 200:
         game_framework.change_state(main_state4)

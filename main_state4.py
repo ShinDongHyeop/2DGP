@@ -161,29 +161,25 @@ def update():
         Spear.update(frame_time)
         if collide(brave_cookie, Spear) and brave_cookie.state != "Collide":
             brave_cookie.bump("Collide")
-            dirty_totem.remove(Spear)
     for Spear in totem:
         Spear.update(frame_time)
         if collide(brave_cookie, Spear) and brave_cookie.state != "Collide":
             brave_cookie.bump("Collide")
-            totem.remove(Spear)
     for Thorn in blue_flower:
         Thorn.update(frame_time)
         if collide(brave_cookie, Thorn) and brave_cookie.state != "Collide":
             brave_cookie.bump("Collide")
-            blue_flower.remove(Thorn)
     for Thorn in red_flower:
         Thorn.update(frame_time)
         if collide(brave_cookie, Thorn) and brave_cookie.state != "Collide":
             brave_cookie.bump("Collide")
-            red_flower.remove(Thorn)
 
     if brave_cookie.hp <= 0:
-        brave_cookie.map_size += 0
-        print(brave_cookie.map_size)
-        brave_cookie = ginger_brave_cookie
+        # brave_cookie.map_size += 0
+        # print(brave_cookie.map_size)
+        game_framework.change_state(title_state)
 
-    if brave_cookie.map_size == 1550 and brave_cookie.y == 200:
+    if brave_cookie.map_size == 1440 and brave_cookie.y == 200:
         game_framework.change_state(title_state)
 
 def draw():

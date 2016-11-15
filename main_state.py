@@ -48,7 +48,7 @@ def get_frame_time():
     return frame_time
 
 def enter():
-    global brave_cookie, ginger_brave_cookie, background, ground, nomal_fork, nomal_thorn, special_fork, double_thorn, board,\
+    global brave_cookie, ginger_brave_cookie, background, ground, nomal_fork, nomal_thorn, special_fork, double_thorn, board, map_size,\
             start, score_jelly, hp_jelly
 
     brave_cookie = Brave_Cookie("Run")
@@ -62,7 +62,7 @@ def enter():
     double_thorn = Stage1_Double_Thorn().create()
     score_jelly = Stage1_Score_Jelly().create()
     hp_jelly = Stage1_Hp_Jelly().create()
-
+    map_size = 0
     start = time.time()
 
 def exit():
@@ -153,8 +153,8 @@ def handle_events():
 
 def update():
     global brave_cookie, ginger_brave_cookie, background, ground, nomal_fork, nomal_thorn, special_fork, double_thorn, board, \
-            score_jelly, hp_jelly
-
+            score_jelly, hp_jelly, map_size
+    map_size += 1
     frame_time = get_frame_time()
     brave_cookie.update()
     ginger_brave_cookie.update()
@@ -194,14 +194,15 @@ def update():
     for foothold in board:
         foothold.update(frame_time)
 
-    if brave_cookie.hp <= 0:
-        brave_cookie.map_size += 0
-        print(brave_cookie.map_size)
-        brave_cookie = ginger_brave_cookie
+    #brave_cookie.map_size += 0
+    #print(brave_cookie.map_size)
+    #    game_framework.change_state(title_state)
 
-    if brave_cookie.map_size == 1550 and brave_cookie.y == 200:
+    if brave_cookie.hp <= 0:
+        game_framework.change_state(title_state)
+    if map_size == 1550 and brave_cookie.y == 200:
         game_framework.change_state(main_state2)
-    elif brave_cookie.map_size == 1550 and brave_cookie.y == 250:
+    elif map_size == 1550 and brave_cookie.y == 250:
         game_framework.change_state(main_state3)
 
 def draw():
