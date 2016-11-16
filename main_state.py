@@ -48,8 +48,8 @@ def get_frame_time():
     return frame_time
 
 def enter():
-    global brave_cookie, ginger_brave_cookie, background, ground, nomal_fork, nomal_thorn, special_fork, double_thorn, board, map_size,\
-            start, score_jelly, hp_jelly
+    global brave_cookie, ginger_brave_cookie, background, ground, nomal_fork, nomal_thorn, special_fork, double_thorn, board, \
+            start, score_jelly, hp_jelly, font
 
     brave_cookie = Brave_Cookie("Run")
     ginger_brave_cookie = Ginger_Brave_Cookie("Run")
@@ -62,7 +62,7 @@ def enter():
     double_thorn = Stage1_Double_Thorn().create()
     score_jelly = Stage1_Score_Jelly().create()
     hp_jelly = Stage1_Hp_Jelly().create()
-    map_size = 0
+    font = load_font('Resource\\ENCR10B.TTF')
     start = time.time()
 
 def exit():
@@ -153,8 +153,8 @@ def handle_events():
 
 def update():
     global brave_cookie, ginger_brave_cookie, background, ground, nomal_fork, nomal_thorn, special_fork, double_thorn, board, \
-            score_jelly, hp_jelly, map_size
-    map_size += 1
+            score_jelly, hp_jelly
+
     frame_time = get_frame_time()
     brave_cookie.update()
     ginger_brave_cookie.update()
@@ -165,7 +165,7 @@ def update():
         item.update(frame_time)
         if collide(brave_cookie, item):
             score_jelly.remove(item)
-            brave_cookie.score(item)
+            brave_cookie.scoreSound(item)
 
     for item in hp_jelly:
         item.update(frame_time)
@@ -200,9 +200,9 @@ def update():
 
     if brave_cookie.hp <= 0:
         game_framework.change_state(title_state)
-    if map_size == 1550 and brave_cookie.y == 200:
+    if brave_cookie.map_size == 1550 and brave_cookie.y == 200:
         game_framework.change_state(main_state2)
-    elif map_size == 1550 and brave_cookie.y == 250:
+    elif brave_cookie.map_size == 1550 and brave_cookie.y == 250:
         game_framework.change_state(main_state3)
 
 def draw():
@@ -213,33 +213,26 @@ def draw():
     ground.ground_draw()
     for item in score_jelly:
         item.draw()
-        #item.draw_bb()
     for item in hp_jelly:
         item.draw()
-        #item.draw_bb()
 
     for Fork in nomal_fork:
         Fork.draw()
-        #Fork.draw_bb()
     for Fork in special_fork:
         Fork.draw()
-        #Fork.draw_bb()
     for Thorn in nomal_thorn:
         Thorn.draw()
-        #Thorn.draw_bb()
     for Thorn in double_thorn:
         Thorn.draw()
-        #Thorn.draw_bb()
 
     for item in hp_jelly:
         item.draw()
-        #item.draw_bb()
 
     for foothold in board:
         foothold.draw()
 
+    font.draw(100, 550, 'Score : %3.2d' % brave_cookie.score, (255, 255, 255))
     brave_cookie.draw()
-#    brave_cookie.draw_bb()
 
     delay(0.03)
     update_canvas()
