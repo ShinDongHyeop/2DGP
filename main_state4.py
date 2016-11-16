@@ -46,7 +46,7 @@ def get_frame_time():
 
 def enter():
     global brave_cookie, ginger_brave_cookie, background, ground, blue_flower, red_flower, totem, dirty_totem, start, \
-            score_jelly, hp_jelly
+            score_jelly, hp_jelly, font
 
     brave_cookie = Brave_Cookie("Run")
     ginger_brave_cookie = Ginger_Brave_Cookie("Run")
@@ -58,6 +58,7 @@ def enter():
     dirty_totem = Stage4_Dirty_Totem().create()
     score_jelly = Stage4_Score_Jelly().create()
     hp_jelly = Stage4_Hp_Jelly().create()
+    font = load_font('Resource\\ENCR10B.TTF')
     start = time.time()
 
 def exit():
@@ -150,7 +151,7 @@ def update():
         item.update(frame_time)
         if collide(brave_cookie, item):
             score_jelly.remove(item)
-            brave_cookie.score(item)
+            brave_cookie.scoreSound(item)
     for item in hp_jelly:
         item.update(frame_time)
         if collide(brave_cookie, item):
@@ -191,24 +192,19 @@ def draw():
 
     for item in score_jelly:
         item.draw()
-        #item.draw_bb()
     for item in hp_jelly:
         item.draw()
-        #item.draw_bb()
 
     for Spear in dirty_totem:
         Spear.draw()
-        #Spear.draw_bb()
     for Spear in totem:
         Spear.draw()
-        #Spear.draw_bb()
     for Thorn in blue_flower:
         Thorn.draw()
-        #Thorn.draw_bb()
     for Thorn in red_flower:
         Thorn.draw()
-        #Thorn.draw_bb()
 
+    font.draw(100, 550, 'Score : %3.2d' % brave_cookie.score, (255, 255, 255))
     brave_cookie.draw()
 
     delay(0.03)
