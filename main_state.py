@@ -5,7 +5,8 @@ import time
 
 from pico2d import *
 from cookie import *
-from map import *
+from back_ground import *
+from ground import *
 from obstacle import *
 from item import *
 import game_framework
@@ -54,7 +55,7 @@ def enter():
     brave_cookie = Brave_Cookie("Run")
     ginger_brave_cookie = Ginger_Brave_Cookie("Run")
     background = Stage1_Background(800, 600)
-    ground = Stage1_Background(800, 150)
+    ground = Stage1_Ground(800, 150)
     board = Stage1_Board().create()
     nomal_fork = Stage1_Nomal_Fork().create()
     nomal_thorn = Stage1_Nomal_Thorn().create()
@@ -210,7 +211,7 @@ def draw():
             score_jelly, hp_jelly
     clear_canvas()
     background.draw()
-    ground.ground_draw()
+    ground.draw()
     for item in score_jelly:
         item.draw()
     for item in hp_jelly:

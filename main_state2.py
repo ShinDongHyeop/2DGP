@@ -5,7 +5,8 @@ import time
 
 from pico2d import *
 from cookie import *
-from map import *
+from back_ground import *
+from ground import *
 from obstacle import *
 from item import *
 import game_framework
@@ -52,7 +53,7 @@ def enter():
     brave_cookie = Brave_Cookie("Run")
     ginger_brave_cookie = Ginger_Brave_Cookie("Run")
     background = Stage2_Background(800, 600)
-    ground = Stage2_Background(800, 150)
+    ground = Stage2_Ground(800, 150)
     board = Stage2_Board().create()
     brown_spear = Stage2_Brown_Spear().create()
     oatmeal_spear = Stage2_Oatmeal_Spear().create()
@@ -225,7 +226,7 @@ def draw():
         foothold.draw()
 
     font.draw(100, 550, 'Score : %3.2d' % brave_cookie.score, (255, 255, 255))
-    ground.ground_draw()
+    ground.draw()
     brave_cookie.draw()
 
     delay(0.03)
