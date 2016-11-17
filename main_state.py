@@ -27,6 +27,7 @@ double_thorn = None
 board = None
 item_jelly = None
 hp_jelly = None
+object = []
 current_time = 0.0
 
 def collide(a, b):
@@ -50,7 +51,7 @@ def get_frame_time():
 
 def enter():
     global brave_cookie, ginger_brave_cookie, background, ground, nomal_fork, nomal_thorn, special_fork, double_thorn, board, \
-            start, score_jelly, hp_jelly, font
+            start, score_jelly, hp_jelly, font, object
 
     brave_cookie = Brave_Cookie("Run")
     ginger_brave_cookie = Ginger_Brave_Cookie("Run")
@@ -63,51 +64,24 @@ def enter():
     double_thorn = Stage1_Double_Thorn().create()
     score_jelly = Stage1_Score_Jelly().create()
     hp_jelly = Stage1_Hp_Jelly().create()
+    object = [board, nomal_fork, special_fork, nomal_thorn, double_thorn, score_jelly, hp_jelly]
     font = load_font('Resource\\ENCR10B.TTF')
     start = time.time()
 
 def exit():
     global brave_cookie, ginger_brave_cookie, background, ground, nomal_fork, nomal_thorn, special_fork, double_thorn, board, start, \
-            score_jelly, hp_jelly
+            score_jelly, hp_jelly, object
     del(brave_cookie)
     del(ginger_brave_cookie)
     del(background)
     del(ground)
 
-    for item in score_jelly:
-        score_jelly.remove(item)
-        del(item)
-    del(score_jelly)
+    for list in object:
+        for dict in list:
+            list.remove(dict)
+            del(dict)
+        del(list)
 
-    for item in hp_jelly:
-        hp_jelly.remove(item)
-        del(item)
-    del(hp_jelly)
-
-    for fork in nomal_fork:
-        nomal_fork.remove(fork)
-        del(fork)
-    del(nomal_fork)
-
-    for thorn in nomal_thorn:
-        nomal_thorn.remove(thorn)
-        del(thorn)
-    del(nomal_thorn)
-
-    for thorn in double_thorn:
-        double_thorn.remove(thorn)
-        del(thorn)
-    del(double_thorn)
-
-    for fork in special_fork:
-        special_fork.remove(fork)
-        del(fork)
-    del(special_fork)
-
-    for foothold in board:
-        board.remove(foothold)
-        del(foothold)
-    del(board)
 
     end = time.time()
 
@@ -154,7 +128,7 @@ def handle_events():
 
 def update():
     global brave_cookie, ginger_brave_cookie, background, ground, nomal_fork, nomal_thorn, special_fork, double_thorn, board, \
-            score_jelly, hp_jelly
+            score_jelly, hp_jelly, object
 
     frame_time = get_frame_time()
     brave_cookie.update()
@@ -162,6 +136,11 @@ def update():
     background.update(frame_time)
     ground.update(frame_time)
 
+    for list in object:
+        for dict in list:
+            dict.update(frame_time)
+
+    '''
     for item in score_jelly:
         item.update(frame_time)
         if collide(brave_cookie, item):
@@ -194,6 +173,7 @@ def update():
 
     for foothold in board:
         foothold.update(frame_time)
+    '''
 
     #brave_cookie.map_size += 0
     #print(brave_cookie.map_size)
@@ -208,10 +188,15 @@ def update():
 
 def draw():
     global brave_cookie, ginger_brave_cookie, background, ground, nomal_fork, nomal_thorn, special_fork, double_thorn, board, \
-            score_jelly, hp_jelly
+            score_jelly, hp_jelly, object
     clear_canvas()
     background.draw()
     ground.draw()
+
+    for list in object:
+        for dict in list:
+            dict.draw()
+    '''
     for item in score_jelly:
         item.draw()
     for item in hp_jelly:
@@ -231,7 +216,7 @@ def draw():
 
     for foothold in board:
         foothold.draw()
-
+    '''
     font.draw(100, 550, 'Score : %3.2d' % brave_cookie.score, (255, 255, 255))
     brave_cookie.draw()
 
