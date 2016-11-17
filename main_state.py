@@ -139,45 +139,13 @@ def update():
     for list in object:
         for dict in list:
             dict.update(frame_time)
-
-    '''
-    for item in score_jelly:
-        item.update(frame_time)
-        if collide(brave_cookie, item):
-            score_jelly.remove(item)
-            brave_cookie.scoreSound(item)
-
-    for item in hp_jelly:
-        item.update(frame_time)
-        if collide(brave_cookie, item):
-            hp_jelly.remove(item)
-            brave_cookie.heal(item)
-
-    for Fork in nomal_fork:
-        Fork.update(frame_time)
-        if collide(brave_cookie, Fork) and brave_cookie.state != "Collide":
-            brave_cookie.bump("Collide")
-    for Fork in special_fork:
-        Fork.update(frame_time)
-        if collide(brave_cookie, Fork) and brave_cookie.state != "Collide":
-            brave_cookie.bump("Collide")
-    for Thorn in nomal_thorn:
-        Thorn.update(frame_time)
-        if collide(brave_cookie, Thorn) and brave_cookie.state != "Collide":
-            brave_cookie.bump("Collide")
-    for Thorn in double_thorn:
-        Thorn.update(frame_time)
-        if collide(brave_cookie, Thorn) and brave_cookie.state != "Collide":
-            brave_cookie.bump("Collide")
-            #Thorn.bump("Collide")
-
-    for foothold in board:
-        foothold.update(frame_time)
-    '''
-
-    #brave_cookie.map_size += 0
-    #print(brave_cookie.map_size)
-    #    game_framework.change_state(title_state)
+            if collide(brave_cookie, dict):
+                if list == score_jelly:
+                    score_jelly.remove(dict)
+                    brave_cookie.scoreSound(dict)
+                if list == hp_jelly:
+                    hp_jelly.remove(dict)
+                    brave_cookie.heal(dict)
 
     if brave_cookie.hp <= 0:
         game_framework.change_state(title_state)
@@ -187,7 +155,7 @@ def update():
         game_framework.change_state(main_state3)
 
 def draw():
-    global brave_cookie, ginger_brave_cookie, background, ground, nomal_fork, nomal_thorn, special_fork, double_thorn, board, \
+    global brave_cookie, ginger_brave_cookie, background, ground, \
             score_jelly, hp_jelly, object
     clear_canvas()
     background.draw()
@@ -196,27 +164,7 @@ def draw():
     for list in object:
         for dict in list:
             dict.draw()
-    '''
-    for item in score_jelly:
-        item.draw()
-    for item in hp_jelly:
-        item.draw()
 
-    for Fork in nomal_fork:
-        Fork.draw()
-    for Fork in special_fork:
-        Fork.draw()
-    for Thorn in nomal_thorn:
-        Thorn.draw()
-    for Thorn in double_thorn:
-        Thorn.draw()
-
-    for item in hp_jelly:
-        item.draw()
-
-    for foothold in board:
-        foothold.draw()
-    '''
     font.draw(100, 550, 'Score : %3.2d' % brave_cookie.score, (255, 255, 255))
     brave_cookie.draw()
 
