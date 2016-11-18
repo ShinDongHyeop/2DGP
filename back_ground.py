@@ -15,7 +15,7 @@ class Stage1_Background:
         self.screen_height = h
         self.background = load_image('Resource\\Map\\Stage1\\First_Background.png')
         self.bgm = load_music('Resource\\Sound\\Stage1.mp3')
-        self.bgm.set_volume(64)
+        self.bgm.set_volume(24)
         self.bgm.repeat_play()
 
     def draw(self):
@@ -44,7 +44,7 @@ class Stage2_Background:
         self.screen_height = h
         self.background = load_image('Resource\\Map\\Stage2\\Second_Background.png')
         self.bgm = load_music('Resource\\Sound\\Stage2.mp3')
-        self.bgm.set_volume(64)
+        self.bgm.set_volume(24)
         self.bgm.repeat_play()
 
     def draw(self):
@@ -72,7 +72,7 @@ class Stage3_Background:
         self.screen_height = h
         self.background = load_image('Resource\\Map\\Stage3\\Third_Background.png')
         self.bgm = load_music('Resource\\Sound\\Stage3.mp3')
-        self.bgm.set_volume(64)
+        self.bgm.set_volume(24)
         self.bgm.repeat_play()
 
     def draw(self):
@@ -100,7 +100,7 @@ class Stage4_Background:
         self.screen_height = h
         self.background = load_image('Resource\\Map\\Stage4\\Fourth_Background.png')
         self.bgm = load_music('Resource\\Sound\\Stage4.mp3')
-        self.bgm.set_volume(64)
+        self.bgm.set_volume(24)
         self.bgm.repeat_play()
 
     def draw(self):

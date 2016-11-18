@@ -30,17 +30,17 @@ class Brave_Cookie:
             self.Brave_Cookie_hp = load_image('Resource\\Item\\hp.png')
         if Brave_Cookie.score_sound == None:
             Brave_Cookie.score_sound = load_wav('Resource\\Sound\\jelly.wav')
-            Brave_Cookie.score_sound.set_volume(32)
+            Brave_Cookie.score_sound.set_volume(16)
         if Brave_Cookie.hp_sound == None:
             Brave_Cookie.hp_sound = load_wav('Resource\\Sound\\hp_jelly.wav')
-            Brave_Cookie.hp_sound.set_volume(32)
+            Brave_Cookie.hp_sound.set_volume(16)
         if Brave_Cookie.state_sound == None:
             self.jump_sound = load_wav('Resource\\Sound\\jump.wav')
-            self.jump_sound.set_volume(32)
+            self.jump_sound.set_volume(16)
             self.slide_sound = load_wav('Resource\\Sound\\slide.wav')
-            self.slide_sound.set_volume(32)
+            self.slide_sound.set_volume(16)
             self.collide_sound = load_wav('Resource\\Sound\\collide.wav')
-            self.collide_sound.set_volume(32)
+            self.collide_sound.set_volume(16)
 
 
     def scoreSound(self, item):
@@ -81,7 +81,7 @@ class Brave_Cookie:
             if self.collision_time > 20:
                 self.state = "Run"
                 self.collision_time = 0
-            print(self.collision_time)
+           # print(self.collision_time)
 
         if self.state == "Jump" and (self.map_size >= 1440 and self.map_size <= 1550):
             if (self.y - 40 - self.jump_gravity) > 210:
