@@ -143,12 +143,15 @@ def update():
                 if list == score_jelly:
                     score_jelly.remove(dict)
                     brave_cookie.scoreSound(dict)
-                if list == hp_jelly:
+                elif list == hp_jelly:
                     hp_jelly.remove(dict)
                     brave_cookie.heal(dict)
+                else:
+                    if collide(brave_cookie, dict):
+                        brave_cookie.state = "Collide"
+                        brave_cookie.bump()
+                        dict.bump("Collide")
 
-    if brave_cookie.hp <= 0:
-        game_framework.change_state(title_state)
     if brave_cookie.map_size == 1550 and brave_cookie.y == 200:
         game_framework.change_state(main_state2)
     elif brave_cookie.map_size == 1550 and brave_cookie.y == 250:

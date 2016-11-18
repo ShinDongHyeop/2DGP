@@ -47,12 +47,10 @@ class Brave_Cookie:
         self.score_sound.play()
         Brave_Cookie.score += 50
 
-    def bump(self, state):
-        self.state = state
-      #  self.hp -= 100
-        if self.collision_time < 20:
-            self.state = "Collide"
-            #self.map_size += 0
+    def bump(self):
+        self.hp -= 100
+        if self.collision_time < 3:
+            self.map_size += 0
 
     def heal(self, item):
         Brave_Cookie.hp += 80
@@ -62,27 +60,23 @@ class Brave_Cookie:
         Brave_Cookie.hp -= 0.1
         Brave_Cookie.score += 0.5
         self.map_size += 1
-        if self.map_size > 1550:
-            self.map_size = 0
 
         self.gravity()
         if self.state == "Run":
             self.collision_time = 0
-           # self.map_size += 1
+            self.map_size += 1
             self.frame = (self.frame + 1) % 6
         elif self.state == "Dead":
             self.frame = (self.frame + 1) % 4
         elif self.state == "Jump" and self.y <= 210:
             self.state = "Run"
-       # elif self.state == "Slide" or self.state == "Jump":
-            #self.map_size += 1
+        elif self.state == "Slide" or self.state == "Jump":
+            self.map_size += 1
         elif self.state == "Collide":
             self.collision_time += 1
-            if self.collision_time > 20:
+            if self.collision_time > 3:
                 self.state = "Run"
                 self.collision_time = 0
-           # print(self.collision_time)
-
         if self.state == "Jump" and (self.map_size >= 1440 and self.map_size <= 1550):
             if (self.y - 40 - self.jump_gravity) > 210:
                 self.jump_gravity += 2
