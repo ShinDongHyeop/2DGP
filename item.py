@@ -74,6 +74,8 @@ class Stage1_Score_Jelly:
     def __init__(self):
         self.x = random.randint(300, 8700)
         self.y = random.randint(170, 300)
+        self.collision_time = 0
+        self.state = "None"
         if Stage1_Score_Jelly.image == None:
             self.Score_Jelly = load_image('Resource\\Item\\item_Jelly.png')
 
@@ -94,9 +96,19 @@ class Stage1_Score_Jelly:
         return score
 
     def update(self, frame_time):
-        if Stage1_SPEED.RUN_SPEED_PPS * frame_time < 12:
+        if Stage1_SPEED.RUN_SPEED_PPS * frame_time < 12 and self.state != "Collide":
             self.distance = Stage1_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
+            self.collision_time = 0
+
+        elif self.state == "Collide":
+            if self.collision_time < 30:
+                self.collision_time += 10
+                for i in range(2):
+                   if self.x > 150:
+                      self.x += 20
+                   else:
+                     self.x -= 20
 
     def draw(self):
         self.Score_Jelly.draw(self.x, self.y)
@@ -113,6 +125,8 @@ class Stage1_Hp_Jelly:
     def __init__(self):
         self.x = 0
         self.y = 0
+        self.state = "None"
+        self.collision_time = 0
         if Stage1_Hp_Jelly.image == None:
             self.Hp_Jelly = load_image('Resource\\Item\\hp_jelly.png')
 
@@ -133,9 +147,19 @@ class Stage1_Hp_Jelly:
         return hp
 
     def update(self, frame_time):
-        if Stage1_SPEED.RUN_SPEED_PPS * frame_time < 12:
+        if Stage1_SPEED.RUN_SPEED_PPS * frame_time < 12 and self.state != "Collide":
             self.distance = Stage1_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
+            self.collision_time = 0
+
+        elif self.state == "Collide":
+            if self.collision_time < 30:
+                self.collision_time += 10
+                for i in range(2):
+                   if self.x > 150:
+                      self.x += 20
+                   else:
+                     self.x -= 20
 
     def draw(self):
         self.Hp_Jelly.draw(self.x, self.y)

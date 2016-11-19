@@ -117,6 +117,8 @@ class Stage1_Board:
     def __init__(self):
         self.x = 0
         self.y = 0
+        self.state = "None"
+        self.collision_time = 0
         if Stage1_Board.image == None:
             self.Board = load_image('Resource\\Map\\Board.png')
 
@@ -137,12 +139,25 @@ class Stage1_Board:
         return board
 
     def update(self, frame_time):
-        if Stage1_SPEED.RUN_SPEED_PPS * frame_time < 12:
+        if Stage1_SPEED.RUN_SPEED_PPS * frame_time < 12 and self.state != "Collide":
             self.distance = Stage1_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
+            self.collision_time = 0
+
+        elif self.state == "Collide":
+            if self.collision_time < 30:
+                self.collision_time += 10
+                for i in range(2):
+                    if self.x > 150:
+                       self.x += 20
+                    else:
+                       self.x -= 20
 
     def draw(self):
         self.Board.clip_draw(0, 0, 150, 10, self.x, self.y)
+
+    def get_bb(self):
+        return self.x - 0, self.y - 0, self.x + 0, self.y + 0
 
 class Stage1_Nomal_Fork:
     image = None
@@ -151,6 +166,8 @@ class Stage1_Nomal_Fork:
     def __init__(self):
         self.x = 0
         self.y = 0
+        self.state = "None"
+        self.collision_time = 0
         if Stage1_Nomal_Fork.image == None:
             self.Fork = load_image('Resource\\Map\\Stage1\\Stage1_Fork.png')
 
@@ -170,9 +187,19 @@ class Stage1_Nomal_Fork:
         return obstacle
 
     def update(self, frame_time):
-        if Stage1_SPEED.RUN_SPEED_PPS * frame_time < 12:
+        if Stage1_SPEED.RUN_SPEED_PPS * frame_time < 12 and self.state != "Collide":
             self.distance = Stage1_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
+            self.collision_time = 0
+
+        elif self.state == "Collide":
+            if self.collision_time < 30:
+                self.collision_time += 10
+                for i in range(2):
+                   if self.x > 150:
+                      self.x += 20
+                   else:
+                     self.x -= 20
 
     def draw(self):
         self.Fork.draw(self.x, self.y)
@@ -189,6 +216,8 @@ class Stage1_Special_Fork:
     def __init__(self):
         self.x = 0
         self.y = 0
+        self.state = "None"
+        self.collision_time = 0
         if Stage1_Special_Fork.image == None:
             self.Fork = load_image('Resource\\Map\\Stage1\\Stage1_Fork2.png')
 
@@ -209,9 +238,19 @@ class Stage1_Special_Fork:
         return obstacle
 
     def update(self, frame_time):
-        if Stage1_SPEED.RUN_SPEED_PPS * frame_time < 12:
+        if Stage1_SPEED.RUN_SPEED_PPS * frame_time < 12 and self.state != "Collide":
             self.distance = Stage1_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
+            self.collision_time = 0
+
+        elif self.state == "Collide":
+            if self.collision_time < 30:
+                self.collision_time += 10
+                for i in range(2):
+                   if self.x > 150:
+                      self.x += 20
+                   else:
+                     self.x -= 20
 
     def draw(self):
         self.Fork.draw(self.x, self.y)
@@ -229,6 +268,8 @@ class Stage1_Nomal_Thorn:
     def __init__(self):
         self.x = 0
         self.y = 0
+        self.state = "None"
+        self.collision_time = 0
         if Stage1_Nomal_Thorn.image == None:
             self.Thorn = load_image('Resource\\Map\\Stage1\\Stage1_thorn3.png')
 
@@ -249,9 +290,19 @@ class Stage1_Nomal_Thorn:
         return obstacle
 
     def update(self, frame_time):
-        if Stage1_SPEED.RUN_SPEED_PPS * frame_time < 12:
+        if Stage1_SPEED.RUN_SPEED_PPS * frame_time < 12 and self.state != "Collide":
             self.distance = Stage1_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
+            self.collision_time = 0
+
+        elif self.state == "Collide":
+            if self.collision_time < 30:
+                self.collision_time += 10
+                for i in range(2):
+                   if self.x > 150:
+                      self.x += 20
+                   else:
+                     self.x -= 20
 
     def draw(self):
         self.Thorn.draw(self.x, self.y)
@@ -269,6 +320,7 @@ class Stage1_Double_Thorn:
         self.x = 0
         self.y = 0
         self.state = "None"
+        self.collision_time = 0
         self.collision_time = 0
         if Stage1_Double_Thorn.image == None:
             self.Thorn = load_image('Resource\\Map\\Stage1\\Stage1_thorn2.png')
@@ -289,24 +341,20 @@ class Stage1_Double_Thorn:
 
         return obstacle
 
-    def bump(self, state):
-        self.state = state
-
-        if self.collision_time < 3:
-            self.state = "Collide"
-            self.collision_time += 1
-            self.distance = 0
-        else:
-            self.state = "None"
-            self.collision_time = 0
-
     def update(self, frame_time):
         if Stage1_SPEED.RUN_SPEED_PPS * frame_time < 12 and self.state != "Collide":
             self.distance = Stage1_SPEED.RUN_SPEED_PPS * frame_time
             self.x -= self.distance
+            self.collision_time = 0
 
-        elif Stage1_SPEED.RUN_SPEED_PPS * frame_time < 12 and self.state == "Collide":
-            self.bump("Collide")
+        elif self.state == "Collide":
+            if self.collision_time < 30:
+                self.collision_time += 10
+                for i in range(2):
+                   if self.x > 150:
+                      self.x += 20
+                   else:
+                     self.x -= 20
 
     def draw(self):
         self.Thorn.draw(self.x, self.y)
@@ -356,7 +404,7 @@ class Stage2_Board:
         draw_rectangle(*self.get_bb())
 
     def get_bb(self):
-        return self.x - 40, self.y - 220, self.x + 40, self.y + 300
+        return self.x - 0, self.y - 0, self.x + 0, self.y + 0
 
 class Stage2_Brown_Spear:
     image = None
@@ -544,6 +592,8 @@ class Stage3_Board:
     def draw(self):
         self.Board.clip_draw(0, 0, 150, 10, self.x, self.y)
 
+    def get_bb(self):
+        return self.x - 0, self.y - 0, self.x + 0, self.y + 0
 
 class Stage3_Palm_Tree:
     image = None

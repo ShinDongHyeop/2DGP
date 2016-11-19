@@ -64,7 +64,7 @@ def enter():
     double_thorn = Stage1_Double_Thorn().create()
     score_jelly = Stage1_Score_Jelly().create()
     hp_jelly = Stage1_Hp_Jelly().create()
-    object = [board, nomal_fork, special_fork, nomal_thorn, double_thorn, score_jelly, hp_jelly]
+    object = [nomal_fork, special_fork, nomal_thorn, double_thorn, score_jelly, hp_jelly, board]
     font = load_font('Resource\\ENCR10B.TTF')
     start = time.time()
 
@@ -141,16 +141,22 @@ def update():
             dict.update(frame_time)
             if collide(brave_cookie, dict):
                 if list == score_jelly:
-                    score_jelly.remove(dict)
+                    list.remove(dict)
                     brave_cookie.scoreSound(dict)
                 elif list == hp_jelly:
-                    hp_jelly.remove(dict)
+                    list.remove(dict)
                     brave_cookie.heal(dict)
+                elif list == board:
+                    for dict in list:
+                        dict.state = "None"
                 else:
-                    if collide(brave_cookie, dict):
-                        brave_cookie.state = "Collide"
-                        brave_cookie.bump()
-                        dict.bump("Collide")
+                    brave_cookie.state = "Collide"
+                    brave_cookie.bump()
+                    for dict in list:
+                        dict.state = "Collide"
+            elif brave_cookie.state == "Run" or brave_cookie.state == "Slide" or brave_cookie.state == "Jump":
+                for dict in list:
+                    dict.state = "None"
 
     if brave_cookie.map_size == 1550 and brave_cookie.y == 200:
         game_framework.change_state(main_state2)
