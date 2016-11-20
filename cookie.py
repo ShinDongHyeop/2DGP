@@ -59,7 +59,6 @@ class Brave_Cookie:
     def update(self):
         Brave_Cookie.hp -= 0.1
         Brave_Cookie.score += 0.5
-        self.map_size += 1
 
         self.gravity()
         if self.state == "Run":
@@ -77,6 +76,7 @@ class Brave_Cookie:
             if self.collision_time > 3:
                 self.state = "Run"
                 self.collision_time = 0
+
         if self.state == "Jump" and (self.map_size >= 1440 and self.map_size <= 1550):
             if (self.y - 40 - self.jump_gravity) > 210:
                 self.jump_gravity += 2
@@ -144,6 +144,28 @@ class Brave_Cookie:
         elif event.type == SDL_KEYUP:
             if event.key == SDLK_DOWN:
                 self.state = "Run"
+
+
+class Brave_Cookie_Select:
+    image = None
+
+    def __init__(self, state):
+        self.x = 250
+        self.y = 200
+        self.frame = 0
+        self.state = state
+        self.state = "Run"
+
+        if Brave_Cookie.image == None:
+            self.Brave_Cookie_run = load_image('Resource\\Character1\\cookie_run.png')
+
+
+    def update(self):
+        self.state = "Run"
+        self.frame = (self.frame + 1) % 6
+    def draw(self):
+        if self.state == "Run":
+            self.Brave_Cookie_run.clip_draw(self.frame * 75, 0, 75, 100, self.x, self.y)
 
 
 class Ginger_Brave_Cookie:
@@ -285,3 +307,23 @@ class Ginger_Brave_Cookie:
         elif event.type == SDL_KEYUP:
             if event.key == SDLK_DOWN:
                 self.state = "Run"
+
+class Ginger_Brave_Cookie_Select:
+    image = None
+
+    def __init__(self, state):
+        self.x = 550
+        self.y = 200
+        self.frame = 0
+        self.state = state
+        self.state = "Run"
+
+        if Brave_Cookie.image == None:
+            self.Ginger_Brave_Cookie_run = load_image('Resource\\Character2\\Cookie2_Run.png')
+
+    def update(self):
+        self.state = "Run"
+        self.frame = (self.frame + 1) % 3
+    def draw(self):
+        if self.state == "Run":
+            self.Ginger_Brave_Cookie_run.clip_draw(self.frame * 47, 0, 47, 100, self.x, self.y)
