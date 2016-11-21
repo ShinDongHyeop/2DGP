@@ -8,7 +8,7 @@ class Brave_Cookie:
     hp_sound = None
     state_sound = None
     score = 0
-    hp = 400.0
+    hp = 250.0
     def __init__(self, state):
         self.x = 150
         self.y = 200
@@ -163,17 +163,23 @@ class Brave_Cookie_Select:
     def update(self):
         self.state = "Run"
         self.frame = (self.frame + 1) % 6
+
     def draw(self):
         if self.state == "Run":
             self.Brave_Cookie_run.clip_draw(self.frame * 75, 0, 75, 100, self.x, self.y)
 
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 124, self.y - 70, self.x + 125, self.y - 128
 
 class Ginger_Brave_Cookie:
     image = None
     sound = None
     state_sound = None
     score = 0
-    hp = 400.0
+    hp = 250.0
 
     def __init__(self, state):
         self.x = 150
@@ -324,6 +330,13 @@ class Ginger_Brave_Cookie_Select:
     def update(self):
         self.state = "Run"
         self.frame = (self.frame + 1) % 3
+
     def draw(self):
         if self.state == "Run":
             self.Ginger_Brave_Cookie_run.clip_draw(self.frame * 47, 0, 47, 100, self.x, self.y)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 124, self.y - 70, self.x + 125, self.y - 128

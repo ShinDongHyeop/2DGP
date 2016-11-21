@@ -16,6 +16,17 @@ brave_select = None
 ginger_select = None
 current_time = 0.0
 
+def collide(a, b):
+    left_a, bottom_a, right_a, top_a = a.get_bb()
+    left_b, bottom_b, right_b, top_b = b.get_bb()
+
+    if left_a > right_b: return False
+    if right_a < left_b: return False
+    if top_a < bottom_b: return False
+    if bottom_a > top_b: return False
+
+    return True
+
 def get_frame_time():
 
     global current_time
@@ -25,13 +36,16 @@ def get_frame_time():
     return frame_time
 
 def enter():
-    global background, ground, brave_cookie, ginger_brave_cookie, brave_select, ginger_select, x, y
+    global background, ground, brave_cookie, ginger_brave_cookie, brave_select, ginger_select, \
+            brave_hp, ginger_hp, x, y
     background = Stage2_Background(800,600)
     ground = Stage2_Ground(800,150)
     brave_cookie = Brave_Cookie_Select("Run")
     ginger_brave_cookie = Ginger_Brave_Cookie_Select("Run")
     brave_select = load_image('Resource\\game_start_button.png')
     ginger_select = load_image('Resource\\game_start_button.png')
+    brave_hp = load_image('Resource\\Item\\hp.png')
+    ginger_hp = load_image('Resource\\Item\\hp.png')
     x = 0
     y = 0
 def exit():
@@ -52,7 +66,7 @@ def handle_events():
             if (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
                 game_framework.quit()
             elif event.type == SDL_MOUSEMOTION:
-                x ,y = event.x, 600 - event.y
+                x ,y = event.x, 599 - event.y
 
 
 def draw():
@@ -60,13 +74,20 @@ def draw():
     clear_canvas()
     background.draw()
     ground.draw()
-    brave_select.draw(250, 100)
-    ginger_select.draw(550, 100)
+
     brave_cookie.draw()
     ginger_brave_cookie.draw()
 
-    update_canvas()
+    brave_select.draw(250, 100)
+    ginger_select.draw(550, 100)
 
+    brave_hp.draw_to_origin(150, 300, Brave_Cookie.hp, 50)
+    ginger_hp.draw_to_origin(450, 300, Ginger_Brave_Cookie.hp, 50)
+
+    brave_cookie.draw_bb()
+    ginger_brave_cookie.draw_bb()
+
+    update_canvas()
 
 def update():
     global x, y
