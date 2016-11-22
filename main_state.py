@@ -53,8 +53,8 @@ def enter():
     global brave_cookie, ginger_brave_cookie, background, ground, nomal_fork, nomal_thorn, special_fork, double_thorn, board, \
             start, score_jelly, hp_jelly, font, object
 
-    brave_cookie = Brave_Cookie("Run")
-    ginger_brave_cookie = Ginger_Brave_Cookie("Run")
+    brave_cookie = Brave_Cookie()
+    ginger_brave_cookie = Ginger_Brave_Cookie()
     background = Stage1_Background(800, 600)
     ground = Stage1_Ground(800, 150)
     board = Stage1_Board().create()
@@ -116,12 +116,6 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_4:
             game_framework.change_state(main_state4)
 
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-            if type(brave_cookie) == Brave_Cookie:
-                brave_cookie = Ginger_Brave_Cookie(brave_cookie.state)
-            elif type(brave_cookie) == Ginger_Brave_Cookie:
-                brave_cookie = Brave_Cookie(brave_cookie.state)
-
         else:
             brave_cookie.handle_events(event)
             ginger_brave_cookie.handle_events(event)
@@ -151,12 +145,8 @@ def update():
                         dict.state = "None"
                 else:
                     brave_cookie.state = "Collide"
-                    brave_cookie.bump()
-                    for dict in list:
-                        dict.state = "Collide"
-            elif brave_cookie.state == "Run" or brave_cookie.state == "Slide" or brave_cookie.state == "Jump":
-                for dict in list:
-                    dict.state = "None"
+                    if brave_cookie.state == "Collide":
+                        brave_cookie.bump()
 
     if brave_cookie.map_size == 1550 and brave_cookie.y == 200:
         game_framework.change_state(main_state2)
@@ -176,6 +166,6 @@ def draw():
 
     font.draw(100, 550, 'Score : %3.2d' % brave_cookie.score, (255, 255, 255))
     brave_cookie.draw()
-
+    brave_cookie.draw_bb()
     delay(0.03)
     update_canvas()

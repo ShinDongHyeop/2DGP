@@ -9,17 +9,15 @@ class Brave_Cookie:
     state_sound = None
     score = 0
     hp = 250.0
-    def __init__(self, state):
+    def __init__(self):
         self.x = 150
         self.y = 200
         self.frame = 0
         self.map_size = 0
         self.jump = 0
         self.jump_gravity = 0
-        self.collision_time = 0
-        self.state = state
         self.state = "Run"
-
+        self.collision_time = 0
         if Brave_Cookie.image == None:
             self.Brave_Cookie_run = load_image('Resource\\Character1\\cookie_run.png')
             self.Brave_Cookie_dead = load_image('Resource\\Character1\\cookie_run_dead.png')
@@ -48,34 +46,33 @@ class Brave_Cookie:
         Brave_Cookie.score += 50
 
     def bump(self):
-        self.hp -= 100
-        if self.collision_time < 3:
-            self.map_size += 0
+        Brave_Cookie.hp -= 2
+        if self.collision_time < 10:
+            self.state = "Collide"
+            self.collision_time += 1
+        else:
+            self.state = "Run"
+            self.collision_time = 0
 
     def heal(self, item):
         Brave_Cookie.hp += 80
         self.hp_sound.play()
 
     def update(self):
-        Brave_Cookie.hp -= 0.1
+        Brave_Cookie.hp -= 0.05
         Brave_Cookie.score += 0.5
+        self.map_size += 1
 
         self.gravity()
         if self.state == "Run":
             self.collision_time = 0
-            self.map_size += 1
             self.frame = (self.frame + 1) % 6
         elif self.state == "Dead":
             self.frame = (self.frame + 1) % 4
         elif self.state == "Jump" and self.y <= 210:
             self.state = "Run"
-        elif self.state == "Slide" or self.state == "Jump":
-            self.map_size += 1
         elif self.state == "Collide":
-            self.collision_time += 1
-            if self.collision_time > 3:
-                self.state = "Run"
-                self.collision_time = 0
+            self.bump()
 
         if self.state == "Jump" and (self.map_size >= 1440 and self.map_size <= 1550):
             if (self.y - 40 - self.jump_gravity) > 210:
@@ -106,7 +103,7 @@ class Brave_Cookie:
                 self.Brave_Cookie_jump1.draw(self.x, self.y)
             elif self.jump % 2 == 0:
                 self.Brave_Cookie_jump2.draw(self.x, self.y)
-        self.Brave_Cookie_hp.draw_to_origin(0, 500, self.hp, 50)
+        self.Brave_Cookie_hp.draw_to_origin(0, 500, Brave_Cookie.hp, 50)
 
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
@@ -115,7 +112,7 @@ class Brave_Cookie:
         if self.state == "Run":
             return self.x - 20, self. y - 30, self.x + 15, self.y + 10
         elif self.state == "Slide":
-            return self.x - 5 , self. y - 50, self.x + 25, self.y - 20
+            return self.x - 5 , self. y - 50, self.x + 25, self.y - 30
         elif self.state == "Jump":
             return self.x - 15, self. y - 10, self.x + 25, self.y + 10
         elif self.state == "Collide":
@@ -181,17 +178,15 @@ class Ginger_Brave_Cookie:
     score = 0
     hp = 250.0
 
-    def __init__(self, state):
+    def __init__(self):
         self.x = 150
         self.y = 200
         self.frame = 0
         self.map_size = 0
         self.jump = 0
         self.jump_gravity = 0
-        self.collision_time = 0
-        self.state = state
         self.state = "Run"
-
+        self.collision_time = 0
         if Ginger_Brave_Cookie.image == None:
             self.Ginger_Brave_Cookie_run = load_image('Resource\\Character2\\Cookie2_Run.png')
             self.Ginger_Brave_Cookie_dead = load_image('Resource\\Character2\\Cookie2_Dead.png')
@@ -285,7 +280,7 @@ class Ginger_Brave_Cookie:
         if self.state == "Run":
             return self.x - 20, self. y - 40, self.x + 15, self.y + 10
         elif self.state == "Slide":
-            return self.x - 5 , self. y - 50, self.x + 25, self.y - 20
+            return self.x - 5 , self. y - 50, self.x + 25, self.y - 30
         elif self.state == "Jump":
             return self.x - 15, self. y - 10, self.x + 25, self.y + 10
         elif self.state == "Collide":
