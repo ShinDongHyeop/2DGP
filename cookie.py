@@ -46,13 +46,12 @@ class Brave_Cookie:
         Brave_Cookie.score += 50
 
     def bump(self):
-        Brave_Cookie.hp -= 2
-        if self.collision_time < 10:
-            self.state = "Collide"
+        if self.collision_time < 1:
+            Brave_Cookie.hp -= 30
             self.collision_time += 1
+            print("time : ", self.collision_time)
         else:
             self.state = "Run"
-            self.collision_time = 0
 
     def heal(self, item):
         Brave_Cookie.hp += 80
@@ -62,15 +61,18 @@ class Brave_Cookie:
         Brave_Cookie.hp -= 0.05
         Brave_Cookie.score += 0.5
         self.map_size += 1
-
+        print("hp : " ,Brave_Cookie.hp)
         self.gravity()
         if self.state == "Run":
-            self.collision_time = 0
             self.frame = (self.frame + 1) % 6
         elif self.state == "Dead":
             self.frame = (self.frame + 1) % 4
         elif self.state == "Jump" and self.y <= 210:
             self.state = "Run"
+        elif self.state == "Collide":
+            self.bump()
+        elif self.state == "Run" or self.state == "Slide" or self.state == "Jump":
+            self.collision_time = 0
         elif self.state == "Collide":
             self.bump()
 
@@ -81,7 +83,7 @@ class Brave_Cookie:
             else:
                 self.y = 250
                 self.jump_gravity = 0
-        print("map_size : ", self.map_size)
+        #print("map_size : ", self.map_size)
 
     def gravity(self):
         if (self.y - 40 - self.jump_gravity) > 160:
@@ -211,16 +213,13 @@ class Ginger_Brave_Cookie:
         self.score_sound.play()
         Ginger_Brave_Cookie.score += 50
 
-    def bump(self, state):
-        self.state = state
-        #self.hp -= 100
-        if self.collision_time < 3:
+    def bump(self):
+        if self.collision_time < 1:
+            Brave_Cookie.hp -= 30
             self.collision_time += 1
-           # self.map_size += 0
-
+            print("time : ", self.collision_time)
         else:
             self.state = "Run"
-            self.collision_time = 0
 
     def heal(self, item):
         Ginger_Brave_Cookie.hp += 80
@@ -229,22 +228,21 @@ class Ginger_Brave_Cookie:
     def update(self):
         Ginger_Brave_Cookie.hp -= 0.1
         Ginger_Brave_Cookie.score += 0.5
-        if self.map_size > 1550:
-            self.map_size = 0
+
+        self.map_size += 1
 
         self.gravity()
         if self.state == "Run":
-            self.map_size += 1
             self.frame = (self.frame + 1) % 3
         elif self.state == "Dead":
             self.frame = (self.frame + 1) % 2
         elif self.state == "Jump" and self.y <= 210:
             self.state = "Run"
-        elif self.state == "Slide" or self.state == "Jump":
-            self.map_size += 1
+        elif self.state == "Run" or self.state == "Slide" or self.state == "Jump":
+            self.collision_time = 0
             self.frame = 0
         elif self.state == "Collide":
-            self.bump("Collide")
+            self.bump()
 
         if self.state == "Jump" and (self.map_size >= 1440 and self.map_size <= 1550):
             if (self.y - 40 - self.jump_gravity) > 210:

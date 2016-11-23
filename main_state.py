@@ -133,7 +133,7 @@ def update():
     for list in object:
         for dict in list:
             dict.update(frame_time)
-            if collide(brave_cookie, dict):
+            if collide(brave_cookie, dict) and brave_cookie.state != "Collide":
                 if list == score_jelly:
                     list.remove(dict)
                     brave_cookie.scoreSound(dict)
@@ -145,8 +145,6 @@ def update():
                         dict.state = "None"
                 else:
                     brave_cookie.state = "Collide"
-                    if brave_cookie.state == "Collide":
-                        brave_cookie.bump()
 
     if brave_cookie.map_size == 1550 and brave_cookie.y == 200:
         game_framework.change_state(main_state2)
