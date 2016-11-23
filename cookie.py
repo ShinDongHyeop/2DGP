@@ -13,11 +13,11 @@ class Brave_Cookie:
         self.x = 150
         self.y = 200
         self.frame = 0
-        self.map_size = 0
         self.jump = 0
         self.jump_gravity = 0
-        self.state = "Run"
         self.collision_time = 0
+        self.map_size = 0.0
+        self.state = "Run"
         if Brave_Cookie.image == None:
             self.Brave_Cookie_run = load_image('Resource\\Character1\\cookie_run.png')
             self.Brave_Cookie_dead = load_image('Resource\\Character1\\cookie_run_dead.png')
@@ -40,7 +40,6 @@ class Brave_Cookie:
             self.collide_sound = load_wav('Resource\\Sound\\collide.wav')
             self.collide_sound.set_volume(16)
 
-
     def scoreSound(self, item):
         self.score_sound.play()
         Brave_Cookie.score += 50
@@ -49,7 +48,6 @@ class Brave_Cookie:
         if self.collision_time < 1:
             Brave_Cookie.hp -= 30
             self.collision_time += 1
-            print("time : ", self.collision_time)
         else:
             self.state = "Run"
 
@@ -57,11 +55,12 @@ class Brave_Cookie:
         Brave_Cookie.hp += 80
         self.hp_sound.play()
 
-    def update(self):
+    def update(self, frame_time):
+        if frame_time < 3:
+            self.map_size += frame_time
         Brave_Cookie.hp -= 0.05
         Brave_Cookie.score += 0.5
-        self.map_size += 1
-        print("hp : " ,Brave_Cookie.hp)
+
         self.gravity()
         if self.state == "Run":
             self.frame = (self.frame + 1) % 6
@@ -76,14 +75,13 @@ class Brave_Cookie:
         elif self.state == "Collide":
             self.bump()
 
-        if self.state == "Jump" and (self.map_size >= 1440 and self.map_size <= 1550):
+        if self.state == "Jump" and (self.map_size >= 51.5 and self.map_size <= 55.0):
             if (self.y - 40 - self.jump_gravity) > 210:
                 self.jump_gravity += 2
                 self.y -= self.jump_gravity / 2
             else:
                 self.y = 250
                 self.jump_gravity = 0
-        #print("map_size : ", self.map_size)
 
     def gravity(self):
         if (self.y - 40 - self.jump_gravity) > 160:
@@ -187,8 +185,8 @@ class Ginger_Brave_Cookie:
         self.map_size = 0
         self.jump = 0
         self.jump_gravity = 0
-        self.state = "Run"
         self.collision_time = 0
+        self.state = "Run"
         if Ginger_Brave_Cookie.image == None:
             self.Ginger_Brave_Cookie_run = load_image('Resource\\Character2\\Cookie2_Run.png')
             self.Ginger_Brave_Cookie_dead = load_image('Resource\\Character2\\Cookie2_Dead.png')
@@ -217,7 +215,6 @@ class Ginger_Brave_Cookie:
         if self.collision_time < 1:
             Brave_Cookie.hp -= 30
             self.collision_time += 1
-            print("time : ", self.collision_time)
         else:
             self.state = "Run"
 
@@ -225,11 +222,11 @@ class Ginger_Brave_Cookie:
         Ginger_Brave_Cookie.hp += 80
         self.hp_sound.play()
 
-    def update(self):
+    def update(self, frame_time):
         Ginger_Brave_Cookie.hp -= 0.1
         Ginger_Brave_Cookie.score += 0.5
-
-        self.map_size += 1
+        if frame_time < 3:
+            self.map_size += frame_time
 
         self.gravity()
         if self.state == "Run":
@@ -244,7 +241,7 @@ class Ginger_Brave_Cookie:
         elif self.state == "Collide":
             self.bump()
 
-        if self.state == "Jump" and (self.map_size >= 1440 and self.map_size <= 1550):
+        if self.state == "Jump" and (self.map_size >= 51.5 and self.map_size <= 55):
             if (self.y - 40 - self.jump_gravity) > 210:
                 self.jump_gravity += 2
                 self.y -= self.jump_gravity / 2
