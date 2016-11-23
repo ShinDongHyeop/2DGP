@@ -82,11 +82,9 @@ def exit():
             del(dict)
         del(list)
 
-
     end = time.time()
 
     print("Stage1 Clear Time : ", (end - start))
-
 
 def pause():
     pass
@@ -125,8 +123,8 @@ def update():
             score_jelly, hp_jelly, object
 
     frame_time = get_frame_time()
-    brave_cookie.update()
-    ginger_brave_cookie.update()
+    brave_cookie.update(frame_time)
+    ginger_brave_cookie.update(frame_time)
     background.update(frame_time)
     ground.update(frame_time)
 
@@ -145,10 +143,9 @@ def update():
                         dict.state = "None"
                 else:
                     brave_cookie.state = "Collide"
-
-    if brave_cookie.map_size == 1550 and brave_cookie.y == 200:
+    if background.map_size == 55 and brave_cookie.y == 200:
         game_framework.change_state(main_state2)
-    elif brave_cookie.map_size == 1550 and brave_cookie.y == 250:
+    elif background.map_size == 55 and brave_cookie.y == 250:
         game_framework.change_state(main_state3)
 
 def draw():
@@ -164,6 +161,6 @@ def draw():
 
     font.draw(100, 550, 'Score : %3.2d' % brave_cookie.score, (255, 255, 255))
     brave_cookie.draw()
-    brave_cookie.draw_bb()
+
     delay(0.03)
     update_canvas()
