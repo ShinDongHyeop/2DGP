@@ -10,7 +10,7 @@ class Stage1_Background:
     def __init__(self, w, h):
         self.speed = 0
         self.left = 0
-        self.left2 = 0
+        self.map_size = 0.0
         self.screen_width = w
         self.screen_height = h
         self.background = load_image('Resource\\Map\\Stage1\\First_Background.png')
@@ -28,6 +28,8 @@ class Stage1_Background:
         self.speed = 100
         self.left = (self.left + frame_time * self.speed) % self.background.w
 
+        if frame_time < 3:
+            self.map_size += frame_time
 
 class Stage2_Background:
     PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
@@ -39,7 +41,7 @@ class Stage2_Background:
     def __init__(self, w, h):
         self.speed = 0
         self.left = 0
-        self.left2 = 0
+        self.map_size = 0.0
         self.screen_width = w
         self.screen_height = h
         self.background = load_image('Resource\\Map\\Stage2\\Second_Background.png')
@@ -56,6 +58,8 @@ class Stage2_Background:
     def update(self, frame_time):
         self.speed = 100
         self.left = (self.left + frame_time * self.speed) % self.background.w
+        if frame_time < 3:
+            self.map_size += frame_time
 
 class Stage3_Background:
     PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
@@ -67,7 +71,7 @@ class Stage3_Background:
     def __init__(self, w, h):
         self.speed = 0
         self.left = 0
-        self.left2 = 0
+        self.map_size = 0.0
         self.screen_width = w
         self.screen_height = h
         self.background = load_image('Resource\\Map\\Stage3\\Third_Background.png')
@@ -84,6 +88,8 @@ class Stage3_Background:
     def update(self, frame_time):
         self.speed = 100
         self.left = (self.left + frame_time * self.speed) % self.background.w
+        if frame_time < 3:
+            self.map_size += frame_time
 
 class Stage4_Background:
     PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
@@ -95,7 +101,7 @@ class Stage4_Background:
     def __init__(self, w, h):
         self.speed = 0
         self.left = 0
-        self.left2 = 0
+        self.map_size = 0.0
         self.screen_width = w
         self.screen_height = h
         self.background = load_image('Resource\\Map\\Stage4\\Fourth_Background.png')
@@ -112,3 +118,5 @@ class Stage4_Background:
     def update(self, frame_time):
         self.speed = 100
         self.left = (self.left + frame_time * self.speed) % self.background.w
+        if frame_time < 3:
+            self.map_size += frame_time
