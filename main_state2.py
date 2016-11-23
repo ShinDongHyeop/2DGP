@@ -15,7 +15,7 @@ import main_state
 import main_state3
 import main_state4
 
-name = "MainState"
+name = "MainState2"
 
 brave_cookie = None
 ginger_brave_cookie = None
@@ -25,6 +25,9 @@ oatmeal_spear = None
 thorns = None
 nasty_thorn = None
 board = None
+item_jelly = None
+hp_jelly = None
+object = []
 current_time = 0.0
 
 def collide(a, b):
@@ -48,10 +51,10 @@ def get_frame_time():
 
 def enter():
     global brave_cookie, ginger_brave_cookie, background, ground, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, start, \
-            score_jelly, hp_jelly, font
+            score_jelly, hp_jelly, font, object
 
-    brave_cookie = Brave_Cookie("Run")
-    ginger_brave_cookie = Ginger_Brave_Cookie("Run")
+    brave_cookie = Brave_Cookie()
+    ginger_brave_cookie = Ginger_Brave_Cookie()
     background = Stage2_Background(800, 600)
     ground = Stage2_Ground(800, 150)
     board = Stage2_Board().create()
@@ -61,6 +64,7 @@ def enter():
     nasty_thorn = Stage2_Nasty_Thorn().create()
     score_jelly = Stage2_Score_Jelly().create()
     hp_jelly = Stage2_Hp_Jelly().create()
+    object = [brown_spear, oatmeal_spear, thorns, nasty_thorn, score_jelly, hp_jelly, board]
     font = load_font('Resource\\ENCR10B.TTF')
     start = time.time()
 
@@ -72,40 +76,11 @@ def exit():
     del(background)
     del(ground)
 
-    for item in score_jelly:
-        score_jelly.remove(item)
-        del(item)
-    del(score_jelly)
-
-    for item in hp_jelly:
-        hp_jelly.remove(item)
-        del(item)
-    del(hp_jelly)
-
-    for spear in brown_spear:
-        brown_spear.remove(spear)
-        del (spear)
-    del (brown_spear)
-
-    for spear in oatmeal_spear:
-        oatmeal_spear.remove(spear)
-        del (spear)
-    del (oatmeal_spear)
-
-    for thorn in thorns:
-        thorns.remove(thorn)
-        del (thorn)
-    del (thorns)
-
-    for thorn in nasty_thorn:
-        nasty_thorn.remove(thorn)
-        del (thorn)
-    del (nasty_thorn)
-
-    for foothold in board:
-        board.remove(foothold)
-        del(foothold)
-    del(board)
+    for list in object:
+        for dict in list:
+            list.remove(dict)
+            del(dict)
+        del(list)
 
     end = time.time()
 
@@ -139,64 +114,39 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_4:
             game_framework.change_state(main_state4)
 
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-            if type(brave_cookie) == Brave_Cookie:
-                brave_cookie = Ginger_Brave_Cookie(brave_cookie.state)
-            elif type(brave_cookie) == Ginger_Brave_Cookie:
-                brave_cookie = Brave_Cookie(brave_cookie.state)
         else:
             brave_cookie.handle_events(event)
             ginger_brave_cookie.handle_events(event)
 
 def update():
     global brave_cookie, ginger_brave_cookie, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, \
-            score_jelly, hp_jelly
+            score_jelly, hp_jelly, object
 
     frame_time = get_frame_time()
-    brave_cookie.update()
-    ginger_brave_cookie.update()
+    brave_cookie.update(frame_time)
+    ginger_brave_cookie.update(frame_time)
     background.update(frame_time)
     ground.update(frame_time)
 
-    for item in score_jelly:
-        item.update(frame_time)
-        if collide(brave_cookie, item):
-            score_jelly.remove(item)
-            brave_cookie.scoreSound(item)
-    for item in hp_jelly:
-        item.update(frame_time)
-        if collide(brave_cookie, item):
-            hp_jelly.remove(item)
-            brave_cookie.heal(item)
+    for list in object:
+        for dict in list:
+            dict.update(frame_time)
+            if collide(brave_cookie, dict) and brave_cookie.state != "Collide":
+                if list == score_jelly:
+                    list.remove(dict)
+                    brave_cookie.scoreSound(dict)
+                elif list == hp_jelly:
+                    list.remove(dict)
+                    brave_cookie.heal(dict)
+                elif list == board:
+                    for dict in list:
+                        dict.state = "None"
+                else:
+                    brave_cookie.state = "Collide"
 
-    for Spear in brown_spear:
-        Spear.update(frame_time)
-        if collide(brave_cookie, Spear) and brave_cookie.state != "Collide":
-            brave_cookie.bump("Collide")
-    for Spear in oatmeal_spear:
-        Spear.update(frame_time)
-        if collide(brave_cookie, Spear) and brave_cookie.state != "Collide":
-            brave_cookie.bump("Collide")
-    for Thorn in thorns:
-        Thorn.update(frame_time)
-        if collide(brave_cookie, Thorn) and brave_cookie.state != "Collide":
-            brave_cookie.bump("Collide")
-    for Thorn in nasty_thorn:
-        Thorn.update(frame_time)
-        if collide(brave_cookie, Thorn) and brave_cookie.state != "Collide":
-            brave_cookie.bump("Collide")
-
-    for foothold in board:
-        foothold.update(frame_time)
-
-    if brave_cookie.hp <= 0:
-        # brave_cookie.map_size += 0
-        # print(brave_cookie.map_size)
-        game_framework.change_state(title_state)
-
-    if brave_cookie.map_size == 1550 and brave_cookie.y == 200:
+    if background.map_size == 1550 and brave_cookie.y == 200:
         game_framework.change_state(main_state4)
-    elif brave_cookie.map_size == 1550 and brave_cookie.y == 250:
+    elif background.map_size == 1550 and brave_cookie.y == 250:
         game_framework.change_state(main_state3)
 
 
@@ -208,22 +158,9 @@ def draw():
     clear_canvas()
     background.draw()
 
-    for item in score_jelly:
-        item.draw()
-    for item in hp_jelly:
-        item.draw()
-
-    for Spear in brown_spear:
-        Spear.draw()
-    for Spear in oatmeal_spear:
-        Spear.draw()
-    for Thorn in thorns:
-        Thorn.draw()
-    for Thorn in nasty_thorn:
-        Thorn.draw()
-
-    for foothold in board:
-        foothold.draw()
+    for list in object:
+        for dict in list:
+            dict.draw()
 
     font.draw(100, 550, 'Score : %3.2d' % brave_cookie.score, (255, 255, 255))
     ground.draw()
