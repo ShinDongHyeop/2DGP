@@ -56,7 +56,7 @@ class Brave_Cookie:
         self.hp_sound.play()
 
     def update(self, frame_time):
-        if frame_time < 3:
+        if frame_time < 1:
             self.map_size += frame_time
         Brave_Cookie.hp -= 0.05
         Brave_Cookie.score += 0.5
@@ -82,6 +82,8 @@ class Brave_Cookie:
             else:
                 self.y = 250
                 self.jump_gravity = 0
+
+        print("map_size : ", self.map_size)
 
     def gravity(self):
         if (self.y - 40 - self.jump_gravity) > 160:
@@ -146,16 +148,16 @@ class Brave_Cookie:
 class Brave_Cookie_Select:
     image = None
 
-    def __init__(self, state):
+    def __init__(self):
         self.x = 250
         self.y = 200
         self.frame = 0
-        self.state = state
         self.state = "Run"
 
         if Brave_Cookie.image == None:
             self.Brave_Cookie_run = load_image('Resource\\Character1\\cookie_run.png')
-
+            self.Brave_Cookie_select = load_image('Resource\\game_start_button.png')
+            self.Brave_Cookie_hp = load_image('Resource\\Item\\hp.png')
 
     def update(self):
         self.state = "Run"
@@ -164,12 +166,9 @@ class Brave_Cookie_Select:
     def draw(self):
         if self.state == "Run":
             self.Brave_Cookie_run.clip_draw(self.frame * 75, 0, 75, 100, self.x, self.y)
+        self.Brave_Cookie_select.draw(250, 100)
+        self.Brave_Cookie_hp.draw_to_origin(150, 300, Brave_Cookie.hp, 50)
 
-    def draw_bb(self):
-        draw_rectangle(*self.get_bb())
-
-    def get_bb(self):
-        return self.x - 124, self.y - 70, self.x + 125, self.y - 128
 
 class Ginger_Brave_Cookie:
     image = None
@@ -307,15 +306,16 @@ class Ginger_Brave_Cookie:
 class Ginger_Brave_Cookie_Select:
     image = None
 
-    def __init__(self, state):
+    def __init__(self):
         self.x = 550
         self.y = 200
         self.frame = 0
-        self.state = state
         self.state = "Run"
 
         if Brave_Cookie.image == None:
             self.Ginger_Brave_Cookie_run = load_image('Resource\\Character2\\Cookie2_Run.png')
+            self.Ginger_Brave_Cookie_select = load_image('Resource\\game_start_button.png')
+            self.Ginger_Brave_Cookie_hp = load_image('Resource\\Item\\hp.png')
 
     def update(self):
         self.state = "Run"
@@ -324,9 +324,5 @@ class Ginger_Brave_Cookie_Select:
     def draw(self):
         if self.state == "Run":
             self.Ginger_Brave_Cookie_run.clip_draw(self.frame * 47, 0, 47, 100, self.x, self.y)
-
-    def draw_bb(self):
-        draw_rectangle(*self.get_bb())
-
-    def get_bb(self):
-        return self.x - 124, self.y - 70, self.x + 125, self.y - 128
+        self.Ginger_Brave_Cookie_select.draw(550, 100)
+        self.Ginger_Brave_Cookie_hp.draw_to_origin(450, 300, Ginger_Brave_Cookie.hp, 50)
