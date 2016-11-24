@@ -9,6 +9,7 @@ class Brave_Cookie:
     state_sound = None
     score = 0
     hp = 250.0
+
     def __init__(self):
         self.x = 150
         self.y = 200
@@ -68,8 +69,6 @@ class Brave_Cookie:
             self.frame = (self.frame + 1) % 4
         elif self.state == "Jump" and self.y <= 210:
             self.state = "Run"
-        elif self.state == "Collide":
-            self.bump()
         elif self.state == "Run" or self.state == "Slide" or self.state == "Jump":
             self.collision_time = 0
         elif self.state == "Collide":
@@ -184,7 +183,7 @@ class Ginger_Brave_Cookie:
 
     def bump(self):
         if self.collision_time < 1:
-            Brave_Cookie.hp -= 30
+            Ginger_Brave_Cookie.hp -= 30
             self.collision_time += 1
         else:
             self.state = "Run"
@@ -196,7 +195,7 @@ class Ginger_Brave_Cookie:
     def update(self, frame_time):
         Ginger_Brave_Cookie.hp -= 0.1
         Ginger_Brave_Cookie.score += 0.5
-        if frame_time < 3:
+        if frame_time < 1:
             self.map_size += frame_time
 
         self.gravity()
