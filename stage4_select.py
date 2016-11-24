@@ -7,7 +7,7 @@ import stage4
 
 
 
-name = "MainState2Select"
+name = "MainState4Select"
 background = None
 ground = None
 brave_cookie = None
@@ -26,8 +26,8 @@ def get_frame_time():
 def enter():
     global background, ground, brave_cookie, ginger_brave_cookie, x, y
 
-    background = Stage2_Background(800,600)
-    ground = Stage2_Ground(800,150)
+    background = Stage4_Background(800,600)
+    ground = Stage4_Ground(800,150)
     brave_cookie = Brave_Cookie_Select()
     ginger_brave_cookie = Ginger_Brave_Cookie_Select()
     x = 0

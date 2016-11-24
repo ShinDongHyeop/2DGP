@@ -3,22 +3,20 @@ import json
 import os
 import time
 
-from pico2d import *
-from cookie import *
 from back_ground import *
 from ground import *
 from obstacle import *
 from item import *
+from score import *
 import game_framework
 import title_state
-import stage1
-import stage2
-import stage3
+import stage1_select
+import stage2_select
+import stage3_select
+import stage4_select
 
 name = "MainState4"
 
-brave_cookie = None
-ginger_brave_cookie = None
 background = None
 blue_flowe = None
 red_flowe = None
@@ -49,11 +47,10 @@ def get_frame_time():
     return frame_time
 
 def enter():
-    global brave_cookie, ginger_brave_cookie, background, ground, blue_flower, red_flower, totem, dirty_totem, start, \
+    global cookie, background, ground, blue_flower, red_flower, totem, dirty_totem, start, \
             score_jelly, hp_jelly, font, objects
 
-    brave_cookie = Brave_Cookie()
-    ginger_brave_cookie = Ginger_Brave_Cookie()
+    cookie = stage4_select.get_cookie
     background = Stage4_Background(800, 600)
     ground = Stage4_Ground(800, 150)
     blue_flower = Stage4_Blue_Flower().create()
@@ -67,11 +64,10 @@ def enter():
     start = time.time()
 
 def exit():
-    global brave_cookie, ginger_brave_cookie, background, ground, blue_flower, red_flower, totem, dirty_totem, start, end, \
+    global cookie, background, ground, blue_flower, red_flower, totem, dirty_totem, start, end, \
             score_jelly, hp_jelly, objects
 
-    del(brave_cookie)
-    del(ginger_brave_cookie)
+    del(cookie)
     del(background)
     del(ground)
 
@@ -94,7 +90,7 @@ def resume():
 
 
 def handle_events():
-    global brave_cookie, ginger_brave_cookie
+    global cookie
     events = get_events()
 
     for event in events:
@@ -105,47 +101,45 @@ def handle_events():
             game_framework.change_state(title_state)
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_1:
-            game_framework.change_state(stage1)
+            game_framework.change_state(stage1_select)
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_2:
-            game_framework.change_state(stage2)
+            game_framework.change_state(stage2_select)
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_3:
-            game_framework.change_state(stage3)
+            game_framework.change_state(stage3_select)
 
         else:
-            brave_cookie.handle_events(event)
-            ginger_brave_cookie.handle_events(event)
+            cookie.handle_events(event)
 
 def update():
-    global brave_cookie, ginger_brave_cookie, background, ground, blue_flower, red_flower, totem, dirty_totem, \
-            score_jelly, hp_jelly, objects
+    global cookie, background, ground, blue_flower, red_flower, totem, dirty_totem, \
+            score_jelly, hp_jelly, objects, score
 
     frame_time = get_frame_time()
-    brave_cookie.update(frame_time)
-    ginger_brave_cookie.update(frame_time)
+    cookie.update(frame_time)
     background.update(frame_time)
     ground.update(frame_time)
+    score.stage4_score()
 
     for list in objects:
         for dict in list:
             dict.update(frame_time)
-            if collide(brave_cookie, dict):
+            if collide(cookie, dict):
                 if list == score_jelly:
                     list.remove(dict)
-                    brave_cookie.scoreSound(dict)
+                    cookie.scoreSound(dict)
                 elif list == hp_jelly:
                     list.remove(dict)
-                    brave_cookie.heal(dict)
+                    cookie.heal(dict)
                 else:
-                    brave_cookie.state = "Collide"
+                    cookie.state = "Collide"
 
-    if brave_cookie.map_size >= 51 and brave_cookie.y == 200:
+    if background.map_size >= 51 and cookie.y == 200:
         game_framework.change_state(title_state)
 
 def draw():
-    global brave_cookie, background, ground, blue_flower, red_flower, totem, dirty_totem, score_jelly, hp_jelly, \
-            objects
+    global cookie, background, ground, objects, score
 
     clear_canvas()
     background.draw()
@@ -155,8 +149,8 @@ def draw():
         for dict in list:
             dict.draw()
 
-    font.draw(100, 550, 'Score : %3.2d' % brave_cookie.score, (255, 255, 255))
-    brave_cookie.draw()
+    font.draw(100, 550, 'Score : %3.2d' % score.score, (255, 255, 255))
+    cookie.draw()
 
     delay(0.03)
     update_canvas()
