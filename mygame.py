@@ -5,4 +5,4 @@ import main_state
 import main_state2_select
 open_canvas(sync = True)
 
-game_framework.run(main_state2_select)
+game_framework.run(main_state)
