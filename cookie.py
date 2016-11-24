@@ -1,13 +1,13 @@
 from pico2d import *
+from score import *
 import game_framework
-import title_state
+
 
 class Brave_Cookie:
     image = None
     score_sound = None
     hp_sound = None
     state_sound = None
-    score = 0
     hp = 250.0
 
     def __init__(self):
@@ -43,7 +43,7 @@ class Brave_Cookie:
 
     def scoreSound(self, item):
         self.score_sound.play()
-        Brave_Cookie.score += 50
+        Score.score += 50
 
     def bump(self):
         if self.collision_time < 1:
@@ -60,7 +60,6 @@ class Brave_Cookie:
         if frame_time < 1:
             self.map_size += frame_time
         Brave_Cookie.hp -= 0.05
-        Brave_Cookie.score += 0.5
 
         self.gravity()
         if self.state == "Run":
@@ -145,7 +144,6 @@ class Ginger_Brave_Cookie:
     image = None
     sound = None
     state_sound = None
-    score = 0
     hp = 250.0
 
     def __init__(self):
@@ -179,7 +177,7 @@ class Ginger_Brave_Cookie:
 
     def scoreSound(self, item):
         self.score_sound.play()
-        Ginger_Brave_Cookie.score += 50
+        Score.score += 50
 
     def bump(self):
         if self.collision_time < 1:
@@ -194,7 +192,6 @@ class Ginger_Brave_Cookie:
 
     def update(self, frame_time):
         Ginger_Brave_Cookie.hp -= 0.1
-        Ginger_Brave_Cookie.score += 0.5
         if frame_time < 1:
             self.map_size += frame_time
 

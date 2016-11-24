@@ -3,12 +3,11 @@ import json
 import os
 import time
 
-from pico2d import *
-from cookie import *
 from back_ground import *
 from ground import *
 from obstacle import *
 from item import *
+from score import *
 import game_framework
 import title_state
 import stage2
@@ -52,10 +51,11 @@ def get_frame_time():
 
 def enter():
     global cookie, background, ground, nomal_fork, nomal_thorn, special_fork, double_thorn, board, \
-            start, score_jelly, hp_jelly, font, objects
+            start, score_jelly, hp_jelly, font, objects, score
     
     cookie = stage1_select.get_cookie
     background = Stage1_Background(800, 600)
+    score = Score()
     ground = Stage1_Ground(800, 150)
     board = Stage1_Board().create()
     nomal_fork = Stage1_Nomal_Fork().create()
@@ -70,7 +70,7 @@ def enter():
 
 def exit():
     global cookie, background, ground, nomal_fork, nomal_thorn, special_fork, double_thorn, board, start, \
-            score_jelly, hp_jelly, objects
+            score_jelly, hp_jelly, objects, score
     del(cookie)
     del(background)
     del(ground)
@@ -118,12 +118,13 @@ def handle_events():
 
 def update():
     global cookie, background, ground, nomal_fork, nomal_thorn, special_fork, double_thorn, board, \
-            score_jelly, hp_jelly, objects
+            score_jelly, hp_jelly, objects, score
 
     frame_time = get_frame_time()
     cookie.update(frame_time)
     background.update(frame_time)
     ground.update(frame_time)
+    score.stage1_score()
 
     for list in objects:
         for dict in list:
@@ -146,8 +147,7 @@ def update():
         game_framework.change_state(stage3_select)
 
 def draw():
-    global cookie, background, ground, \
-            score_jelly, hp_jelly, objects
+    global cookie, background, ground, objects, score
     clear_canvas()
     background.draw()
     ground.draw()
@@ -156,7 +156,7 @@ def draw():
         for dict in list:
             dict.draw()
 
-    font.draw(100, 550, 'Score : %3.2d' % cookie.score, (255, 255, 255))
+    font.draw(100, 550, 'Score : %3.2d' % score.score, (255, 255, 255))
     cookie.draw()
 
     delay(0.03)
