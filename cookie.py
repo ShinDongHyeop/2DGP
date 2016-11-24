@@ -296,7 +296,7 @@ class Brave_Cookie_Select:
         if self.state == "Run":
             self.Brave_Cookie_run.clip_draw(self.frame * 75, 0, 75, 100, self.x, self.y)
             self.Brave_Cookie_select.draw(250, 100)
-            self.Brave_Cookie_hp.draw_to_origin(150, 300, Brave_Cookie.hp, 50)
+            self.Brave_Cookie_hp.draw_to_origin(125, 300, Brave_Cookie.hp, 50)
 
 class Ginger_Brave_Cookie_Select:
     image = None
@@ -319,4 +319,4 @@ class Ginger_Brave_Cookie_Select:
         if self.state == "Run":
             self.Ginger_Brave_Cookie_run.clip_draw(self.frame * 47, 0, 47, 100, self.x, self.y)
         self.Ginger_Brave_Cookie_select.draw(550, 100)
-        self.Ginger_Brave_Cookie_hp.draw_to_origin(450, 300, Ginger_Brave_Cookie.hp, 50)
+        self.Ginger_Brave_Cookie_hp.draw_to_origin(425, 300, Ginger_Brave_Cookie.hp, 50)
