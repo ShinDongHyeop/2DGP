@@ -15,7 +15,7 @@ import main_state
 import main_state2
 import main_state4
 
-name = "MainState"
+name = "MainState3"
 
 brave_cookie = None
 ginger_brave_Cookie = None
@@ -25,6 +25,9 @@ hate_palm_tree = None
 fence = None
 conch = None
 board = None
+item_jelly = None
+hp_jelly = None
+objects = []
 current_time = 0.0
 
 def collide(a, b):
@@ -48,10 +51,10 @@ def get_frame_time():
 
 def enter():
     global brave_cookie, ginger_brave_cookie, background, ground, palm_tree, hate_palm_tree, fence, conch, board, start, \
-            score_jelly, hp_jelly, font
+            score_jelly, hp_jelly, font, objects
 
-    brave_cookie = Brave_Cookie("Run")
-    ginger_brave_cookie = Ginger_Brave_Cookie("Run")
+    brave_cookie = Brave_Cookie()
+    ginger_brave_cookie = Ginger_Brave_Cookie()
     background = Stage3_Background(800, 600)
     ground = Stage3_Ground(800, 150)
     palm_tree = Stage3_Palm_Tree().create()
@@ -61,47 +64,23 @@ def enter():
     board = Stage2_Board().create()
     score_jelly = Stage3_Score_Jelly().create()
     hp_jelly = Stage3_Hp_Jelly().create()
+    objects = [palm_tree, hate_palm_tree, fence, conch, board, score_jelly, hp_jelly]
     font = load_font('Resource\\ENCR10B.TTF')
     start = time.time()
 
 def exit():
     global brave_cookie, ginger_brave_cookie, background, ground, palm_tree, hate_palm_tree, fence, conch, board, start, end, \
-        score_jelly, hp_jelly
+        score_jelly, hp_jelly, objects
     del(brave_cookie)
     del(ginger_brave_cookie)
     del(background)
     del(ground)
 
-    for item in score_jelly:
-        score_jelly.remove(item)
-        del(item)
-    del(score_jelly)
-    for item in hp_jelly:
-        hp_jelly.remove(item)
-        del(item)
-    del(hp_jelly)
-
-    for Spear in palm_tree:
-        palm_tree.remove(Spear)
-        del (Spear)
-    del (palm_tree)
-    for Spear in hate_palm_tree:
-        hate_palm_tree.remove(Spear)
-        del (Spear)
-    del (hate_palm_tree)
-    for Thorn in fence:
-        fence.remove(Thorn)
-        del(Thorn)
-    del (fence)
-    for Thorn in conch:
-        conch.remove(Thorn)
-        del (Thorn)
-    del (conch)
-
-    for foothold in board:
-        board.remove(foothold)
-        del(foothold)
-    del(board)
+    for list in objects:
+        for dict in list:
+            list.remove(dict)
+            del(dict)
+        del(list)
 
     end = time.time()
 
@@ -132,93 +111,52 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_2:
             game_framework.change_state(main_state2)
 
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_4:
-            game_framework.change_state(main_state4)
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-            if brave_cookie == Brave_Cookie:
-                brave_cookie = Ginger_Brave_Cookie(brave_cookie.state)
-            elif brave_cookie == Ginger_Brave_Cookie:
-                brave_cookie = Brave_Cookie(brave_cookie.state)
-
         else:
             brave_cookie.handle_events(event)
             ginger_brave_cookie.handle_events(event)
 
 def update():
     global brave_cookie, ginger_brave_cookie, background, ground, palm_tree, hate_palm_tree, fence, conch, board, \
-            score_jelly, hp_jelly
+            score_jelly, hp_jelly, objects
 
     frame_time = get_frame_time()
-    brave_cookie.update()
-    ginger_brave_cookie.update()
+    brave_cookie.update(frame_time)
+    ginger_brave_cookie.update(frame_time)
     background.update(frame_time)
     ground.update(frame_time)
 
-    for item in score_jelly:
-        item.update(frame_time)
-        if collide(brave_cookie, item):
-            score_jelly.remove(item)
-            brave_cookie.scoreSound(item)
-    for item in hp_jelly:
-        item.update(frame_time)
-        if collide(brave_cookie, item):
-            hp_jelly.remove(item)
-            brave_cookie.heal(item)
+    for list in objects:
+        for dict in list:
+            dict.update(frame_time)
+            if collide(brave_cookie, dict):
+                if list == score_jelly:
+                    list.remove(dict)
+                    brave_cookie.scoreSound(dict)
+                elif list == hp_jelly:
+                    list.remove(dict)
+                    brave_cookie.heal(dict)
+                elif list == board:
+                    for dict in list:
+                        dict.state = "None"
+                else:
+                    brave_cookie.state = "Collide"
 
-    for Spear in palm_tree:
-        Spear.update(frame_time)
-        if collide(brave_cookie, Spear) and brave_cookie.state != "Collide":
-            brave_cookie.bump("Collide")
-    for Spear in hate_palm_tree:
-        Spear.update(frame_time)
-        if collide(brave_cookie, Spear) and brave_cookie.state != "Collide":
-            brave_cookie.bump("Collide")
-    for thorn in conch:
-        thorn.update(frame_time)
-        if collide(brave_cookie, thorn) and brave_cookie.state != "Collide":
-            brave_cookie.bump("Collide")
-    for Thorn in fence:
-        Thorn.update(frame_time)
-        if collide(brave_cookie, Thorn) and brave_cookie.state != "Collide":
-            brave_cookie.bump("Collide")
-
-    for foothold in board:
-        foothold.update(frame_time)
-
-    if brave_cookie.hp <= 0:
-        # brave_cookie.map_size += 0
-        # print(brave_cookie.map_size)
-        game_framework.change_state(title_state)
-
-    if brave_cookie.map_size == 1550 and brave_cookie.y == 200:
+    if background.map_size >= 55 and brave_cookie.y == 200:
         game_framework.change_state(main_state4)
-    elif brave_cookie.map_size == 1550 and brave_cookie.y == 250:
+    elif background.map_size >= 55 and brave_cookie.y == 250:
         game_framework.change_state(main_state2)
 
 def draw():
     global brave_cookie, ginger_brave_cookie, background, ground, palm_tree, hate_palm_tree, fence, conch, board, \
-            score_jelly, hp_jelly
+            score_jelly, hp_jelly, objects
 
     clear_canvas()
     background.draw()
     ground.draw()
 
-    for item in score_jelly:
-        item.draw()
-    for item in hp_jelly:
-        item.draw()
-
-    for Spear in palm_tree:
-        Spear.draw()
-    for Spear in hate_palm_tree:
-        Spear.draw()
-    for Thorn in fence:
-        Thorn.draw()
-    for Thorn in conch:
-        Thorn.draw()
-
-    for foothold in board:
-        foothold.draw()
+    for list in objects:
+        for dict in list:
+            dict.draw()
 
     font.draw(100, 550, 'Score : %3.2d' % brave_cookie.score, (255, 255, 255))
     brave_cookie.draw()
