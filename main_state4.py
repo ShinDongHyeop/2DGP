@@ -15,7 +15,7 @@ import main_state
 import main_state2
 import main_state3
 
-name = "MainState4"
+name = "MainState"
 
 brave_cookie = None
 ginger_brave_cookie = None
@@ -24,9 +24,6 @@ blue_flowe = None
 red_flowe = None
 totem = None
 dirty_totem = None
-item_jelly = None
-hp_jelly = None
-objects = []
 current_time = 0.0
 
 def collide(a, b):
@@ -50,10 +47,10 @@ def get_frame_time():
 
 def enter():
     global brave_cookie, ginger_brave_cookie, background, ground, blue_flower, red_flower, totem, dirty_totem, start, \
-            score_jelly, hp_jelly, font, objects
+            score_jelly, hp_jelly, font
 
-    brave_cookie = Brave_Cookie()
-    ginger_brave_cookie = Ginger_Brave_Cookie()
+    brave_cookie = Brave_Cookie("Run")
+    ginger_brave_cookie = Ginger_Brave_Cookie("Run")
     background = Stage4_Background(800, 600)
     ground = Stage4_Ground(800, 150)
     blue_flower = Stage4_Blue_Flower().create()
@@ -62,24 +59,43 @@ def enter():
     dirty_totem = Stage4_Dirty_Totem().create()
     score_jelly = Stage4_Score_Jelly().create()
     hp_jelly = Stage4_Hp_Jelly().create()
-    objects = [blue_flower, red_flower, totem, dirty_totem, score_jelly, hp_jelly]
     font = load_font('Resource\\ENCR10B.TTF')
     start = time.time()
 
 def exit():
     global brave_cookie, ginger_brave_cookie, background, ground, blue_flower, red_flower, totem, dirty_totem, start, end, \
-            score_jelly, hp_jelly, objects
+            score_jelly, hp_jelly
 
     del(brave_cookie)
     del(ginger_brave_cookie)
     del(background)
     del(ground)
 
-    for list in objects:
-        for dict in list:
-            list.remove(dict)
-            del(dict)
-        del(list)
+    for item in score_jelly:
+        score_jelly.remove(item)
+        del(item)
+    del(score_jelly)
+    for item in hp_jelly:
+        hp_jelly.remove(item)
+        del(item)
+    del(hp_jelly)
+
+    for Spear in totem:
+        totem.remove(Spear)
+        del (Spear)
+    del (totem)
+    for Spear in dirty_totem:
+        dirty_totem.remove(Spear)
+        del (Spear)
+    del (dirty_totem)
+    for Thorn in blue_flower:
+        blue_flower.remove(Thorn)
+        del(Thorn)
+    del (blue_flower)
+    for Thorn in red_flower:
+        red_flower.remove(Thorn)
+        del (Thorn)
+    del (red_flower)
 
     end = time.time()
 
@@ -113,46 +129,81 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_3:
             game_framework.change_state(main_state3)
 
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
+            if brave_cookie == Brave_Cookie:
+                brave_cookie = Ginger_Brave_Cookie(brave_cookie.state)
+            elif brave_cookie == Ginger_Brave_Cookie:
+                brave_cookie = Brave_Cookie(brave_cookie.state)
         else:
             brave_cookie.handle_events(event)
             ginger_brave_cookie.handle_events(event)
 
 def update():
     global brave_cookie, ginger_brave_cookie, background, ground, blue_flower, red_flower, totem, dirty_totem, \
-            score_jelly, hp_jelly, objects
+            score_jelly, hp_jelly
 
     frame_time = get_frame_time()
-    brave_cookie.update(frame_time)
-    ginger_brave_cookie.update(frame_time)
+    brave_cookie.update()
+    ginger_brave_cookie.update()
     background.update(frame_time)
     ground.update(frame_time)
 
-    for list in objects:
-        for dict in list:
-            dict.update(frame_time)
-            if collide(brave_cookie, dict):
-                if list == score_jelly:
-                    list.remove(dict)
-                    brave_cookie.scoreSound(dict)
-                elif list == hp_jelly:
-                    list.remove(dict)
-                    brave_cookie.heal(dict)
-                else:
-                    brave_cookie.state = "Collide"
+    for item in score_jelly:
+        item.update(frame_time)
+        if collide(brave_cookie, item):
+            score_jelly.remove(item)
+            brave_cookie.scoreSound(item)
+    for item in hp_jelly:
+        item.update(frame_time)
+        if collide(brave_cookie, item):
+            hp_jelly.remove(item)
+            brave_cookie.heal(item)
 
-    if brave_cookie.map_size >= 51 and brave_cookie.y == 200:
+    for Spear in dirty_totem:
+        Spear.update(frame_time)
+        if collide(brave_cookie, Spear) and brave_cookie.state != "Collide":
+            brave_cookie.bump("Collide")
+    for Spear in totem:
+        Spear.update(frame_time)
+        if collide(brave_cookie, Spear) and brave_cookie.state != "Collide":
+            brave_cookie.bump("Collide")
+    for Thorn in blue_flower:
+        Thorn.update(frame_time)
+        if collide(brave_cookie, Thorn) and brave_cookie.state != "Collide":
+            brave_cookie.bump("Collide")
+    for Thorn in red_flower:
+        Thorn.update(frame_time)
+        if collide(brave_cookie, Thorn) and brave_cookie.state != "Collide":
+            brave_cookie.bump("Collide")
+
+    if brave_cookie.hp <= 0:
+        # brave_cookie.map_size += 0
+        # print(brave_cookie.map_size)
+        game_framework.change_state(title_state)
+
+    if brave_cookie.map_size == 1440 and brave_cookie.y == 200:
         game_framework.change_state(title_state)
 
 def draw():
-    global brave_cookie, background, ground, blue_flower, red_flower, totem, dirty_totem, score_jelly, hp_jelly, objects
+    global brave_cookie, background, ground, blue_flower, red_flower, totem, dirty_totem, score_jelly, hp_jelly
 
     clear_canvas()
     background.draw()
     ground.draw()
 
-    for list in objects:
-        for dict in list:
-            dict.draw()
+    for item in score_jelly:
+        item.draw()
+    for item in hp_jelly:
+        item.draw()
+
+    for Spear in dirty_totem:
+        Spear.draw()
+    for Spear in totem:
+        Spear.draw()
+    for Thorn in blue_flower:
+        Thorn.draw()
+    for Thorn in red_flower:
+        Thorn.draw()
 
     font.draw(100, 550, 'Score : %3.2d' % brave_cookie.score, (255, 255, 255))
     brave_cookie.draw()

@@ -9,7 +9,6 @@ from back_ground import *
 from ground import *
 from obstacle import *
 from item import *
-from main_state2_select import *
 import game_framework
 import title_state
 import main_state
@@ -28,7 +27,7 @@ nasty_thorn = None
 board = None
 item_jelly = None
 hp_jelly = None
-objects = []
+object = []
 current_time = 0.0
 
 def collide(a, b):
@@ -52,7 +51,7 @@ def get_frame_time():
 
 def enter():
     global brave_cookie, ginger_brave_cookie, background, ground, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, start, \
-            score_jelly, hp_jelly, font, objects
+            score_jelly, hp_jelly, font, object
 
     brave_cookie = Brave_Cookie()
     ginger_brave_cookie = Ginger_Brave_Cookie()
@@ -65,7 +64,7 @@ def enter():
     nasty_thorn = Stage2_Nasty_Thorn().create()
     score_jelly = Stage2_Score_Jelly().create()
     hp_jelly = Stage2_Hp_Jelly().create()
-    objects = [brown_spear, oatmeal_spear, thorns, nasty_thorn, score_jelly, hp_jelly, board]
+    object = [brown_spear, oatmeal_spear, thorns, nasty_thorn, score_jelly, hp_jelly, board]
     font = load_font('Resource\\ENCR10B.TTF')
     start = time.time()
 
@@ -77,7 +76,7 @@ def exit():
     del(background)
     del(ground)
 
-    for list in objects:
+    for list in object:
         for dict in list:
             list.remove(dict)
             del(dict)
@@ -121,7 +120,7 @@ def handle_events():
 
 def update():
     global brave_cookie, ginger_brave_cookie, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, \
-            score_jelly, hp_jelly, objects
+            score_jelly, hp_jelly, object
 
     frame_time = get_frame_time()
     brave_cookie.update(frame_time)
@@ -129,10 +128,10 @@ def update():
     background.update(frame_time)
     ground.update(frame_time)
 
-    for list in objects:
+    for list in object:
         for dict in list:
             dict.update(frame_time)
-            if collide(brave_cookie, dict):
+            if collide(brave_cookie, dict) and brave_cookie.state != "Collide":
                 if list == score_jelly:
                     list.remove(dict)
                     brave_cookie.scoreSound(dict)
@@ -145,21 +144,21 @@ def update():
                 else:
                     brave_cookie.state = "Collide"
 
-    if background.map_size >= 55 and brave_cookie.y == 200:
+    if background.map_size == 1550 and brave_cookie.y == 200:
         game_framework.change_state(main_state4)
-    elif background.map_size >= 55 and brave_cookie.y == 250:
+    elif background.map_size == 1550 and brave_cookie.y == 250:
         game_framework.change_state(main_state3)
 
 
 
 def draw():
     global brave_cookie, ginger_brave_cookie, background, ground, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, \
-        score_jelly, hp_jelly, objects
+        score_jelly, hp_jelly
 
     clear_canvas()
     background.draw()
 
-    for list in objects:
+    for list in object:
         for dict in list:
             dict.draw()
 
