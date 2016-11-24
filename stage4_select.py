@@ -3,7 +3,7 @@ from ground import *
 from pico2d import *
 from cookie import *
 import game_framework
-import main_state2
+import stage4
 
 
 
@@ -56,10 +56,10 @@ def handle_events():
             if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
                 if (x >= 124 and x <= 373) and (y >= 70 and y <= 127):
                     get_cookie = Brave_Cookie()
-                    game_framework.change_state(main_state2)
+                    game_framework.change_state(stage4)
                 elif (x >= 425 and x <= 674) and (y >= 70 and y <= 127):
                     get_cookie = Ginger_Brave_Cookie()
-                    game_framework.change_state(main_state2)
+                    game_framework.change_state(stage4)
 
 
 def draw():

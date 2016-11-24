@@ -11,9 +11,9 @@ from obstacle import *
 from item import *
 import game_framework
 import title_state
-import main_state
-import main_state2
-import main_state3
+import stage1
+import stage2
+import stage3
 
 name = "MainState4"
 
@@ -105,13 +105,13 @@ def handle_events():
             game_framework.change_state(title_state)
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_1:
-            game_framework.change_state(main_state)
+            game_framework.change_state(stage1)
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_2:
-            game_framework.change_state(main_state2)
+            game_framework.change_state(stage2)
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_3:
-            game_framework.change_state(main_state3)
+            game_framework.change_state(stage3)
 
         else:
             brave_cookie.handle_events(event)
@@ -150,7 +150,7 @@ def draw():
     clear_canvas()
     background.draw()
     ground.draw()
-    
+
     for list in objects:
         for dict in list:
             dict.draw()

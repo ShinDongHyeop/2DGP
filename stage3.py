@@ -11,23 +11,23 @@ from obstacle import *
 from item import *
 import game_framework
 import title_state
-import main_state2
-import main_state3
-import main_state4
+import stage1
+import stage2
+import stage4
 
-name = "MainState"
+name = "MainState3"
 
 brave_cookie = None
-ginger_brave_cookie = None
+ginger_brave_Cookie = None
 background = None
-nomal_fork = None
-nomal_thorn = None
-special_fork = None
-double_thorn = None
+palm_tree = None
+hate_palm_tree = None
+fence = None
+conch = None
 board = None
 item_jelly = None
 hp_jelly = None
-object = []
+objects = []
 current_time = 0.0
 
 def collide(a, b):
@@ -50,27 +50,27 @@ def get_frame_time():
     return frame_time
 
 def enter():
-    global brave_cookie, ginger_brave_cookie, background, ground, nomal_fork, nomal_thorn, special_fork, double_thorn, board, \
-            start, score_jelly, hp_jelly, font, objects
+    global brave_cookie, ginger_brave_cookie, background, ground, palm_tree, hate_palm_tree, fence, conch, board, start, \
+            score_jelly, hp_jelly, font, objects
 
     brave_cookie = Brave_Cookie()
     ginger_brave_cookie = Ginger_Brave_Cookie()
-    background = Stage1_Background(800, 600)
-    ground = Stage1_Ground(800, 150)
-    board = Stage1_Board().create()
-    nomal_fork = Stage1_Nomal_Fork().create()
-    nomal_thorn = Stage1_Nomal_Thorn().create()
-    special_fork = Stage1_Special_Fork().create()
-    double_thorn = Stage1_Double_Thorn().create()
-    score_jelly = Stage1_Score_Jelly().create()
-    hp_jelly = Stage1_Hp_Jelly().create()
-    objects = [nomal_fork, special_fork, nomal_thorn, double_thorn, score_jelly, hp_jelly, board]
+    background = Stage3_Background(800, 600)
+    ground = Stage3_Ground(800, 150)
+    palm_tree = Stage3_Palm_Tree().create()
+    hate_palm_tree = Stage3_Hate_Palm_Tree().create()
+    fence = Stage3_Fence().create()
+    conch = Stage3_Conch().create()
+    board = Stage2_Board().create()
+    score_jelly = Stage3_Score_Jelly().create()
+    hp_jelly = Stage3_Hp_Jelly().create()
+    objects = [palm_tree, hate_palm_tree, fence, conch, board, score_jelly, hp_jelly]
     font = load_font('Resource\\ENCR10B.TTF')
     start = time.time()
 
 def exit():
-    global brave_cookie, ginger_brave_cookie, background, ground, nomal_fork, nomal_thorn, special_fork, double_thorn, board, start, \
-            score_jelly, hp_jelly, objects
+    global brave_cookie, ginger_brave_cookie, background, ground, palm_tree, hate_palm_tree, fence, conch, board, start, end, \
+        score_jelly, hp_jelly, objects
     del(brave_cookie)
     del(ginger_brave_cookie)
     del(background)
@@ -84,7 +84,7 @@ def exit():
 
     end = time.time()
 
-    print("Stage1 Clear Time : ", (end - start))
+    print("Stage3 Clear Time : ", (end - start))
 
 def pause():
     pass
@@ -105,21 +105,21 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.change_state(title_state)
 
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_2:
-            game_framework.change_state(main_state2)
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_1:
+            game_framework.change_state(stage1)
 
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_3:
-            game_framework.change_state(main_state3)
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_2:
+            game_framework.change_state(stage2)
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_4:
-            game_framework.change_state(main_state4)
+            game_framework.change_state(stage4)
 
         else:
             brave_cookie.handle_events(event)
             ginger_brave_cookie.handle_events(event)
 
 def update():
-    global brave_cookie, ginger_brave_cookie, background, ground, nomal_fork, nomal_thorn, special_fork, double_thorn, board, \
+    global brave_cookie, ginger_brave_cookie, background, ground, palm_tree, hate_palm_tree, fence, conch, board, \
             score_jelly, hp_jelly, objects
 
     frame_time = get_frame_time()
@@ -143,14 +143,16 @@ def update():
                         dict.state = "None"
                 else:
                     brave_cookie.state = "Collide"
+
     if background.map_size >= 55 and brave_cookie.y == 200:
-        game_framework.change_state(main_state2)
+        game_framework.change_state(stage4)
     elif background.map_size >= 55 and brave_cookie.y == 250:
-        game_framework.change_state(main_state3)
+        game_framework.change_state(stage2)
 
 def draw():
-    global brave_cookie, ginger_brave_cookie, background, ground, \
+    global brave_cookie, ginger_brave_cookie, background, ground, palm_tree, hate_palm_tree, fence, conch, board, \
             score_jelly, hp_jelly, objects
+
     clear_canvas()
     background.draw()
     ground.draw()
