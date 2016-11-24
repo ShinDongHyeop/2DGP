@@ -9,6 +9,7 @@ from back_ground import *
 from ground import *
 from obstacle import *
 from item import *
+from score import *
 import game_framework
 import title_state
 import stage1
@@ -50,10 +51,11 @@ def get_frame_time():
 
 def enter():
     global background, ground, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, start, \
-            score_jelly, hp_jelly, font, objects, cookie
+            score_jelly, hp_jelly, font, objects, cookie, score
 
     cookie = stage2_select.get_cookie
     background = Stage2_Background(800, 600)
+    score = Score()
     ground = Stage2_Ground(800, 150)
     board = Stage2_Board().create()
     brown_spear = Stage2_Brown_Spear().create()
@@ -122,6 +124,7 @@ def update():
     cookie.update(frame_time)
     background.update(frame_time)
     ground.update(frame_time)
+    score.stage2_score()
 
     for list in objects:
         for dict in list:
@@ -147,8 +150,7 @@ def update():
 
 
 def draw():
-    global cookie, background, ground, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, \
-        score_jelly, hp_jelly
+    global cookie, background, ground, objects, score
 
     clear_canvas()
     background.draw()
@@ -157,7 +159,7 @@ def draw():
         for dict in list:
             dict.draw()
 
-    font.draw(100, 550, 'Score : %3.2d' % cookie.score, (255, 255, 255))
+    font.draw(100, 550, 'Score : %3.2d' % score.score, (255, 255, 255))
     ground.draw()
     cookie.draw()
 
