@@ -143,9 +143,9 @@ def update():
                         dict.state = "None"
                 else:
                     brave_cookie.state = "Collide"
-    if background.map_size == 55 and brave_cookie.y == 200:
+    if background.map_size >= 55 and brave_cookie.y == 200:
         game_framework.change_state(main_state2)
-    elif background.map_size == 55 and brave_cookie.y == 250:
+    elif background.map_size >= 55 and brave_cookie.y == 250:
         game_framework.change_state(main_state3)
 
 def draw():
