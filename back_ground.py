@@ -28,7 +28,7 @@ class Stage1_Background:
         self.speed = 100
         self.left = (self.left + frame_time * self.speed) % self.background.w
 
-        if frame_time < 3:
+        if frame_time < 1:
             self.map_size += frame_time
 
 class Stage2_Background:
@@ -58,7 +58,7 @@ class Stage2_Background:
     def update(self, frame_time):
         self.speed = 100
         self.left = (self.left + frame_time * self.speed) % self.background.w
-        if frame_time < 3:
+        if frame_time < 1:
             self.map_size += frame_time
 
 class Stage3_Background:
@@ -88,7 +88,7 @@ class Stage3_Background:
     def update(self, frame_time):
         self.speed = 100
         self.left = (self.left + frame_time * self.speed) % self.background.w
-        if frame_time < 3:
+        if frame_time < 1:
             self.map_size += frame_time
 
 class Stage4_Background:
@@ -118,5 +118,5 @@ class Stage4_Background:
     def update(self, frame_time):
         self.speed = 100
         self.left = (self.left + frame_time * self.speed) % self.background.w
-        if frame_time < 3:
+        if frame_time < 1:
             self.map_size += frame_time
