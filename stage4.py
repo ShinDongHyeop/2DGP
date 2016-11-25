@@ -48,11 +48,12 @@ def get_frame_time():
 
 def enter():
     global cookie, background, ground, blue_flower, red_flower, totem, dirty_totem, start, \
-            score_jelly, hp_jelly, font, objects
+            score_jelly, hp_jelly, font, score, objects
 
     cookie = stage4_select.get_cookie
     background = Stage4_Background(800, 600)
     ground = Stage4_Ground(800, 150)
+    score = Score()
     blue_flower = Stage4_Blue_Flower().create()
     red_flower = Stage4_Red_Flower().create()
     totem = Stage4_Totem().create()
