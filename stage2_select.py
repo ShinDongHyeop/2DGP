@@ -2,6 +2,7 @@ from back_ground import *
 from ground import *
 from pico2d import *
 from cookie import *
+from score import *
 import game_framework
 import stage2
 
@@ -13,6 +14,8 @@ ground = None
 brave_cookie = None
 ginger_brave_cookie = None
 get_cookie = None
+brave_cookie_select = False
+ginger_brave_cookie_select = False
 current_time = 0.0
 
 def get_frame_time():
@@ -24,12 +27,14 @@ def get_frame_time():
     return frame_time
 
 def enter():
-    global background, ground, brave_cookie, ginger_brave_cookie, x, y
+    global background, ground, brave_cookie, ginger_brave_cookie, font, score, x, y
 
     background = Stage2_Background(800,600)
     ground = Stage2_Ground(800,150)
     brave_cookie = Brave_Cookie_Select()
     ginger_brave_cookie = Ginger_Brave_Cookie_Select()
+    score = Score()
+    font = load_font('Resource\\ENCR10B.TTF')
     x = 0
     y = 0
 
@@ -42,7 +47,7 @@ def exit():
 
 
 def handle_events():
-    global x, y, get_cookie
+    global x, y, get_cookie, brave_cookie_select, ginger_brave_cookie_select
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -56,19 +61,22 @@ def handle_events():
             if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
                 if (x >= 124 and x <= 373) and (y >= 70 and y <= 127):
                     get_cookie = Brave_Cookie()
+                    brave_cookie_select = True
                     game_framework.change_state(stage2)
                 elif (x >= 425 and x <= 674) and (y >= 70 and y <= 127):
                     get_cookie = Ginger_Brave_Cookie()
+                    ginger_brave_cookie_select = True
                     game_framework.change_state(stage2)
 
 
 def draw():
-    global brave_cookie, ginger_brave_cookie
+    global brave_cookie, ginger_brave_cookie, font, score
     clear_canvas()
     background.draw()
     ground.draw()
     brave_cookie.draw()
     ginger_brave_cookie.draw()
+    font.draw(100, 550, 'Score : %3.2d' % score.score, (255, 255, 255))
     update_canvas()
 
 def update():

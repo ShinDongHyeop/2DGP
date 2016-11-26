@@ -3,8 +3,6 @@ import json
 import os
 import time
 
-from pico2d import *
-from cookie import *
 from back_ground import *
 from ground import *
 from obstacle import *
@@ -12,10 +10,11 @@ from item import *
 from score import *
 import game_framework
 import title_state
-import stage1
-import stage3
-import stage4
+import stage1_select
 import stage2_select
+import stage3_select
+import stage4_select
+
 
 name = "MainState2"
 
@@ -50,13 +49,13 @@ def get_frame_time():
     return frame_time
 
 def enter():
-    global background, ground, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, start, \
-            score_jelly, hp_jelly, font, objects, cookie, score
+    global cookie, background, ground, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, start, \
+            score_jelly, hp_jelly, font, objects, score
 
     cookie = stage2_select.get_cookie
     background = Stage2_Background(800, 600)
-    score = Score()
     ground = Stage2_Ground(800, 150)
+    score = Score()
     board = Stage2_Board().create()
     brown_spear = Stage2_Brown_Spear().create()
     oatmeal_spear = Stage2_Oatmeal_Spear().create()
@@ -69,8 +68,8 @@ def enter():
     start = time.time()
 
 def exit():
-    global background, ground, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, start, end, \
-            score_jelly, hp_jelly
+    global cookie, background, ground, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, start, end, \
+            score_jelly, hp_jelly, objects
     del(cookie)
     del(background)
     del(ground)
@@ -105,20 +104,20 @@ def handle_events():
             game_framework.change_state(title_state)
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_1:
-            game_framework.change_state(stage1)
+            game_framework.change_state(stage1_select)
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_3:
-            game_framework.change_state(stage3)
+            game_framework.change_state(stage3_select)
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_4:
-            game_framework.change_state(stage4)
+            game_framework.change_state(stage4_select)
 
         else:
             cookie.handle_events(event)
 
 def update():
-    global cookie, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, \
-            score_jelly, hp_jelly, objects
+    global cookie, background, ground, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, \
+            score_jelly, hp_jelly, objects, score
 
     frame_time = get_frame_time()
     cookie.update(frame_time)
@@ -143,9 +142,9 @@ def update():
                     cookie.state = "Collide"
 
     if background.map_size >= 55 and cookie.y == 200:
-        game_framework.change_state(stage4)
+        game_framework.change_state(stage4_select)
     elif background.map_size >= 55 and cookie.y == 250:
-        game_framework.change_state(stage3)
+        game_framework.change_state(stage3_select)
 
 
 
