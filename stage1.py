@@ -10,12 +10,10 @@ from item import *
 from score import *
 import game_framework
 import title_state
-import stage2
-import stage2_select
-import stage3
-import stage3_select
-import stage4
 import stage1_select
+import stage2_select
+import stage3_select
+import stage4_select
 name = "MainState"
 
 cookie = None
@@ -55,8 +53,8 @@ def enter():
     
     cookie = stage1_select.get_cookie
     background = Stage1_Background(800, 600)
-    score = Score()
     ground = Stage1_Ground(800, 150)
+    score = Score()
     board = Stage1_Board().create()
     nomal_fork = Stage1_Nomal_Fork().create()
     nomal_thorn = Stage1_Nomal_Thorn().create()
@@ -105,13 +103,13 @@ def handle_events():
             game_framework.change_state(title_state)
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_2:
-            game_framework.change_state(stage2)
+            game_framework.change_state(stage2_select)
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_3:
-            game_framework.change_state(stage3)
+            game_framework.change_state(stage3_select)
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_4:
-            game_framework.change_state(stage4)
+            game_framework.change_state(stage4_select)
 
         else:
             cookie.handle_events(event)

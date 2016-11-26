@@ -2,12 +2,13 @@ from back_ground import *
 from ground import *
 from pico2d import *
 from cookie import *
+from score import *
 import game_framework
 import stage1
 
 
 
-name = "MainState2Select"
+name = "MainState1Select"
 background = None
 ground = None
 brave_cookie = None
@@ -24,12 +25,14 @@ def get_frame_time():
     return frame_time
 
 def enter():
-    global background, ground, brave_cookie, ginger_brave_cookie, x, y
+    global background, ground, brave_cookie, ginger_brave_cookie, font, score, x, y
 
     background = Stage1_Background(800,600)
     ground = Stage1_Ground(800,150)
     brave_cookie = Brave_Cookie_Select()
     ginger_brave_cookie = Ginger_Brave_Cookie_Select()
+    score = Score()
+    font = load_font('Resource\\ENCR10B.TTF')
     x = 0
     y = 0
 
@@ -63,12 +66,13 @@ def handle_events():
 
 
 def draw():
-    global brave_cookie, ginger_brave_cookie
+    global brave_cookie, ginger_brave_cookie, font, score
     clear_canvas()
     background.draw()
     ground.draw()
     brave_cookie.draw()
     ginger_brave_cookie.draw()
+    font.draw(100, 550, 'Score : %3.2d' % score.score, (255, 255, 255))
     update_canvas()
 
 def update():
