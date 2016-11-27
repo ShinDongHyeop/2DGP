@@ -14,6 +14,8 @@ ground = None
 brave_cookie = None
 ginger_brave_cookie = None
 get_cookie = None
+brave_cookie_select = False
+ginger_brave_cookie_select = False
 current_time = 0.0
 
 def get_frame_time():
@@ -45,7 +47,7 @@ def exit():
 
 
 def handle_events():
-    global x, y, get_cookie
+    global x, y, get_cookie, brave_cookie_select, ginger_brave_cookie_select
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -57,12 +59,19 @@ def handle_events():
                 x, y = event.x, 599 - event.y
 
             if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
-                if (x >= 124 and x <= 373) and (y >= 70 and y <= 127):
+                if (x >= 124 and x <= 373) and (y >= 70 and y <= 127) and Brave_Cookie().hp > 0:
                     get_cookie = Brave_Cookie()
+                    brave_cookie_select = True
                     game_framework.change_state(stage1)
-                elif (x >= 425 and x <= 674) and (y >= 70 and y <= 127):
+                elif Brave_Cookie().hp <= 0:
+                    brave_cookie_select = False
+
+                if (x >= 425 and x <= 674) and (y >= 70 and y <= 127) and Ginger_Brave_Cookie().hp > 0:
                     get_cookie = Ginger_Brave_Cookie()
+                    ginger_brave_cookie_select = True
                     game_framework.change_state(stage1)
+                elif Ginger_Brave_Cookie().hp <= 0:
+                    ginger_brave_cookie_select = False
 
 
 def draw():
