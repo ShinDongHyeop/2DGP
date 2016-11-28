@@ -59,14 +59,19 @@ def handle_events():
                 x, y = event.x, 599 - event.y
 
             if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
-                if (x >= 124 and x <= 373) and (y >= 70 and y <= 127):
+                if (x >= 124 and x <= 373) and (y >= 70 and y <= 127) and Brave_Cookie().hp > 0:
                     get_cookie = Brave_Cookie()
                     brave_cookie_select = True
                     game_framework.change_state(stage2)
-                elif (x >= 425 and x <= 674) and (y >= 70 and y <= 127):
+                elif Brave_Cookie().hp <= 0:
+                    brave_cookie_select = False
+
+                if (x >= 425 and x <= 674) and (y >= 70 and y <= 127) and Ginger_Brave_Cookie().hp > 0:
                     get_cookie = Ginger_Brave_Cookie()
                     ginger_brave_cookie_select = True
                     game_framework.change_state(stage2)
+                elif Ginger_Brave_Cookie().hp <= 0:
+                    ginger_brave_cookie_select = False
 
 
 def draw():

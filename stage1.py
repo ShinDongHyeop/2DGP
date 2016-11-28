@@ -15,6 +15,7 @@ import stage1_select
 import stage2_select
 import stage3_select
 import stage4_select
+
 name = "MainState"
 
 cookie = None
@@ -52,7 +53,6 @@ def enter():
     global cookie, background, ground, nomal_fork, nomal_thorn, special_fork, double_thorn, board, \
             start, score_jelly, hp_jelly, font, objects, score, brave_cookie, ginger_brave_cookie
 
-    brave_cookie = Brave_Cookie()
     cookie = stage1_select.get_cookie
     brave_cookie = stage1_select.brave_cookie_select
     ginger_brave_cookie = stage1_select.ginger_brave_cookie_select
@@ -126,6 +126,7 @@ def update():
     background.update(frame_time)
     ground.update(frame_time)
     score.stage1_score()
+    cookie.update(frame_time)
 
     if brave_cookie == True and cookie.hp <= 0:
         brave_cookie = False
@@ -133,8 +134,6 @@ def update():
     elif ginger_brave_cookie == True and cookie.hp <= 0:
         ginger_brave_cookie = False
         cookie = Brave_Cookie()
-
-    cookie.update(frame_time)
 
     for list in objects:
         for dict in list:

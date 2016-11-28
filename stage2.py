@@ -3,6 +3,7 @@ import json
 import os
 import time
 
+from cookie import *
 from back_ground import *
 from ground import *
 from obstacle import *
@@ -14,7 +15,6 @@ import stage1_select
 import stage2_select
 import stage3_select
 import stage4_select
-
 
 name = "MainState2"
 
@@ -50,9 +50,11 @@ def get_frame_time():
 
 def enter():
     global cookie, background, ground, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, start, \
-            score_jelly, hp_jelly, font, objects, score
+            score_jelly, hp_jelly, font, objects, score, brave_cookie, ginger_brave_cookie
 
     cookie = stage2_select.get_cookie
+    brave_cookie = stage1_select.brave_cookie_select
+    ginger_brave_cookie = stage1_select.ginger_brave_cookie_select
     background = Stage2_Background(800, 600)
     ground = Stage2_Ground(800, 150)
     score = Score()
@@ -101,7 +103,7 @@ def handle_events():
             game_framework.quit()
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-            game_framework.change_state(title_state)
+            game_framework.change_state(stage2_select)
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_1:
             game_framework.change_state(stage1_select)
@@ -116,7 +118,7 @@ def handle_events():
             cookie.handle_events(event)
 
 def update():
-    global cookie, background, ground, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, \
+    global cookie, brave_cookie, ginger_brave_cookie, background, ground, brown_spear, oatmeal_spear, thorns, nasty_thorn, board, \
             score_jelly, hp_jelly, objects, score
 
     frame_time = get_frame_time()
@@ -124,6 +126,13 @@ def update():
     background.update(frame_time)
     ground.update(frame_time)
     score.stage2_score()
+
+    if brave_cookie == True and cookie.hp <= 0:
+        brave_cookie = False
+        cookie = Ginger_Brave_Cookie()
+    elif ginger_brave_cookie == True and cookie.hp <= 0:
+        ginger_brave_cookie = False
+        cookie = Brave_Cookie()
 
     for list in objects:
         for dict in list:
