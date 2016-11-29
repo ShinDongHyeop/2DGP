@@ -19,6 +19,7 @@ class Brave_Cookie:
         self.collision_time = 0
         self.map_size = 0.0
         self.state = "Run"
+
         if Brave_Cookie.image == None:
             self.Brave_Cookie_run = load_image('Resource\\Character1\\cookie_run.png')
             self.Brave_Cookie_dead = load_image('Resource\\Character1\\cookie_run_dead.png')
@@ -47,7 +48,7 @@ class Brave_Cookie:
 
     def bump(self):
         if self.collision_time < 1:
-            Brave_Cookie.hp -= 30
+            Brave_Cookie.hp -= 60
             self.collision_time += 1
         else:
             self.state = "Run"
@@ -181,7 +182,7 @@ class Ginger_Brave_Cookie:
 
     def bump(self):
         if self.collision_time < 1:
-            Ginger_Brave_Cookie.hp -= 30
+            Ginger_Brave_Cookie.hp -= 60
             self.collision_time += 1
         else:
             self.state = "Run"
