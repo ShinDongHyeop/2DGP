@@ -47,7 +47,7 @@ class Brave_Cookie:
 
     def bump(self):
         if self.collision_time < 1:
-            Brave_Cookie.hp -= 30
+            Brave_Cookie.hp -= 60
             self.collision_time += 1
         else:
             self.state = "Run"
@@ -181,7 +181,7 @@ class Ginger_Brave_Cookie:
 
     def bump(self):
         if self.collision_time < 1:
-            Ginger_Brave_Cookie.hp -= 30
+            Ginger_Brave_Cookie.hp -= 60
             self.collision_time += 1
         else:
             self.state = "Run"
