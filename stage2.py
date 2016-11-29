@@ -53,8 +53,8 @@ def enter():
             score_jelly, hp_jelly, font, objects, score, brave_cookie, ginger_brave_cookie
 
     cookie = stage2_select.get_cookie
-    brave_cookie = stage1_select.brave_cookie_select
-    ginger_brave_cookie = stage1_select.ginger_brave_cookie_select
+    brave_cookie = stage2_select.brave_cookie_select
+    ginger_brave_cookie = stage2_select.ginger_brave_cookie_select
     background = Stage2_Background(800, 600)
     ground = Stage2_Ground(800, 150)
     score = Score()
@@ -103,7 +103,7 @@ def handle_events():
             game_framework.quit()
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-            game_framework.change_state(stage2_select)
+            game_framework.change_state(title_state)
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_1:
             game_framework.change_state(stage1_select)
