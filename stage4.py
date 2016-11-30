@@ -3,6 +3,7 @@ import json
 import os
 import time
 
+from cookie import *
 from back_ground import *
 from ground import *
 from obstacle import *
@@ -17,6 +18,7 @@ import stage4_select
 
 name = "MainState4"
 
+cookie = None
 background = None
 blue_flowe = None
 red_flowe = None
@@ -48,9 +50,11 @@ def get_frame_time():
 
 def enter():
     global cookie, background, ground, blue_flower, red_flower, totem, dirty_totem, start, \
-            score_jelly, hp_jelly, font, score, objects
+            score_jelly, hp_jelly, font, score, objects, brave_cookie, ginger_brave_cookie
 
     cookie = stage4_select.get_cookie
+    brave_cookie = stage4_select.brave_cookie_select
+    ginger_brave_cookie = stage4_select.ginger_brave_cookie_select
     background = Stage4_Background(800, 600)
     ground = Stage4_Ground(800, 150)
     score = Score()
@@ -114,7 +118,7 @@ def handle_events():
             cookie.handle_events(event)
 
 def update():
-    global cookie, background, ground, blue_flower, red_flower, totem, dirty_totem, \
+    global cookie, brave_cookie, ginger_brave_cookie, background, ground, blue_flower, red_flower, totem, dirty_totem, \
             score_jelly, hp_jelly, objects, score
 
     frame_time = get_frame_time()
@@ -122,6 +126,13 @@ def update():
     background.update(frame_time)
     ground.update(frame_time)
     score.stage4_score()
+
+    if brave_cookie == True and cookie.hp <= 0:
+        brave_cookie = False
+        cookie = Ginger_Brave_Cookie()
+    elif ginger_brave_cookie == True and cookie.hp <= 0:
+        ginger_brave_cookie = False
+        cookie = Brave_Cookie()
 
     for list in objects:
         for dict in list:

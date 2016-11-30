@@ -5,7 +5,9 @@ from cookie import *
 from score import *
 import game_framework
 import stage4
-
+import stage1_select
+import stage2_select
+import stage3_select
 
 
 name = "MainState4Select"
@@ -14,6 +16,8 @@ ground = None
 brave_cookie = None
 ginger_brave_cookie = None
 get_cookie = None
+brave_cookie_select = False
+ginger_brave_cookie_select = False
 current_time = 0.0
 
 def get_frame_time():
@@ -45,7 +49,7 @@ def exit():
 
 
 def handle_events():
-    global x, y, get_cookie
+    global x, y, get_cookie, brave_cookie_select, ginger_brave_cookie_select
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -53,16 +57,31 @@ def handle_events():
         else:
             if (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
                 game_framework.quit()
+            elif event.type == SDL_KEYDOWN and event.key == SDLK_1:
+                game_framework.change_state(stage1_select)
+
+            elif event.type == SDL_KEYDOWN and event.key == SDLK_2:
+                game_framework.change_state(stage2_select)
+
+            elif event.type == SDL_KEYDOWN and event.key == SDLK_3:
+                game_framework.change_state(stage3_select)
             elif event.type == SDL_MOUSEMOTION:
                 x, y = event.x, 599 - event.y
 
             if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
-                if (x >= 124 and x <= 373) and (y >= 70 and y <= 127):
+                if (x >= 124 and x <= 373) and (y >= 70 and y <= 127) and Brave_Cookie().hp > 0:
                     get_cookie = Brave_Cookie()
+                    brave_cookie_select = True
                     game_framework.change_state(stage4)
-                elif (x >= 425 and x <= 674) and (y >= 70 and y <= 127):
+                elif Brave_Cookie().hp <= 0:
+                    brave_cookie_select = False
+
+                if (x >= 425 and x <= 674) and (y >= 70 and y <= 127) and Ginger_Brave_Cookie().hp > 0:
                     get_cookie = Ginger_Brave_Cookie()
+                    ginger_brave_cookie_select = True
                     game_framework.change_state(stage4)
+                elif Ginger_Brave_Cookie().hp <= 0:
+                    ginger_brave_cookie_select = False
 
 
 def draw():
