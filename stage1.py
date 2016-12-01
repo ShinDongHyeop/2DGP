@@ -128,11 +128,11 @@ def update():
     score.stage1_score()
     cookie.update(frame_time)
 
+    print("brave_cookie : ", Brave_Cookie().dead_state)
+    print("ginger_brave_cookie : ", Ginger_Brave_Cookie().dead_state)
     if brave_cookie == True and cookie.hp <= 0:
-        brave_cookie = False
         cookie = Ginger_Brave_Cookie()
-    elif ginger_brave_cookie == True and cookie.hp <= 0:
-        ginger_brave_cookie = False
+    if ginger_brave_cookie == True and cookie.hp <= 0:
         cookie = Brave_Cookie()
 
     for list in objects:
@@ -150,11 +150,13 @@ def update():
                         dict.state = "None"
                 else:
                     cookie.state = "Collide"
+
     if background.map_size >= 55 and cookie.y == 200:
         game_framework.change_state(stage2_select)
     elif background.map_size >= 55 and cookie.y == 250:
         game_framework.change_state(stage3_select)
-
+    if (Brave_Cookie.hp <= 0) and (Ginger_Brave_Cookie.hp <= 0):
+        game_framework.change_state(title_state)
 def draw():
     global cookie, background, ground, objects, score
     clear_canvas()
