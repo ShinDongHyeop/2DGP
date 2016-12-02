@@ -11,6 +11,7 @@ from item import *
 from score import *
 import game_framework
 import title_state
+import result_state
 import stage1_select
 import stage2_select
 import stage3_select
@@ -153,7 +154,7 @@ def update():
     elif background.map_size >= 55 and cookie.y == 250:
         game_framework.change_state(stage3_select)
     if (Brave_Cookie.hp <= 0) and (Ginger_Brave_Cookie.hp <= 0):
-        game_framework.change_state(title_state)
+        game_framework.change_state(result_state)
 
 
 def draw():
