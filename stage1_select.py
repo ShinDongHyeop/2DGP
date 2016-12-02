@@ -73,15 +73,11 @@ def handle_events():
                     get_cookie = Brave_Cookie()
                     brave_cookie_select = True
                     game_framework.change_state(stage1)
-                else:
-                    brave_cookie_select = False
 
                 if (x >= 425 and x <= 674) and (y >= 70 and y <= 127) and Ginger_Brave_Cookie().hp > 0:
                     get_cookie = Ginger_Brave_Cookie()
                     ginger_brave_cookie_select = True
                     game_framework.change_state(stage1)
-                else:
-                    ginger_brave_cookie_select = False
 
 
 def draw():
