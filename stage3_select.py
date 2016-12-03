@@ -5,7 +5,9 @@ from cookie import *
 from score import *
 import game_framework
 import stage3
-
+import stage1_select
+import stage2_select
+import stage4_select
 
 
 name = "MainState3Select"
@@ -55,6 +57,13 @@ def handle_events():
         else:
             if (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
                 game_framework.quit()
+            elif event.type == SDL_KEYDOWN and event.key == SDLK_1:
+                game_framework.change_state(stage1_select)
+            elif event.type == SDL_KEYDOWN and event.key == SDLK_2:
+                game_framework.change_state(stage2_select)
+            elif event.type == SDL_KEYDOWN and event.key == SDLK_4:
+                game_framework.change_state(stage4_select)
+
             elif event.type == SDL_MOUSEMOTION:
                 x, y = event.x, 599 - event.y
 
@@ -63,15 +72,11 @@ def handle_events():
                     get_cookie = Brave_Cookie()
                     brave_cookie_select = True
                     game_framework.change_state(stage3)
-                elif Brave_Cookie().hp <= 0:
-                    brave_cookie_select = False
 
                 if (x >= 425 and x <= 674) and (y >= 70 and y <= 127) and Ginger_Brave_Cookie().hp > 0:
                     get_cookie = Ginger_Brave_Cookie()
                     ginger_brave_cookie_select = True
                     game_framework.change_state(stage3)
-                elif Ginger_Brave_Cookie().hp <= 0:
-                    ginger_brave_cookie_select = False
 
 
 def draw():
