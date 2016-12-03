@@ -35,13 +35,16 @@ def handle_events():
             elif event.type == SDL_MOUSEMOTION:
                 x, y = event.x, 599 - event.y
 
-            #if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
-             #       game_framework.change_state()
+            if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
+                if (x >= 191 and x <= 387) and (y >= 27 and y <= 103):
+                    game_framework.quit()
 def draw():
-    global font, score
+    global x, y, font, score
     clear_canvas()
     result.draw(400, 300)
     font.draw(290, 380, '%3.2d' % score.score, (81, 35, 200))
+    print("x좌표 : ",x , "y좌표 : ", y)
+
     update_canvas()
 
 def update():
