@@ -1,5 +1,8 @@
 import game_framework
 import stage1_select
+import stage2_select
+import stage3_select
+import stage4_select
 
 from pico2d import *
 
@@ -28,6 +31,12 @@ def handle_events():
                 game_framework.quit()
             elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
                 game_framework.change_state(stage1_select)
+            elif event.type == SDL_KEYDOWN and event.key == SDLK_2:
+                game_framework.change_state(stage2_select)
+            elif event.type == SDL_KEYDOWN and event.key == SDLK_3:
+                game_framework.change_state(stage3_select)
+            elif event.type == SDL_KEYDOWN and event.key == SDLK_4:
+                game_framework.change_state(stage4_select)
 
 
 def draw():
