@@ -128,10 +128,8 @@ def update():
     score.stage4_score()
 
     if brave_cookie == True and cookie.hp <= 0:
-        brave_cookie = False
         cookie = Ginger_Brave_Cookie()
     elif ginger_brave_cookie == True and cookie.hp <= 0:
-        ginger_brave_cookie = False
         cookie = Brave_Cookie()
 
     for list in objects:
@@ -148,6 +146,8 @@ def update():
                     cookie.state = "Collide"
 
     if background.map_size >= 51 and cookie.y == 200:
+        game_framework.change_state(title_state)
+    if (Brave_Cookie.hp <= 0) and (Ginger_Brave_Cookie.hp <= 0):
         game_framework.change_state(title_state)
 
 def draw():
