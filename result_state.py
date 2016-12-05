@@ -1,21 +1,27 @@
 import game_framework
 from score import *
-
 from pico2d import *
-
+import ranking_state
+import stage1
 
 name = "TitleState"
 image = None
 
 
 def enter():
-    global title, result, font, x, y, score
+    global title, result, font, x, y, score, ranking_data, f
     title = load_image('Resource\\title.png')
     result = load_image('Resource\\result.png')
     font = load_font('Resource\\ENCR10B.TTF', 100)
     score = Score()
+    ranking_data = stage1.ranking_data
     x = 0
     y = 0
+
+    ranking_data.append({'score' : score.score})
+    f = open('ranking_data.txt', 'w')
+    json.dump(ranking_data, f)
+    f.close()
 
 def exit():
     global image
@@ -37,14 +43,13 @@ def handle_events():
 
             if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
                 if (x >= 191 and x <= 387) and (y >= 27 and y <= 103):
-                    game_framework.quit()
+                    game_framework.change_state(ranking_state)
+
 def draw():
     global x, y, font, score
     clear_canvas()
     result.draw(400, 300)
     font.draw(290, 380, '%3.2d' % score.score, (81, 35, 200))
-    print("x좌표 : ",x , "y좌표 : ", y)
-
     update_canvas()
 
 def update():

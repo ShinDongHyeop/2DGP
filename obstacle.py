@@ -82,7 +82,6 @@ obstacle_data_file4_4 = open('Stage_Data\\Stage4_RedFlower.txt', 'r')
 obstacle_data4_4 = json.load(obstacle_data_file4_4)
 obstacle_data_file4_4.close()
 
-############################# Stage1 ########################################
 class Stage1_SPEED:
     PIXEL_PER_METER = (10.0 / 0.3)
     RUN_SPEED_KMPH = 20.0
@@ -111,6 +110,7 @@ class Stage4_SPEED:
     RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
     RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
+############################# Stage1 ########################################
 class Stage1_Board:
     image = None
 

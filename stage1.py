@@ -29,6 +29,7 @@ board = None
 item_jelly = None
 hp_jelly = None
 object = []
+ranking_data = []
 current_time = 0.0
 
 def collide(a, b):
@@ -52,7 +53,7 @@ def get_frame_time():
 
 def enter():
     global cookie, background, ground, nomal_fork, nomal_thorn, special_fork, double_thorn, board, \
-            start, score_jelly, hp_jelly, font, objects, score, brave_cookie, ginger_brave_cookie
+            start, score_jelly, hp_jelly, font, objects, score, brave_cookie, ginger_brave_cookie, f, ranking_data
 
     cookie = stage1_select.get_cookie
     brave_cookie = stage1_select.brave_cookie_select
@@ -70,6 +71,10 @@ def enter():
     objects = [nomal_fork, special_fork, nomal_thorn, double_thorn, score_jelly, hp_jelly, board]
     font = load_font('Resource\\ENCR10B.TTF')
     start = time.time()
+
+    f = open('ranking_data.txt', 'r')
+    ranking_data = json.load(f)
+    f.close()
 
 def exit():
     global cookie, background, ground, nomal_fork, nomal_thorn, special_fork, double_thorn, board, start, \
