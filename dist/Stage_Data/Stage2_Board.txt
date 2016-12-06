@@ -1,0 +1,11 @@
+{
+    "Board1"   : {"state" : "Board", "x"  : 14600, "y" : 195},
+    "Board2"   : {"state" : "Board", "x"  : 14750, "y" : 195},
+    "Board3"   : {"state" : "Board", "x"  : 14900, "y" : 195},
+    "Board4"   : {"state" : "Board", "x"  : 15050, "y" : 195},
+    "Board5"   : {"state" : "Board", "x"  : 15200, "y" : 195},
+    "Board6"   : {"state" : "Board", "x"  : 15350, "y" : 195},
+    "Board7"   : {"state" : "Board", "x"  : 15500, "y" : 195},
+    "Board8"   : {"state" : "Board", "x"  : 15650, "y" : 195},
+    "Board9"   : {"state" : "Board", "x"  : 15800, "y" : 195}
+}

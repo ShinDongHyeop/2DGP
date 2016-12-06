@@ -1,0 +1,9 @@
+{
+    "Fork1"   : {"state" : "Fork", "x"  : 1650, "y" : 430},
+    "Fork2"   : {"state" : "Fork", "x"  : 2000, "y" : 430},
+    "Fork3"   : {"state" : "Fork", "x"  : 3960, "y" : 430},
+    "Fork4"   : {"state" : "Fork", "x"  : 4560, "y" : 430},
+    "Fork5"   : {"state" : "Fork", "x"  : 5900, "y" : 430},
+    "Fork6"   : {"state" : "Fork", "x"  : 6900, "y" : 430},
+    "Fork7"   : {"state" : "Fork", "x"  : 8500, "y" : 430}
+}
