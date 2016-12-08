@@ -73,7 +73,7 @@ class Brave_Cookie:
         elif self.state == "Collide":
             self.bump()
 
-        if self.state == "Jump" and (self.map_size >= 51.5 and self.map_size <= 55.0):
+        if self.state == "Jump" and (self.map_size >= 51.5 and self.map_size <= 56.0):
             if (self.y - 40 - self.jump_gravity) > 210:
                 self.jump_gravity += 2
                 self.y -= self.jump_gravity / 2
@@ -131,10 +131,6 @@ class Brave_Cookie:
                 self.jump += 1
                 if (self.y - 40) == 160:
                     self.jump_gravity = -30
-
-                if (self.map_size >= 1440 and self.map_size <= 1550) and (self.y - 40) == 210:
-                    self.jump_gravity = -30
-
 
         elif event.type == SDL_KEYUP:
             if event.key == SDLK_DOWN:
@@ -208,7 +204,7 @@ class Ginger_Brave_Cookie:
         elif self.state == "Collide":
             self.bump()
 
-        if self.state == "Jump" and (self.map_size >= 51.5 and self.map_size <= 55):
+        if self.state == "Jump" and (self.map_size >= 51.5 and self.map_size <= 56):
             if (self.y - 40 - self.jump_gravity) > 210:
                 self.jump_gravity += 2
                 self.y -= self.jump_gravity / 2
@@ -262,9 +258,6 @@ class Ginger_Brave_Cookie:
                 self.state = "Jump"
 
                 if (self.y - 40) == 160:
-                    self.jump_gravity = -30
-
-                if (self.map_size >= 1440 and self.map_size <= 1550) and (self.y - 40) == 210:
                     self.jump_gravity = -30
 
         elif event.type == SDL_KEYUP:
