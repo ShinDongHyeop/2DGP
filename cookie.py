@@ -73,7 +73,7 @@ class Brave_Cookie:
         elif self.state == "Collide":
             self.bump()
 
-        if self.state == "Jump" and (self.map_size >= 51.5 and self.map_size <= 56.0):
+        if self.state == "Jump" and (self.map_size >= 51.5 and self.map_size <= 60.0):
             if (self.y - 40 - self.jump_gravity) > 210:
                 self.jump_gravity += 2
                 self.y -= self.jump_gravity / 2
