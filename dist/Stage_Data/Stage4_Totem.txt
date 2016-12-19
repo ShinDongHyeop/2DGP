@@ -18,5 +18,4 @@
     "Fork18"   : {"state" : "Fork", "x"  : 12240, "y" : 420},
     "Fork19"   : {"state" : "Fork", "x"  : 14000, "y" : 420},
     "Fork20"   : {"state" : "Fork", "x"  : 14140, "y" : 420}
-
 }

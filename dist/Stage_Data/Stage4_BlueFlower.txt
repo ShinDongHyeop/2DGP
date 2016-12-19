@@ -11,7 +11,6 @@
     "Thorn11"   : {"state" : "Thorn", "x"  : 10500, "y" : 200},
     "Thorn12"   : {"state" : "Thorn", "x"  : 10900, "y" : 200},
     "Thorn13"   : {"state" : "Thorn", "x"  : 12600, "y" : 200},
-    "Thorn14"   : {"state" : "Thorn", "x"  : 13700, "y" : 200},
     "Thorn15"   : {"state" : "Thorn", "x"  : 15000, "y" : 200},
     "Thorn16"   : {"state" : "Thorn", "x"  : 15600, "y" : 200},
     "Thorn18"   : {"state" : "Thorn", "x"  : 16800, "y" : 200},
